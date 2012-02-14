@@ -11,21 +11,15 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api;
+package org.openmrs.calculation.provider;
 
-import org.openmrs.api.OpenmrsService;
+import org.openmrs.calculation.Calculation;
 
 /**
- * This service exposes module's core functionality. It is a Spring managed bean which is configured
- * in moduleApplicationContext.xml.
- * <p>
- * It can be accessed only via Context:<br>
- * <code>
- * Context.getService(CalculationService.class).someMethod();
- * </code>
- * 
- * @see org.openmrs.api.context.Context
+ * Base interface for classes responsible for retrieving a {@link Calculation} instance given a
+ * calculation name and an optional configuration string
  */
-public interface CalculationService extends OpenmrsService {
-
+public interface CalculationProvider {
+	
+	public Calculation getCalculationInstance(String calculationName, String configuration);
 }

@@ -11,21 +11,21 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api;
+package org.openmrs.calculation.result;
 
-import org.openmrs.api.OpenmrsService;
+import java.util.Date;
+
+import org.openmrs.calculation.Calculation;
 
 /**
- * This service exposes module's core functionality. It is a Spring managed bean which is configured
- * in moduleApplicationContext.xml.
- * <p>
- * It can be accessed only via Context:<br>
- * <code>
- * Context.getService(CalculationService.class).someMethod();
- * </code>
- * 
- * @see org.openmrs.api.context.Context
+ * Superclass of {@link Result}s with {@link Calculation}s that are evaluated on a specific date
  */
-public interface CalculationService extends OpenmrsService {
-
+public interface DateBasedResult extends Result {
+	
+	/**
+	 * The date when the calculation for this result should be evaluated
+	 * 
+	 * @return
+	 */
+	public Date getDateOfResult();
 }

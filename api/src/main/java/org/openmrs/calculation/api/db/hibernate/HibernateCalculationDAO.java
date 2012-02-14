@@ -37,7 +37,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	/**
 	 * @return the sessionFactory
 	 */
-	public SessionFactory getSessionFactory() {
+	private SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 }

@@ -11,21 +11,21 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api;
+package org.openmrs.calculation;
 
-import org.openmrs.api.OpenmrsService;
+import java.util.Set;
+
+import org.openmrs.calculation.definition.ParameterDefinition;
 
 /**
- * This service exposes module's core functionality. It is a Spring managed bean which is configured
- * in moduleApplicationContext.xml.
- * <p>
- * It can be accessed only via Context:<br>
- * <code>
- * Context.getService(CalculationService.class).someMethod();
- * </code>
- * 
- * @see org.openmrs.api.context.Context
+ * A Calculation represents a definition that can be evaluated to produce data.
  */
-public interface CalculationService extends OpenmrsService {
-
+public interface Calculation {
+	
+	/**
+	 * Gets all the parameters supported by this {@link Calculation}
+	 * 
+	 * @return a list if {@link ParameterDefinition}s
+	 */
+	public Set<ParameterDefinition> getDefinitions();
 }
