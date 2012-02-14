@@ -11,21 +11,20 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation;
+package org.openmrs.calculation.result;
 
-import java.util.Set;
+import java.util.HashMap;
 
-import org.openmrs.calculation.definition.ParameterDefinition;
+import org.openmrs.Cohort;
+import org.openmrs.Patient;
+import org.openmrs.calculation.Calculation;
 
 /**
- * A Calculation represents a definition that can be evaluated to produce data.
+ * A CohortResult is the data that is produced from evaluating a {@link Calculation} for a
+ * {@link Cohort} of {@link Patient}s. It is essentially a wrapper of a HashMap but provides the
+ * flexibility to add additional methods and/or data as needed.
  */
-public interface Calculation {
+public class CohortResult extends HashMap<Integer, Result> {
 	
-	/**
-	 * Gets all the parameters supported by this {@link Calculation}
-	 * 
-	 * @return a list if {@link ParameterDefinition}s
-	 */
-	public Set<ParameterDefinition> getParameters();
+	private static final long serialVersionUID = 1L;
 }

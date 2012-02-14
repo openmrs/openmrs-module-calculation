@@ -1,0 +1,37 @@
+/**
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
+package org.openmrs.calculation.evaluator;
+
+import org.openmrs.Cohort;
+import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.Result;
+
+/**
+ * A CalculationEvaluator is responsible for evaluating one or more types of {@link Calculation}s
+ * into {@link Result}s. This is where the bulk of all calculations occur, either by performing
+ * these calculations directly within the evaluator, or by delegating to service methods that
+ * perform calculations.
+ */
+public interface CalculationEvaluator {
+	
+	/**
+	 * @param cohort a {@link Cohort} of patients to evaluate against
+	 * @param calculation the {@link Calculation} to evaluate
+	 * @param context the {@link CalculationContext} to use while performing the evaluation
+	 * @return a {@link CohortResult}
+	 */
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context);
+}

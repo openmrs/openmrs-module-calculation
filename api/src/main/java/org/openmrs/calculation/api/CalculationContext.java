@@ -15,6 +15,10 @@ package org.openmrs.calculation.api;
 
 import java.util.Date;
 
+import org.openmrs.Cohort;
+import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.result.CohortResult;
+
 /**
  * A CalculationContext contains any contextual information that may be shared across one or more
  * Calculation evaluations
@@ -35,10 +39,8 @@ public interface CalculationContext {
 	 */
 	public void setIndexDate(Date date);
 	
-	//public CohortResult getFromCache(Cohort, Calculation, Map<String, Object>);
-	
 	/**
-	 * Adds an object to the cache mapped with the specified key
+	 * Adds an object to the cache mapped to the specified key
 	 * 
 	 * @param key the key for object to cache
 	 * @param value the value for the object to cache
@@ -46,12 +48,24 @@ public interface CalculationContext {
 	public void addToCache(String key, Object value);
 	
 	/**
-	 * Retrieves an object from the cache mapped to the specified key
+	 * Retrieves an object from the cache mapped to the specified key, or null if this context
+	 * contains no mapping for the key.
 	 * 
 	 * @param key the key for the cached object to look up
 	 * @return the Cached object
 	 */
 	public Object getFromCache(String key);
+	
+	/**
+	 * Fetches a {@link CohortResult} from the cache that was a result of an earlier evaluation of
+	 * the specified calculation for the specified {@link Cohort} of patients, or null if this
+	 * context contains no mapping with a matching Cohort and Calculation
+	 * 
+	 * @param cohort
+	 * @param calculation
+	 * @return
+	 */
+	public CohortResult getFromCache(Cohort cohort, Calculation calculation);
 	
 	/**
 	 * Discards the object mapped to the specified key from the cache
