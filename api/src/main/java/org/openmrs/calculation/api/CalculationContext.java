@@ -29,7 +29,7 @@ public interface CalculationContext {
 	public Date getIndexDate();
 	
 	/**
-	 * Sets the date for the calculation index to the specified date
+	 * Sets the date on which the evaluation for this context should occur
 	 * 
 	 * @param date the index date to set to
 	 */
@@ -38,25 +38,25 @@ public interface CalculationContext {
 	//public CohortResult getFromCache(Cohort, Calculation, Map<String, Object>);
 	
 	/**
-	 * Add an item to the cache
+	 * Adds an object to the cache mapped with the specified key
 	 * 
-	 * @param key
-	 * @param value
+	 * @param key the key for object to cache
+	 * @param value the value for the object to cache
 	 */
 	public void addToCache(String key, Object value);
 	
 	/**
-	 * Retrieves an item from the cache
+	 * Retrieves an object from the cache mapped to the specified key
 	 * 
-	 * @param key
-	 * @return
+	 * @param key the key for the cached object to look up
+	 * @return the Cached object
 	 */
 	public Object getFromCache(String key);
 	
 	/**
-	 * Discards the item mapped to the specified key from the cache
+	 * Discards the object mapped to the specified key from the cache
 	 * 
-	 * @param key the unique key for the item to remove
+	 * @param key the unique key for the object to remove
 	 */
 	public void removeFromCache(String key);
 }
