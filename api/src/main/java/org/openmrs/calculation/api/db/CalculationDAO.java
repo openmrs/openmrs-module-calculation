@@ -13,11 +13,49 @@
  */
 package org.openmrs.calculation.api.db;
 
+import java.util.List;
+
+import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.api.CalculationService;
 
 /**
  * Database access methods for {@link CalculationService}.
  */
 public interface CalculationDAO {
-
+	
+	/**
+	 * @see CalculationService#getTokenRegistration(Integer)
+	 */
+	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId);
+	
+	/**
+	 * @see CalculationService#getTokenRegistrationByUuid(String)
+	 */
+	public TokenRegistration getTokenRegistrationByUuid(String uuid);
+	
+	/**
+	 * @see CalculationService#getTokenRegistrationByName(String)
+	 */
+	public TokenRegistration getTokenRegistrationByName(String name);
+	
+	/**
+	 * @see CalculationService#getAllTokenRegistrations()
+	 */
+	public List<TokenRegistration> getAllTokenRegistrations();
+	
+	/**
+	 * @see CalculationService#findTokens(String)
+	 */
+	public List<TokenRegistration> findTokens(String partialName);
+	
+	/**
+	 * @see CalculationService#saveTokenRegistration(TokenRegistration)
+	 */
+	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration);
+	
+	/**
+	 * @see CalculationService#purgeTokenRegistration(TokenRegistration)
+	 */
+	public void deleteTokenRegistration(TokenRegistration tokenRegistration);
+	
 }

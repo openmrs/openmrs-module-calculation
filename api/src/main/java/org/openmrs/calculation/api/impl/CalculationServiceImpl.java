@@ -58,8 +58,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getTokenRegistration(tokenRegistrationId);
 	}
 	
 	/**
@@ -67,8 +66,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public TokenRegistration getTokenRegistrationByUuid(String uuid) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getTokenRegistrationByUuid(uuid);
 	}
 	
 	/**
@@ -76,8 +74,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public TokenRegistration getTokenRegistrationByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getTokenRegistrationByName(name);
 	}
 	
 	/**
@@ -85,8 +82,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public List<TokenRegistration> getAllTokenRegistrations() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getAllTokenRegistrations();
 	}
 	
 	/**
@@ -94,8 +90,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public List<TokenRegistration> findTokens(String partialName) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findTokens(partialName);
 	}
 	
 	/**
@@ -103,8 +98,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.saveTokenRegistration(tokenRegistration);
 	}
 	
 	/**
@@ -112,8 +106,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public void purgeTokenRegistration(TokenRegistration tokenRegistration) {
-		// TODO Auto-generated method stub
-		
+		dao.deleteTokenRegistration(tokenRegistration);
 	}
 	
 	/**

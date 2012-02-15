@@ -29,10 +29,15 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	
 	private CalculationService service;
 	
+	private static final String TEST_DATA_PATH = "org/openmrs/calculation/include/";
+	
+	private static final String MODULE_TEST_DATA_XML = TEST_DATA_PATH + "moduleTestData.xml";
+	
 	private static final String TOKEN_UUID = "467dd0d8-5785-11e1-80a0-00248140a5eb";
 	
 	@Before
-	public void before() {
+	public void before() throws Exception {
+		executeDataSet(MODULE_TEST_DATA_XML);
 		service = Context.getService(CalculationService.class);
 	}
 	
@@ -81,7 +86,7 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 		int originalTokenCount = service.getAllTokenRegistrations().size();
 		TokenRegistration token = new TokenRegistration();
 		token.setName("test token registration");
-		token.setProviderClassName("test.provider.Class");
+		token.setProviderClassName("test.provider.class");
 		service.saveTokenRegistration(token);
 		Assert.assertNotNull(token.getTokenRegistrationId());
 		Assert.assertEquals(originalTokenCount + 1, service.getAllTokenRegistrations().size());
@@ -106,5 +111,26 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	@Verifies(value = "should get all tokenRegistrations with a matching name", method = "findTokens(String)")
 	public void findTokens_shouldGetAllTokenRegistrationsWithAMatchingName() throws Exception {
 		Assert.assertEquals(5, service.findTokens("name").size());
+	}
+	
+	/**
+	 * @see {@link CalculationService#saveTokenRegistration(TokenRegistration)}
+	 */
+	@Test
+	@Verifies(value = "should update an existing token", method = "saveTokenRegistration(TokenRegistration)")
+	public void saveTokenRegistration_shouldUpdateAnExistingToken() throws Exception {
+		String newTokenName = "new test token name";
+		TokenRegistration token = service.getTokenRegistrationByUuid(TOKEN_UUID);
+		Assert.assertNull(token.getDateChanged());
+		Assert.assertNull(token.getChangedBy());
+		Assert.assertNotSame(newTokenName, token.getName());
+		
+		token.setName(newTokenName);
+		service.saveTokenRegistration(token);
+		
+		TokenRegistration editedToken = service.getTokenRegistrationByUuid(TOKEN_UUID);
+		Assert.assertNotNull(editedToken.getDateChanged());
+		Assert.assertNotNull(editedToken.getChangedBy());
+		Assert.assertSame(newTokenName, token.getName());
 	}
 }

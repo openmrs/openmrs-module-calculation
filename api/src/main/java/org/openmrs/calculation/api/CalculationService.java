@@ -84,6 +84,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @param tokenRegistration the tokenRegistration to save or update
 	 * @return
 	 * @should save the specified tokenRegistration to the database
+	 * @should update an existing token
 	 */
 	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration);
 	

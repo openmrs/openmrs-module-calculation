@@ -4,9 +4,53 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <!--
-        See http://www.liquibase.org/manual/home#available_database_refactorings
-        for a list of supported elements and attributes
-    -->
+    
+	<changeSet id="20120214-1509" author="wyclif">
+        <preConditions onFail="MARK_RAN">
+        	<not><tableExists tableName="calculation_token_registration" /></not>
+        </preConditions>
+        <comment>
+        	Adding calculation_token_registration table
+        </comment>
+        <createTable tableName="calculation_token_registration">
+            <column name="token_registration_id" autoIncrement="true" type="int">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(512)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="provider_class_name" type="varchar(512)">
+                <constraints nullable="false" />
+            </column>
+            <column name="configuration" type="text" />
+            <column name="description" type="varchar(255)" />
+			<column name="creator" type="int">
+				<constraints nullable="false"/>
+			</column>
+			<column name="date_created" type="DATETIME">
+				<constraints nullable="false"/>
+			</column>
+			<column name="date_changed" type="DATETIME" />
+			<column name="changed_by" type="int"/>
+			<column name="retired" type="smallint" defaultValueNumeric="0">
+				<constraints nullable="false"/>
+			</column>
+			<column name="retired_by" type="int" />
+			<column name="date_retired" type="DATETIME" />
+			<column name="retire_reason" type="varchar(255)" />
+			<column name="uuid" type="char(38)">
+				<constraints nullable="false" unique="true" />
+			</column>
+        </createTable>
+        <addForeignKeyConstraint constraintName="token_registration_creator"
+        	baseTableName="calculation_token_registration" baseColumnNames="creator" 
+			referencedTableName="users" referencedColumnNames="user_id" />
+        <addForeignKeyConstraint constraintName="token_registration_changed_by"
+        	baseTableName="calculation_token_registration" baseColumnNames="changed_by" 
+             referencedTableName="users" referencedColumnNames="user_id" />
+		<addForeignKeyConstraint constraintName="token_registration_retirer" 
+			baseTableName="calculation_token_registration" baseColumnNames="retired_by"
+			referencedTableName="users" referencedColumnNames="user_id" />
+    </changeSet>
     
 </databaseChangeLog>
