@@ -15,6 +15,7 @@ package org.openmrs.calculation.api.db.hibernate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.openmrs.calculation.api.db.CalculationDAO;
 
@@ -37,7 +38,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	/**
 	 * @return the sessionFactory
 	 */
-	private SessionFactory getSessionFactory() {
-		return sessionFactory;
+	private Session getCurrentSession() {
+		return sessionFactory.getCurrentSession();
 	}
 }
