@@ -25,7 +25,7 @@ public interface Calculation {
 	/**
 	 * Gets all the parameters supported by this {@link Calculation}
 	 * 
-	 * @return a list if {@link ParameterDefinition}s
+	 * @return a list of {@link ParameterDefinition}s
 	 */
-	public Set<ParameterDefinition> getParameters();
+	public Set<ParameterDefinition> getParameterDefinitions();
 }

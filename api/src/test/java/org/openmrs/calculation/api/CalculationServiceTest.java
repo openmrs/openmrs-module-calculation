@@ -13,10 +13,7 @@
  */
 package org.openmrs.calculation.api;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Before;
-import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
@@ -30,13 +27,5 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	@Before
 	public void before() {
 		service = Context.getService(CalculationService.class);
-	}
-	
-	/**
-	 * TODO get rid of this test
-	 */
-	@Test
-	public void shouldSetupContext() {
-		assertNotNull(service);
 	}
 }

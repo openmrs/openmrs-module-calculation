@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api.exception;
+package org.openmrs.calculation;
 
 import org.openmrs.api.APIException;
 

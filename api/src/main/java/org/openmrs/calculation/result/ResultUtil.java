@@ -16,7 +16,7 @@ package org.openmrs.calculation.result;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
-import org.openmrs.calculation.api.exception.ConversionException;
+import org.openmrs.calculation.ConversionException;
 
 /**
  * Contains utility methods to handle {@link Result}s

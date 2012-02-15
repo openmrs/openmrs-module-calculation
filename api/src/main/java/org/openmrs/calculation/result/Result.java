@@ -14,8 +14,8 @@
 package org.openmrs.calculation.result;
 
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.api.CalculationContext;
-import org.openmrs.calculation.api.exception.ConversionException;
 
 /**
  * A Result is the data that is produced from evaluating a {@link Calculation} for a single patient.

@@ -23,7 +23,7 @@ import org.openmrs.calculation.Calculation;
 public interface DateBasedResult extends Result {
 	
 	/**
-	 * The date when the calculation for this result should be evaluated
+	 * The date when the evaluation of this result's calculation occurred
 	 * 
 	 * @return
 	 */

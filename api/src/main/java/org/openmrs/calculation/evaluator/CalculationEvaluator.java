@@ -13,6 +13,8 @@
  */
 package org.openmrs.calculation.evaluator;
 
+import java.util.Map;
+
 import org.openmrs.Cohort;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.api.CalculationContext;
@@ -28,10 +30,13 @@ import org.openmrs.calculation.result.Result;
 public interface CalculationEvaluator {
 	
 	/**
-	 * @param cohort a {@link Cohort} of patients to evaluate against
+	 * @param cohort a {@link Cohort} of patients for whom to evaluation the calculation
 	 * @param calculation the {@link Calculation} to evaluate
+	 * @param parameterMap a map of parameter values, takes the form Map&lt;ParameterDefinition.key,
+	 *            Object Value&gt;
 	 * @param context the {@link CalculationContext} to use while performing the evaluation
 	 * @return a {@link CohortResult}
 	 */
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context);
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterMap,
+	                             CalculationContext context);
 }

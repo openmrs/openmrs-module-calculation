@@ -15,8 +15,8 @@ package org.openmrs.calculation.result;
 
 import org.openmrs.api.APIException;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.api.CalculationContext;
-import org.openmrs.calculation.api.exception.ConversionException;
 
 /**
  * Represents a {@link Result} with no data

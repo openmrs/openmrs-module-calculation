@@ -21,8 +21,7 @@ import org.openmrs.calculation.Calculation;
 
 /**
  * A CohortResult is the data that is produced from evaluating a {@link Calculation} for a
- * {@link Cohort} of {@link Patient}s. It is essentially a wrapper of a HashMap but provides the
- * flexibility to add additional methods and/or data as needed.
+ * {@link Cohort} of {@link Patient}s.
  */
 public class CohortResult extends HashMap<Integer, Result> {
 	

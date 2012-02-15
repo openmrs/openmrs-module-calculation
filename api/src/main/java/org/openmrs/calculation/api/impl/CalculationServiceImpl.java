@@ -13,11 +13,20 @@
  */
 package org.openmrs.calculation.api.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Cohort;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.api.CalculationService;
 import org.openmrs.calculation.api.db.CalculationDAO;
+import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.Result;
 
 /**
  * It is a default implementation of {@link CalculationService}.
@@ -33,5 +42,150 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	public void setDao(CalculationDAO dao) {
 		this.dao = dao;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#createContext()
+	 */
+	@Override
+	public CalculationContext createContext() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistration(java.lang.Integer)
+	 */
+	@Override
+	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistrationByUuid(java.lang.Integer)
+	 */
+	@Override
+	public TokenRegistration getTokenRegistrationByUuid(Integer uuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistrationByName(java.lang.String)
+	 */
+	@Override
+	public TokenRegistration getTokenRegistrationByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#getAllTokenRegistrations()
+	 */
+	@Override
+	public List<TokenRegistration> getAllTokenRegistrations() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#findTokens(java.lang.String)
+	 */
+	@Override
+	public List<TokenRegistration> findTokens(String partialName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#saveTokenRegistration(org.openmrs.calculation.TokenRegistration)
+	 */
+	@Override
+	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#purgeTokenRegistration(TokenRegistration)
+	 */
+	@Override
+	public void purgeTokenRegistration(TokenRegistration tokenRegistration) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#getCalculation(java.lang.String)
+	 */
+	@Override
+	public Calculation getCalculation(String tokenName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#evaluate(java.lang.Integer,
+	 *      org.openmrs.calculation.Calculation, java.util.Map,
+	 *      org.openmrs.calculation.api.CalculationContext)
+	 */
+	@Override
+	public Result evaluate(Integer patientId, Calculation Calculation, Map<String, Object> parameters,
+	                       CalculationContext context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#evaluate(java.lang.Integer,
+	 *      org.openmrs.calculation.Calculation, org.openmrs.calculation.api.CalculationContext)
+	 */
+	@Override
+	public Result evaluate(Integer patientId, Calculation Calculation, CalculationContext context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#evaluate(java.lang.Integer,
+	 *      org.openmrs.calculation.Calculation)
+	 */
+	@Override
+	public Result evaluate(Integer patientId, Calculation Calculation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#evaluate(org.openmrs.Cohort,
+	 *      org.openmrs.calculation.Calculation, java.util.Map,
+	 *      org.openmrs.calculation.api.CalculationContext)
+	 */
+	@Override
+	public CohortResult evaluate(Cohort cohort, Calculation Calculation, Map<String, Object> parameters,
+	                             CalculationContext context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#evaluate(org.openmrs.Cohort,
+	 *      org.openmrs.calculation.Calculation, org.openmrs.calculation.api.CalculationContext)
+	 */
+	@Override
+	public CohortResult evaluate(Cohort cohort, Calculation Calculation, CalculationContext context) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.CalculationService#evaluate(org.openmrs.Cohort,
+	 *      org.openmrs.calculation.Calculation)
+	 */
+	@Override
+	public CohortResult evaluate(Cohort cohort, Calculation Calculation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
