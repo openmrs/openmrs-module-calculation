@@ -63,10 +63,10 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistrationByUuid(java.lang.Integer)
+	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistrationByUuid(String)
 	 */
 	@Override
-	public TokenRegistration getTokenRegistrationByUuid(Integer uuid) {
+	public TokenRegistration getTokenRegistrationByUuid(String uuid) {
 		// TODO Auto-generated method stub
 		return null;
 	}

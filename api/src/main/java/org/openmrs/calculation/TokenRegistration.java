@@ -26,8 +26,6 @@ public class TokenRegistration extends BaseOpenmrsMetadata implements java.io.Se
 	
 	private Integer tokenRegistrationId;
 	
-	private String calculationName;
-	
 	private String providerClassName;
 	
 	private String configuration;
@@ -44,20 +42,6 @@ public class TokenRegistration extends BaseOpenmrsMetadata implements java.io.Se
 	 */
 	public void setTokenRegistrationId(Integer tokenRegistrationId) {
 		this.tokenRegistrationId = tokenRegistrationId;
-	}
-	
-	/**
-	 * @return the calculationName
-	 */
-	public String getCalculationName() {
-		return calculationName;
-	}
-	
-	/**
-	 * @param calculationName the calculationName to set
-	 */
-	public void setCalculationName(String calculationName) {
-		this.calculationName = calculationName;
 	}
 	
 	/**

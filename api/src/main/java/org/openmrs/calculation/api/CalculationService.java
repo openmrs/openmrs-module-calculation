@@ -50,14 +50,14 @@ public interface CalculationService extends OpenmrsService {
 	 * @return
 	 * @should fetch a token with a matching uuid
 	 */
-	public TokenRegistration getTokenRegistrationByUuid(Integer uuid);
+	public TokenRegistration getTokenRegistrationByUuid(String uuid);
 	
 	/**
 	 * Gets a token from the database with a matching name
 	 * 
 	 * @param name
 	 * @return
-	 * @should fetch a token with a matching id
+	 * @should fetch a token with a matching name
 	 */
 	public TokenRegistration getTokenRegistrationByName(String name);
 	
@@ -74,7 +74,7 @@ public interface CalculationService extends OpenmrsService {
 	 * 
 	 * @param partialName the phrase to search against
 	 * @return a list of {@link TokenRegistration}s
-	 * @should get all matching tokenRegistrations
+	 * @should get all tokenRegistrations with a matching name
 	 */
 	public List<TokenRegistration> findTokens(String partialName);
 	
