@@ -45,10 +45,10 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#createContext()
+	 * @see org.openmrs.calculation.api.CalculationService#createCalculationContext()
 	 */
 	@Override
-	public CalculationContext createContext() {
+	public CalculationContext createCalculationContext() {
 		// TODO Auto-generated method stub
 		return null;
 	}

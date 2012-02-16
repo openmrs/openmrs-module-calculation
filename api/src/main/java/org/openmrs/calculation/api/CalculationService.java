@@ -32,7 +32,7 @@ public interface CalculationService extends OpenmrsService {
 	/**
 	 * @return
 	 */
-	public CalculationContext createContext();
+	public CalculationContext createCalculationContext();
 	
 	/**
 	 * Gets a token from the database with a matching id
