@@ -15,11 +15,14 @@ package org.openmrs.calculation.provider;
 
 import org.openmrs.calculation.Calculation;
 
+/**
+ * A simple {@link CalculationProvider} for testing purposes
+ */
 public class TestCalculationProvider implements CalculationProvider {
 	
 	/**
-	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculationInstance(java.lang.String,
-	 *      java.lang.String)
+	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculationInstance(String,
+	 *      String)
 	 */
 	@Override
 	public Calculation getCalculationInstance(String calculationName, String configuration) {

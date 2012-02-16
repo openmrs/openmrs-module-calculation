@@ -13,9 +13,8 @@
  */
 package org.openmrs.calculation;
 
-import java.util.Set;
-
 import org.openmrs.calculation.definition.ParameterDefinition;
+import org.openmrs.calculation.definition.ParameterDefinitionSet;
 
 /**
  * A Calculation represents a definition that can be evaluated to produce data.
@@ -23,9 +22,10 @@ import org.openmrs.calculation.definition.ParameterDefinition;
 public interface Calculation {
 	
 	/**
-	 * Gets all the parameters supported by this {@link Calculation}
+	 * Gets the {@link ParameterDefinitionSet} for this {@link Calculation}
 	 * 
 	 * @return a list of {@link ParameterDefinition}s
+	 * @see ParameterDefinitionSet
 	 */
-	public Set<ParameterDefinition> getParameterDefinitions();
+	public ParameterDefinitionSet getParameterDefinitionsSet();
 }

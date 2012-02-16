@@ -13,20 +13,19 @@
  */
 package org.openmrs.calculation;
 
-import java.util.Set;
-
-import org.openmrs.calculation.definition.ParameterDefinition;
+import org.openmrs.calculation.definition.ParameterDefinitionSet;
 
 /**
- * This is implementation of an age calculation that is purely for testing purposes
+ * A simple implementation of a calculation for calculating patient ages and is purely for testing
+ * purposes
  */
 public class AgeCalculation implements Calculation {
 	
 	/**
-	 * @see org.openmrs.calculation.Calculation#getParameterDefinitions()
+	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionsSet()
 	 */
 	@Override
-	public Set<ParameterDefinition> getParameterDefinitions() {
+	public ParameterDefinitionSet getParameterDefinitionsSet() {
 		throw new RuntimeException("Not yet implemented");
 	}
 }

@@ -29,11 +29,10 @@ import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.api.CalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
-import org.openmrs.calculation.evaluator.CalculationEvaluator;
+import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.CalculationProvider;
 import org.openmrs.calculation.provider.TestCalculationProvider;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.openmrs.util.HandlerUtil;
 
 /**
  * Contains behaviour tests for {@link AgeCalculation}
@@ -57,13 +56,12 @@ public class AgeCalculationTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void shouldCalculateThePatientAge() {
 		CalculationProvider p = new TestCalculationProvider();
-		Calculation ageageCalculation = p.getCalculationInstance("age", null);
+		Calculation ageCalculation = p.getCalculationInstance("age", null);
 		
 		int patientId = 2;
-		HandlerUtil.getPreferredHandler(CalculationEvaluator.class, ageageCalculation.getClass());
 		
 		int expected = Context.getPatientService().getPatient(patientId).getAge();
-		Assert.assertEquals(expected, service.evaluate(patientId, ageageCalculation).asType(Integer.class).intValue());
+		Assert.assertEquals(expected, service.evaluate(patientId, ageCalculation).asType(Integer.class).intValue());
 		
 	}
 	
@@ -73,17 +71,16 @@ public class AgeCalculationTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfo() throws ParseException {
 		CalculationProvider p = new TestCalculationProvider();
-		Calculation ageageCalculation = p.getCalculationInstance("age", null);
+		Calculation ageCalculation = p.getCalculationInstance("age", null);
 		
 		int patientId = 2;
-		HandlerUtil.getPreferredHandler(CalculationEvaluator.class, ageageCalculation.getClass());
 		
 		Date date = new SimpleDateFormat(DATE_FORMAT).parse("2000-01-01");
 		CalculationContext ctxt = service.createCalculationContext();
 		ctxt.setIndexDate(date);
 		
-		int expected = Context.getPatientService().getPatient(patientId).getAge();
-		Assert.assertEquals(expected, service.evaluate(patientId, ageageCalculation, ctxt).asType(Integer.class).intValue());
+		int expected = Context.getPatientService().getPatient(patientId).getAge(date);
+		Assert.assertEquals(expected, service.evaluate(patientId, ageCalculation, ctxt).asType(Integer.class).intValue());
 	}
 	
 	/**
@@ -93,17 +90,12 @@ public class AgeCalculationTest extends BaseModuleContextSensitiveTest {
 	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws ParseException {
 		CalculationProvider p = new TestCalculationProvider();
 		Calculation ageCalculation = p.getCalculationInstance("age", null);
-		boolean containsParameter = false;
-		for (ParameterDefinition pd : ageCalculation.getParameterDefinitions()) {
-			if ("unit".equals(pd.getKey())) {
-				containsParameter = true;
-				break;
-			}
-		}
-		Assert.assertTrue(containsParameter);
+		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionsSet();
+		ParameterDefinition pd = pds.getParameterByKey("units");
+		Assert.assertNotNull(pd);
+		Assert.assertEquals(pd.getName(), "Units Of Age");
 		
 		int patientId = 2;
-		HandlerUtil.getPreferredHandler(CalculationEvaluator.class, ageCalculation.getClass());
 		
 		Date date = new SimpleDateFormat(DATE_FORMAT).parse("2000-01-01");
 		CalculationContext ctxt = service.createCalculationContext();
@@ -111,8 +103,6 @@ public class AgeCalculationTest extends BaseModuleContextSensitiveTest {
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put("units", "months");
 		
-		int expected = Context.getPatientService().getPatient(patientId).getAge();
-		Assert.assertEquals(expected, service.evaluate(patientId, ageCalculation, values, ctxt).asType(Integer.class)
-		        .intValue());
+		Assert.assertEquals(296, service.evaluate(patientId, ageCalculation, values, ctxt).asType(Integer.class).intValue());
 	}
 }
