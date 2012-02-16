@@ -21,5 +21,12 @@ import org.openmrs.calculation.Calculation;
  */
 public interface CalculationProvider {
 	
+	/**
+	 * Returns a {@link Calculation} instance with associated to the specified calculationName
+	 * 
+	 * @param calculationName the name to match against
+	 * @param configuration the configuration to be used while instantiating the calculation
+	 * @return a {@link Calculation}
+	 */
 	public Calculation getCalculationInstance(String calculationName, String configuration);
 }

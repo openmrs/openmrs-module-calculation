@@ -13,12 +13,10 @@
  */
 package org.openmrs.calculation;
 
-import org.openmrs.api.APIException;
-
 /**
  * Represents an error that occurs while converting a result to a specified type
  */
-public class ConversionException extends APIException {
+public class ConversionException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 	
