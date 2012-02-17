@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openmrs.Cohort;
+import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.TokenRegistration;
@@ -42,7 +43,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @return
 	 * @should return a token with a matching id
 	 */
-	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId);
+	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) throws APIException;
 	
 	/**
 	 * Gets a token from the database with a matching uuid
@@ -51,7 +52,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @return
 	 * @should fetch a token with a matching uuid
 	 */
-	public TokenRegistration getTokenRegistrationByUuid(String uuid);
+	public TokenRegistration getTokenRegistrationByUuid(String uuid) throws APIException;
 	
 	/**
 	 * Gets a token from the database with a matching name
@@ -60,7 +61,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @return
 	 * @should fetch a token with a matching name
 	 */
-	public TokenRegistration getTokenRegistrationByName(String name);
+	public TokenRegistration getTokenRegistrationByName(String name) throws APIException;
 	
 	/**
 	 * Gets all tokens in the database
@@ -68,7 +69,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @return a list of {@link TokenRegistration}s
 	 * @should get all tokens in the database
 	 */
-	public List<TokenRegistration> getAllTokenRegistrations();
+	public List<TokenRegistration> getAllTokenRegistrations() throws APIException;
 	
 	/**
 	 * Fetches all tokens that have a name that contains the specified phrase
@@ -77,7 +78,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @return a list of {@link TokenRegistration}s
 	 * @should get all tokenRegistrations with a matching name
 	 */
-	public List<TokenRegistration> findTokens(String partialName);
+	public List<TokenRegistration> findTokens(String partialName) throws APIException;
 	
 	/**
 	 * Saves or updates the specified token in the database
@@ -87,7 +88,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @should save the specified tokenRegistration to the database
 	 * @should update an existing token
 	 */
-	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration);
+	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws APIException;
 	
 	/**
 	 * Purges the specified token from the database
@@ -95,7 +96,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @param tokenRegistration the tokenRegistration to purge
 	 * @should purge the specified tokenRegistration from the database
 	 */
-	public void purgeTokenRegistration(TokenRegistration tokenRegistration);
+	public void purgeTokenRegistration(TokenRegistration tokenRegistration) throws APIException;
 	
 	/**
 	 * Gets a {@link Calculation} associated to a {@link TokenRegistration} with a name that matches
@@ -105,7 +106,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @return {@link Calculation}
 	 * @should return the calculation associated to the tokenRegistration with the given name
 	 */
-	public Calculation getCalculation(String tokenName);
+	public Calculation getCalculation(String tokenName) throws APIException;
 	
 	/**
 	 * @see CalculationService#evaluate(Integer, Calculation, CalculationContext)
@@ -115,7 +116,7 @@ public interface CalculationService extends OpenmrsService {
 	/**
 	 * @see CalculationService#evaluate(Integer, Calculation, Map, CalculationContext)
 	 */
-	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context);
+	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context) throws APIException;
 	
 	/**
 	 * Evaluates the specified {@link Calculation} for the specified patient based on the provided
@@ -129,17 +130,17 @@ public interface CalculationService extends OpenmrsService {
 	 * @return A {@link Result}
 	 */
 	public Result evaluate(Integer patientId, Calculation calculation, Map<String, Object> parameterValues,
-	                       CalculationContext context);
+	                       CalculationContext context) throws APIException;
 	
 	/**
 	 * @see CalculationService#evaluate(Cohort, Calculation, CalculationContext)
 	 */
-	public CohortResult evaluate(Cohort cohort, Calculation calculation);
+	public CohortResult evaluate(Cohort cohort, Calculation calculation) throws APIException;
 	
 	/**
 	 * @see CalculationService#evaluate(Cohort, Calculation, Map, CalculationContext)
 	 */
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context);
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context) throws APIException;
 	
 	/**
 	 * Evaluates the specified {@link Calculation} for the specified cohort of patients based on the
@@ -153,6 +154,6 @@ public interface CalculationService extends OpenmrsService {
 	 * @return A {@link Result}
 	 */
 	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
-	                             CalculationContext context);
+	                             CalculationContext context) throws APIException;
 	
 }

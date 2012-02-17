@@ -19,6 +19,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
+import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.TokenRegistration;
@@ -57,7 +58,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistration(java.lang.Integer)
 	 */
 	@Override
-	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) {
+	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) throws APIException {
 		return dao.getTokenRegistration(tokenRegistrationId);
 	}
 	
@@ -65,7 +66,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistrationByUuid(String)
 	 */
 	@Override
-	public TokenRegistration getTokenRegistrationByUuid(String uuid) {
+	public TokenRegistration getTokenRegistrationByUuid(String uuid) throws APIException {
 		return dao.getTokenRegistrationByUuid(uuid);
 	}
 	
@@ -73,7 +74,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistrationByName(java.lang.String)
 	 */
 	@Override
-	public TokenRegistration getTokenRegistrationByName(String name) {
+	public TokenRegistration getTokenRegistrationByName(String name) throws APIException {
 		return dao.getTokenRegistrationByName(name);
 	}
 	
@@ -81,7 +82,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 * @see org.openmrs.calculation.api.CalculationService#getAllTokenRegistrations()
 	 */
 	@Override
-	public List<TokenRegistration> getAllTokenRegistrations() {
+	public List<TokenRegistration> getAllTokenRegistrations() throws APIException {
 		return dao.getAllTokenRegistrations();
 	}
 	
@@ -89,7 +90,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 * @see org.openmrs.calculation.api.CalculationService#findTokens(java.lang.String)
 	 */
 	@Override
-	public List<TokenRegistration> findTokens(String partialName) {
+	public List<TokenRegistration> findTokens(String partialName) throws APIException {
 		return dao.findTokens(partialName);
 	}
 	
@@ -97,7 +98,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 * @see org.openmrs.calculation.api.CalculationService#saveTokenRegistration(org.openmrs.calculation.TokenRegistration)
 	 */
 	@Override
-	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) {
+	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws APIException {
 		return dao.saveTokenRegistration(tokenRegistration);
 	}
 	
@@ -105,7 +106,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 * @see org.openmrs.calculation.api.CalculationService#purgeTokenRegistration(TokenRegistration)
 	 */
 	@Override
-	public void purgeTokenRegistration(TokenRegistration tokenRegistration) {
+	public void purgeTokenRegistration(TokenRegistration tokenRegistration) throws APIException {
 		dao.deleteTokenRegistration(tokenRegistration);
 	}
 	
@@ -113,7 +114,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 * @see org.openmrs.calculation.api.CalculationService#getCalculation(java.lang.String)
 	 */
 	@Override
-	public Calculation getCalculation(String tokenName) {
+	public Calculation getCalculation(String tokenName) throws APIException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -123,7 +124,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.Calculation)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, Calculation calculation) {
+	public Result evaluate(Integer patientId, Calculation calculation) throws APIException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -133,7 +134,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.Calculation, org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context) {
+	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context) throws APIException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -145,7 +146,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public Result evaluate(Integer patientId, Calculation calculation, Map<String, Object> parameterValues,
-	                       CalculationContext context) {
+	                       CalculationContext context) throws APIException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -155,7 +156,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.Calculation)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation) {
+	public CohortResult evaluate(Cohort cohort, Calculation calculation) throws APIException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -165,7 +166,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.Calculation, org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context) throws APIException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -177,7 +178,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
-	                             CalculationContext context) {
+	                             CalculationContext context) throws APIException {
 		// TODO Auto-generated method stub
 		return null;
 	}
