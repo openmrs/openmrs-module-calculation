@@ -20,7 +20,9 @@ import org.openmrs.Cohort;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.Result;
 
 /**
@@ -107,53 +109,52 @@ public interface CalculationService extends OpenmrsService {
 	public Calculation getCalculation(String tokenName);
 	
 	/**
-	 * @param patientId
-	 * @param Calculation
-	 * @param parameters
-	 * @param context
-	 * @return
+	 * @see CalculationService#evaluate(Integer, Calculation, CalculationContext)
 	 */
-	public Result evaluate(Integer patientId, Calculation Calculation, Map<String, Object> parameters,
+	public Result evaluate(Integer patientId, Calculation calculation);
+	
+	/**
+	 * @see CalculationService#evaluate(Integer, Calculation, Map, CalculationContext)
+	 */
+	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context);
+	
+	/**
+	 * Evaluates the specified {@link Calculation} for the specified patient using basing on the
+	 * provided contextual data and parameter values, it returns a {@link Result} containing the
+	 * generated value or an {@link EmptyResult} if no value was generated
+	 * 
+	 * @param patientId the patientId for the patient
+	 * @param calculation the calculation to evaluate
+	 * @param parameterValues a map of {@link ParameterDefinition} keys and actual values to be used
+	 *            by the calculation
+	 * @param context the {@link CalculationContext} to be used by this evaluation
+	 * @return A {@link Result}
+	 */
+	public Result evaluate(Integer patientId, Calculation calculation, Map<String, Object> parameterValues,
 	                       CalculationContext context);
 	
 	/**
-	 * @param patientId
-	 * @param Calculation
-	 * @param context
-	 * @return
+	 * @see CalculationService#evaluate(Cohort, Calculation, CalculationContext)
 	 */
-	public Result evaluate(Integer patientId, Calculation Calculation, CalculationContext context);
+	public CohortResult evaluate(Cohort cohort, Calculation calculation);
 	
 	/**
-	 * @param patientId
-	 * @param Calculation
-	 * @return
+	 * @see CalculationService#evaluate(Cohort, Calculation, Map, CalculationContext)
 	 */
-	public Result evaluate(Integer patientId, Calculation Calculation);
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context);
 	
 	/**
-	 * @param cohort
-	 * @param Calculation
-	 * @param parameters
-	 * @param context
-	 * @return
+	 * Evaluates the specified {@link Calculation} for the specified cohort of patients using basing
+	 * on the provided contextual data and parameter values
+	 * 
+	 * @param cohort a cohort of patients
+	 * @param calculation the calculation to evaluate
+	 * @param parameterValues a map of {@link ParameterDefinition} keys and actual values to be used
+	 *            by the calculation
+	 * @param context the {@link CalculationContext} to be used by this evaluation
+	 * @return A {@link Result}
 	 */
-	public CohortResult evaluate(Cohort cohort, Calculation Calculation, Map<String, Object> parameters,
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameters,
 	                             CalculationContext context);
-	
-	/**
-	 * @param cohort
-	 * @param Calculation
-	 * @param context
-	 * @return
-	 */
-	public CohortResult evaluate(Cohort cohort, Calculation Calculation, CalculationContext context);
-	
-	/**
-	 * @param cohort
-	 * @param Calculation
-	 * @return
-	 */
-	public CohortResult evaluate(Cohort cohort, Calculation Calculation);
 	
 }

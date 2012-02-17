@@ -13,7 +13,6 @@
  */
 package org.openmrs.calculation.result;
 
-import org.openmrs.api.APIException;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.api.CalculationContext;
@@ -28,7 +27,7 @@ public class EmptyResult implements Result {
 	 */
 	@Override
 	public Calculation getCalculation() {
-		throw new APIException("Cannot get a calculation for an empty result");
+		throw null;
 	}
 	
 	/**
@@ -36,7 +35,7 @@ public class EmptyResult implements Result {
 	 */
 	@Override
 	public CalculationContext getCalculationContext() {
-		throw new APIException("Cannot get a calculation context for an empty result");
+		throw null;
 	}
 	
 	/**

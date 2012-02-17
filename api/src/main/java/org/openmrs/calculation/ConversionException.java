@@ -13,15 +13,17 @@
  */
 package org.openmrs.calculation;
 
+import org.openmrs.api.APIException;
+
 /**
- * Represents an error that occurs while converting a result to a specified type
+ * Represents an error that is encountered while attempting to convert a result to a specified type
  */
-public class ConversionException extends RuntimeException {
+public class ConversionException extends APIException {
 	
 	private static final long serialVersionUID = 1L;
 	
 	public ConversionException() {
-		super("Cannot convert the calculation result to the specifeid type");
+		super("Cannot convert the calculation result to the specified type");
 	}
 	
 	public ConversionException(String message) {
