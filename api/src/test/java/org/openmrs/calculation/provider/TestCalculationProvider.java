@@ -13,6 +13,11 @@
  */
 package org.openmrs.calculation.provider;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.Calculation;
 
 /**
@@ -20,12 +25,35 @@ import org.openmrs.calculation.Calculation;
  */
 public class TestCalculationProvider implements CalculationProvider {
 	
+	private Map<String, Class<? extends Calculation>> calculations = new HashMap<String, Class<? extends Calculation>>();
+	
+	/**
+	 * Convenience constructor that registers the {@link Calculation}s this provider provides
+	 */
+	public TestCalculationProvider() {
+		calculations.put("age", AgeCalculation.class);
+	}
+	
 	/**
 	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculationInstance(String,
 	 *      String)
 	 */
 	@Override
 	public Calculation getCalculationInstance(String calculationName, String configuration) {
-		throw new RuntimeException("Not yet implemented");
+		if (calculationName == null)
+			throw new IllegalArgumentException("calculationName cannot be null");
+		
+		Class<? extends Calculation> clazz = calculations.get(calculationName);
+		if (clazz != null) {
+			try {
+				Calculation calculation = clazz.newInstance();
+				if (StringUtils.isNotBlank(configuration)) {
+					//do further initialization
+				}
+				return calculation;
+			}
+			catch (Exception e) {}
+		}
+		return null;
 	}
 }

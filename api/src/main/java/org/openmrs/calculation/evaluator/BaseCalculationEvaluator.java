@@ -31,7 +31,7 @@ public abstract class BaseCalculationEvaluator implements CalculationEvaluator {
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterMap,
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context) {
 		return new CohortResult();
 	}

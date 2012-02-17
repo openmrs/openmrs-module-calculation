@@ -124,7 +124,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, Calculation Calculation, Map<String, Object> parameters,
+	public Result evaluate(Integer patientId, Calculation calculation, Map<String, Object> parameters,
 	                       CalculationContext context) {
 		// TODO Auto-generated method stub
 		return null;
@@ -135,7 +135,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.Calculation, org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, Calculation Calculation, CalculationContext context) {
+	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -145,7 +145,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.Calculation)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, Calculation Calculation) {
+	public Result evaluate(Integer patientId, Calculation calculation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -156,7 +156,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation Calculation, Map<String, Object> parameters,
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameters,
 	                             CalculationContext context) {
 		// TODO Auto-generated method stub
 		return null;
@@ -167,7 +167,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.Calculation, org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation Calculation, CalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -177,7 +177,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 *      org.openmrs.calculation.Calculation)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation Calculation) {
+	public CohortResult evaluate(Cohort cohort, Calculation calculation) {
 		// TODO Auto-generated method stub
 		return null;
 	}

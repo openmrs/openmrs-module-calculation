@@ -59,7 +59,7 @@ public interface CalculationContext {
 	/**
 	 * Fetches a {@link CohortResult} from the cache that was a result of an earlier evaluation of
 	 * the specified calculation for the specified {@link Cohort} of patients, or null if this
-	 * context contains no mapping with a matching Cohort and Calculation
+	 * context contains no match
 	 * 
 	 * @param cohort
 	 * @param calculation

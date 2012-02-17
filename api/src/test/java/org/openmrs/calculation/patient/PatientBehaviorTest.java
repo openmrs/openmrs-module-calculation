@@ -13,7 +13,6 @@
  */
 package org.openmrs.calculation.patient;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,7 +39,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	 * 
 	 */
 	@Test
-	public void shouldCalculateThePatientAge() {
+	public void shouldCalculateThePatientAge() throws Exception {
 		CalculationProvider p = new TestCalculationProvider();
 		Calculation ageCalculation = p.getCalculationInstance("age", null);
 		
@@ -52,7 +51,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	}
 	
 	/**
-	 * @throws ParseException
+	 * @throws Exception
 	 */
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfo() throws Exception {
@@ -71,7 +70,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	}
 	
 	/**
-	 * @throws ParseException
+	 * @throws Exception
 	 */
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws Exception {
@@ -88,7 +87,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 		CalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setIndexDate(date);
 		Map<String, Object> values = new HashMap<String, Object>();
-		values.put("units", "months");
+		values.put(pd.getKey(), "months");
 		
 		Assert.assertEquals(296, getService().evaluate(patientId, ageCalculation, values, ctxt).asType(Integer.class)
 		        .intValue());

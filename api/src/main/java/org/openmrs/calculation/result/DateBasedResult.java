@@ -15,17 +15,16 @@ package org.openmrs.calculation.result;
 
 import java.util.Date;
 
-import org.openmrs.calculation.Calculation;
-
 /**
- * Superclass of {@link Result}s with {@link Calculation}s that are evaluated on a specific date
+ * Superclass of {@link Result}s that need to keep track of when the evaluation of the associated
+ * calculation occurred
  */
-public interface DateBasedResult extends Result {
+public abstract class DateBasedResult extends BaseResult {
 	
 	/**
-	 * The date when the evaluation of this result's calculation occurred
+	 * Returns the date when the evaluation of this result's calculation occurred
 	 * 
-	 * @return
+	 * @return the date when the calculation occurred
 	 */
-	public Date getDateOfResult();
+	public abstract Date getDateOfResult();
 }

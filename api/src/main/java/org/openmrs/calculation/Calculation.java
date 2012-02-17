@@ -18,8 +18,8 @@ import org.openmrs.calculation.definition.ParameterDefinitionSet;
 
 /**
  * A Calculation represents a definition that can be evaluated to produce data, this is the base
- * interface for all calculations, it not encouraged to implemented this class directly, instead
- * extend {@link BaseCalculation}
+ * interface for all calculations, it is highly recommended that subclasses extend
+ * {@link BaseCalculation} instead of implementing this interface directly
  * 
  * @see BaseCalculation
  */
