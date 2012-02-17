@@ -16,8 +16,7 @@ package org.openmrs.calculation.definition;
 import org.openmrs.util.OpenmrsUtil;
 
 /**
- * Superclass for {@link ParameterDefinition}s, it is highly recommended for implementing classes to
- * extend this class rather than implementing the {@link ParameterDefinition} interface
+ * Base class for {@link ParameterDefinition}s.
  */
 public abstract class BaseParameterDefinition implements ParameterDefinition {
 	
@@ -155,9 +154,9 @@ public abstract class BaseParameterDefinition implements ParameterDefinition {
 	 */
 	@Override
 	public String toString() {
-		if (getKey() == null)
+		if (getName() == null)
 			return "";
-		return getKey();
+		return getName();
 	}
 	
 }

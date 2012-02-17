@@ -13,23 +13,24 @@
  */
 package org.openmrs.calculation;
 
-import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 
 /**
- * A Calculation represents a definition that can be evaluated to produce data, this is the base
- * interface for all calculations, it not encouraged to implemented this class directly, instead
- * extend {@link BaseCalculation}
- * 
- * @see BaseCalculation
+ * Base class for Calculations, this class provides a default and very basic implementation of the
+ * {@link #getParameterDefinitionsSet()} method by returning a new instance.
  */
-public interface Calculation {
+public abstract class BaseCalculation implements Calculation {
+	
+	private ParameterDefinitionSet pds;
 	
 	/**
-	 * Gets the {@link ParameterDefinitionSet} for this {@link Calculation}
-	 * 
-	 * @return a list of {@link ParameterDefinition}s
-	 * @see ParameterDefinitionSet
+	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionsSet()
 	 */
-	public ParameterDefinitionSet getParameterDefinitionsSet();
+	@Override
+	public ParameterDefinitionSet getParameterDefinitionsSet() {
+		if (pds == null)
+			pds = new ParameterDefinitionSet();
+		
+		return pds;
+	}
 }

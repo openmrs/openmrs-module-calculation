@@ -11,16 +11,14 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.definition;
-
-import org.openmrs.calculation.api.CalculationContext;
+package org.openmrs.calculation.evaluator;
 
 /**
- * This is the base interface for all definitions, a class that implements this interface indicates
- * that it represents a definition that can be evaluated in a {@link CalculationContext} It is
- * highly recommended to extend {@link BaseParameterDefinition} if the Calculation associated to it
- * makes use of {@link ParameterDefinition}s.
+ * Base interface for all evaluators, it is highly recommended to extend
+ * {@link BaseCalculationEvaluator} rather than implementing this class
+ * 
+ * @see BaseCalculationEvaluator
  */
-public interface Definition {
+public interface Evaluator {
 
 }

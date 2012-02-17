@@ -15,7 +15,8 @@ package org.openmrs.calculation.definition;
 
 /**
  * {@link Definition}s that implement this interface are evaluated based on the parameters they
- * expose
+ * expose, its highly recommended to extend {@link BaseParameterDefinition} rather implementing this
+ * interface
  */
 public interface ParameterDefinition extends Definition {
 	
