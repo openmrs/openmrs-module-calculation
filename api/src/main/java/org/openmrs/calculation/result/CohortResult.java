@@ -13,7 +13,7 @@
  */
 package org.openmrs.calculation.result;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
@@ -23,7 +23,7 @@ import org.openmrs.calculation.Calculation;
  * A CohortResult is the data that is produced from evaluating a {@link Calculation} for a
  * {@link Cohort} of {@link Patient}s.
  */
-public class CohortResult extends HashMap<Integer, Result> {
+public class CohortResult extends LinkedHashMap<Integer, Result> {
 	
 	private static final long serialVersionUID = 1L;
 }

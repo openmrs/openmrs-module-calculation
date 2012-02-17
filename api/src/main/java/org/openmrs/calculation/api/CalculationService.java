@@ -22,7 +22,6 @@ import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.Result;
 
 /**
@@ -119,9 +118,8 @@ public interface CalculationService extends OpenmrsService {
 	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context);
 	
 	/**
-	 * Evaluates the specified {@link Calculation} for the specified patient using basing on the
-	 * provided contextual data and parameter values, it returns a {@link Result} containing the
-	 * generated value or an {@link EmptyResult} if no value was generated
+	 * Evaluates the specified {@link Calculation} for the specified patient based on the provided
+	 * contextual data and parameter values.
 	 * 
 	 * @param patientId the patientId for the patient
 	 * @param calculation the calculation to evaluate
@@ -144,8 +142,8 @@ public interface CalculationService extends OpenmrsService {
 	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context);
 	
 	/**
-	 * Evaluates the specified {@link Calculation} for the specified cohort of patients using basing
-	 * on the provided contextual data and parameter values
+	 * Evaluates the specified {@link Calculation} for the specified cohort of patients based on the
+	 * provided contextual data and parameter values.
 	 * 
 	 * @param cohort a cohort of patients
 	 * @param calculation the calculation to evaluate
@@ -154,7 +152,7 @@ public interface CalculationService extends OpenmrsService {
 	 * @param context the {@link CalculationContext} to be used by this evaluation
 	 * @return A {@link Result}
 	 */
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameters,
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context);
 	
 }

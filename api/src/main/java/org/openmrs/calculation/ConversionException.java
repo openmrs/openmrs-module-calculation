@@ -23,11 +23,16 @@ public class ConversionException extends APIException {
 	private static final long serialVersionUID = 1L;
 	
 	public ConversionException() {
-		super("Cannot convert the calculation result to the specified type");
+		super("Cannot convert the specfied value to the specified type");
 	}
 	
 	public ConversionException(String message) {
 		super(message);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public ConversionException(Object value, Class toClass) {
+		super("Cannot cast the value '" + value + "' of type '" + value.getClass() + "' to '" + toClass + "'");
 	}
 	
 }

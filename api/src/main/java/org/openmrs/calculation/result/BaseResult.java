@@ -14,7 +14,6 @@
 package org.openmrs.calculation.result;
 
 import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
@@ -85,7 +84,18 @@ public abstract class BaseResult implements Result {
 	 * @see org.openmrs.calculation.result.Result#asType(java.lang.Class)
 	 */
 	@Override
-	public <T> T asType(Class<T> clazz) throws ConversionException {
+	public <T> T asType(Class<T> clazz) {
 		return ResultUtil.convert(this, clazz);
+	}
+	
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		if (value == null)
+			return "";
+		
+		return value.toString();
 	}
 }

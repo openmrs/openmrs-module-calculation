@@ -26,45 +26,43 @@ public class CalculationUtil {
 	private static final Log log = LogFactory.getLog(CalculationUtil.class);
 	
 	/**
-	 * @param key
-	 * @param datatype
-	 * @return
+	 * @see #createParameterDefinition(String, String, String)
 	 */
 	public static ParameterDefinition createParameterDefinition(String key, String datatype) {
 		return createParameterDefinition(key, datatype, null);
 	}
 	
 	/**
-	 * @param key
-	 * @param datatype
-	 * @param name
-	 * @return
+	 * @see #createParameterDefinition(String, String, String, boolean)
 	 */
 	public static ParameterDefinition createParameterDefinition(String key, String datatype, String name) {
 		return createParameterDefinition(key, datatype, name, false);
 	}
 	
 	/**
-	 * @param key
-	 * @param datatype
-	 * @param name
-	 * @param isRequred
-	 * @return
+	 * @see #createParameterDefinition(String, String, String, boolean, String)
 	 */
 	public static ParameterDefinition createParameterDefinition(String key, String datatype, String name, boolean isRequred) {
 		return createParameterDefinition(key, datatype, name, isRequred, null);
 	}
 	
 	/**
-	 * @param key
-	 * @param datatype
-	 * @param name
-	 * @param isRequred
-	 * @param description
-	 * @return
+	 * Utility method that creates a {@link ParameterDefinition} instance and initializes it
+	 * properties to the specified values
+	 * 
+	 * @param key the key to set
+	 * @param datatype the datatype to set
+	 * @param name the name to set
+	 * @param isRequred whether this property should be marked as required or not for the evaluation
+	 *            of the associated calculation to occur
+	 * @param description the description to set
+	 * @return a {@link ParameterDefinition}
 	 */
 	public static ParameterDefinition createParameterDefinition(String key, String datatype, String name, boolean isRequred,
 	                                                            String description) {
+		if (log.isDebugEnabled())
+			log.debug("Creating parameter with key:" + key);
+		
 		ParameterDefinition pd = new BaseParameterDefinition() {};
 		pd.setKey(key);
 		pd.setName(name);

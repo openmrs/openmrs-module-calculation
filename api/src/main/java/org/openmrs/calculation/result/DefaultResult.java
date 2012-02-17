@@ -17,8 +17,7 @@ import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
- * Provides a concrete and yet simple implementation of a {@link Result} that can be used out of the
- * box.
+ * Provides a simple concrete implementation of a {@link Result} that can be used out of the box.
  */
 public class DefaultResult extends BaseResult {
 	
@@ -29,7 +28,7 @@ public class DefaultResult extends BaseResult {
 	 * @param calculation the calculation to set
 	 */
 	public DefaultResult(Object value, Calculation calculation) {
-		new DefaultResult(value, calculation, null);
+		this(value, calculation, null);
 	}
 	
 	/**
