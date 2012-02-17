@@ -21,34 +21,20 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.AgeCalculation;
+import org.openmrs.calculation.BehaviorTest;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.api.CalculationContext;
-import org.openmrs.calculation.api.CalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.CalculationProvider;
 import org.openmrs.calculation.provider.TestCalculationProvider;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
- * Contains behaviour tests for {@link AgeCalculation}
- * 
- * @see AgeCalculation
+ * Contains behaviour tests for patient calculations
  */
-public class AgeCalculationTest extends BaseModuleContextSensitiveTest {
-	
-	private static final String DATE_FORMAT = "yyyy-MM-dd";
-	
-	private CalculationService service;
-	
-	@Before
-	public void before() throws Exception {
-		service = Context.getService(CalculationService.class);
-	}
+public class PatientBehaviorTest extends BehaviorTest {
 	
 	/**
 	 * 
@@ -61,7 +47,7 @@ public class AgeCalculationTest extends BaseModuleContextSensitiveTest {
 		int patientId = 2;
 		
 		int expected = Context.getPatientService().getPatient(patientId).getAge();
-		Assert.assertEquals(expected, service.evaluate(patientId, ageCalculation).asType(Integer.class).intValue());
+		Assert.assertEquals(expected, getService().evaluate(patientId, ageCalculation).asType(Integer.class).intValue());
 		
 	}
 	
@@ -69,25 +55,26 @@ public class AgeCalculationTest extends BaseModuleContextSensitiveTest {
 	 * @throws ParseException
 	 */
 	@Test
-	public void shouldCalculateThePatientAgeBasedOnContextualInfo() throws ParseException {
+	public void shouldCalculateThePatientAgeBasedOnContextualInfo() throws Exception {
 		CalculationProvider p = new TestCalculationProvider();
 		Calculation ageCalculation = p.getCalculationInstance("age", null);
 		
 		int patientId = 2;
 		
 		Date date = new SimpleDateFormat(DATE_FORMAT).parse("2000-01-01");
-		CalculationContext ctxt = service.createCalculationContext();
+		CalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setIndexDate(date);
 		
 		int expected = Context.getPatientService().getPatient(patientId).getAge(date);
-		Assert.assertEquals(expected, service.evaluate(patientId, ageCalculation, ctxt).asType(Integer.class).intValue());
+		Assert.assertEquals(expected, getService().evaluate(patientId, ageCalculation, ctxt).asType(Integer.class)
+		        .intValue());
 	}
 	
 	/**
 	 * @throws ParseException
 	 */
 	@Test
-	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws ParseException {
+	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws Exception {
 		CalculationProvider p = new TestCalculationProvider();
 		Calculation ageCalculation = p.getCalculationInstance("age", null);
 		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionsSet();
@@ -98,11 +85,12 @@ public class AgeCalculationTest extends BaseModuleContextSensitiveTest {
 		int patientId = 2;
 		
 		Date date = new SimpleDateFormat(DATE_FORMAT).parse("2000-01-01");
-		CalculationContext ctxt = service.createCalculationContext();
+		CalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setIndexDate(date);
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put("units", "months");
 		
-		Assert.assertEquals(296, service.evaluate(patientId, ageCalculation, values, ctxt).asType(Integer.class).intValue());
+		Assert.assertEquals(296, getService().evaluate(patientId, ageCalculation, values, ctxt).asType(Integer.class)
+		        .intValue());
 	}
 }

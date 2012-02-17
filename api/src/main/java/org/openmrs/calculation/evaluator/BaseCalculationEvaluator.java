@@ -23,7 +23,7 @@ import org.openmrs.calculation.result.CohortResult;
 /**
  * Base class for all calculation evaluators
  */
-public abstract class BaseCalculationEvaluator<Patient> implements CalculationEvaluator {
+public abstract class BaseCalculationEvaluator implements CalculationEvaluator {
 	
 	/**
 	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,

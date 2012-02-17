@@ -38,12 +38,12 @@ public interface CalculationEvaluator extends Evaluator {
 	 * 
 	 * @param cohort a {@link Cohort} of patients for whom to evaluation the calculation
 	 * @param calculation the {@link Calculation} to evaluate
-	 * @param parameterMap a map of parameter values, takes the form Map&lt;ParameterDefinition.key,
-	 *            Object Value&gt;
+	 * @param parameterValues a map of parameter values, takes the form
+	 *            Map&lt;ParameterDefinition.key, Object Value&gt;
 	 * @param context the {@link CalculationContext} to use while performing the evaluation
 	 * @return a {@link CohortResult}
 	 */
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterMap,
+	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context);
 	
 }
