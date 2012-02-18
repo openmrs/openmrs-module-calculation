@@ -35,6 +35,8 @@ import org.openmrs.calculation.provider.TestCalculationProvider;
  */
 public class PatientBehaviorTest extends BehaviorTest {
 	
+	private static final String TEST_DATE_FORMAT = "yyyy-MM-dd";
+	
 	/**
 	 * 
 	 */
@@ -46,6 +48,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 		int patientId = 2;
 		
 		int expected = Context.getPatientService().getPatient(patientId).getAge();
+		Assert.assertNotNull(getService().evaluate(patientId, ageCalculation));
 		Assert.assertEquals(expected, getService().evaluate(patientId, ageCalculation).asType(Integer.class).intValue());
 		
 	}
@@ -60,7 +63,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 		
 		int patientId = 2;
 		
-		Date date = new SimpleDateFormat(DATE_FORMAT).parse("2000-01-01");
+		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
 		CalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setIndexDate(date);
 		
@@ -83,7 +86,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 		
 		int patientId = 2;
 		
-		Date date = new SimpleDateFormat(DATE_FORMAT).parse("2000-01-01");
+		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
 		CalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setIndexDate(date);
 		Map<String, Object> values = new HashMap<String, Object>();
