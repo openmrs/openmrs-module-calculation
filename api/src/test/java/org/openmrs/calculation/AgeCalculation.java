@@ -14,18 +14,24 @@
 package org.openmrs.calculation;
 
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
+import org.openmrs.calculation.util.CalculationUtil;
 
 /**
  * A simple implementation of a calculation for calculating patient ages and is purely for testing
  * purposes
  */
-public class AgeCalculation implements Calculation {
+public class AgeCalculation extends BaseCalculation {
 	
 	/**
-	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionsSet()
+	 * @see org.openmrs.calculation.BaseCalculation#getParameterDefinitionsSet()
 	 */
 	@Override
 	public ParameterDefinitionSet getParameterDefinitionsSet() {
-		throw new RuntimeException("Not yet implemented");
+		//If this is the first time this is getting called, add the supported parameters
+		if (super.getParameterDefinitionsSet().isEmpty()) {
+			super.getParameterDefinitionsSet().add(
+			    CalculationUtil.createParameterDefinition("units", "java.lang.String", "Units Of Age"));
+		}
+		return super.getParameterDefinitionsSet();
 	}
 }

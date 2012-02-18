@@ -13,8 +13,10 @@
  */
 package org.openmrs.calculation.api.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,8 +28,11 @@ import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.api.CalculationService;
 import org.openmrs.calculation.api.db.CalculationDAO;
+import org.openmrs.calculation.evaluator.CalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.Result;
+import org.openmrs.util.HandlerUtil;
 
 /**
  * It is a default implementation of {@link CalculationService}.
@@ -50,8 +55,63 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public CalculationContext createCalculationContext() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CalculationContext() {
+			
+			private Date indexDate = new Date();
+			
+			private Map<String, Object> contextCache = new WeakHashMap<String, Object>();
+			
+			/**
+			 * @see org.openmrs.calculation.api.CalculationContext#getIndexDate()
+			 */
+			@Override
+			public Date getIndexDate() {
+				return indexDate;
+			}
+			
+			/**
+			 * @see org.openmrs.calculation.api.CalculationContext#setIndexDate(java.util.Date)
+			 */
+			@Override
+			public void setIndexDate(Date date) {
+				indexDate = date;
+			}
+			
+			/**
+			 * @see org.openmrs.calculation.api.CalculationContext#addToCache(java.lang.String,
+			 *      java.lang.Object)
+			 */
+			@Override
+			public void addToCache(String key, Object value) {
+				contextCache.put(key, value);
+			}
+			
+			/**
+			 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(java.lang.String)
+			 */
+			@Override
+			public Object getFromCache(String key) {
+				return contextCache.get(key);
+			}
+			
+			/**
+			 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(org.openmrs.Cohort,
+			 *      org.openmrs.calculation.Calculation)
+			 */
+			@Override
+			public CohortResult getFromCache(Cohort cohort, Calculation calculation) {
+				//TODO Add implementation code
+				throw null;
+			}
+			
+			/**
+			 * @see org.openmrs.calculation.api.CalculationContext#removeFromCache(java.lang.String)
+			 */
+			@Override
+			public void removeFromCache(String key) {
+				contextCache.remove(key);
+			}
+		};
 	}
 	
 	/**
@@ -125,8 +185,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public Result evaluate(Integer patientId, Calculation calculation) throws APIException {
-		// TODO Auto-generated method stub
-		return null;
+		return evaluate(patientId, calculation, null);
 	}
 	
 	/**
@@ -135,8 +194,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context) throws APIException {
-		// TODO Auto-generated method stub
-		return null;
+		return evaluate(patientId, calculation, null, context);
 	}
 	
 	/**
@@ -147,8 +205,13 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	@Override
 	public Result evaluate(Integer patientId, Calculation calculation, Map<String, Object> parameterValues,
 	                       CalculationContext context) throws APIException {
-		// TODO Auto-generated method stub
-		return null;
+		Cohort cohort = new Cohort(patientId);
+		cohort.addMember(patientId);
+		CohortResult cr = evaluate(cohort, calculation, parameterValues, context);
+		if (cr.size() == 0)
+			return new EmptyResult();
+		
+		return cr.get(patientId);
 	}
 	
 	/**
@@ -157,8 +220,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public CohortResult evaluate(Cohort cohort, Calculation calculation) throws APIException {
-		// TODO Auto-generated method stub
-		return null;
+		return evaluate(cohort, calculation, null);
 	}
 	
 	/**
@@ -167,8 +229,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context) throws APIException {
-		// TODO Auto-generated method stub
-		return null;
+		return evaluate(cohort, calculation, null, context);
 	}
 	
 	/**
@@ -179,7 +240,15 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	@Override
 	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context) throws APIException {
-		// TODO Auto-generated method stub
-		return null;
+		if (calculation == null)
+			throw new IllegalArgumentException("Calculation cannot be null");
+		//TODO Check if required parameters are set
+		
+		CohortResult cr = HandlerUtil.getPreferredHandler(CalculationEvaluator.class, calculation.getClass()).evaluate(
+		    cohort, calculation, parameterValues, context);
+		
+		//TODO Update the calculationContext
+		
+		return cr;
 	}
 }
