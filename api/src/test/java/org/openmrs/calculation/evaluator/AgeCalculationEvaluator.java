@@ -30,7 +30,7 @@ import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.DefaultResult;
+import org.openmrs.calculation.result.SimpleResult;
 import org.openmrs.calculation.result.EmptyResult;
 
 /**
@@ -84,7 +84,7 @@ public class AgeCalculationEvaluator extends BaseCalculationEvaluator {
 						value = Years.yearsBetween(birthDate, asOfDate).getYears();
 					
 					if (value != null)
-						results.put(patientId, new DefaultResult(value, calculation, context));
+						results.put(patientId, new SimpleResult(value, calculation, context));
 					else
 						results.put(patientId, new EmptyResult());
 				}

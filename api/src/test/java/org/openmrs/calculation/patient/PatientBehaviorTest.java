@@ -35,8 +35,6 @@ import org.openmrs.calculation.provider.TestCalculationProvider;
  */
 public class PatientBehaviorTest extends BehaviorTest {
 	
-	private static final String TEST_DATE_FORMAT = "yyyy-MM-dd";
-	
 	/**
 	 * 
 	 */

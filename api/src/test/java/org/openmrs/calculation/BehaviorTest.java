@@ -23,7 +23,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
  */
 public class BehaviorTest extends BaseModuleContextSensitiveTest {
 	
-	protected static final String DATE_FORMAT = "yyyy-MM-dd HH:MM:SS";
+	protected static final String TEST_DATE_FORMAT = "yyyy-MM-dd";
 	
 	private CalculationService service;
 	

@@ -19,7 +19,7 @@ import org.openmrs.calculation.api.CalculationContext;
 /**
  * Provides a simple concrete implementation of a {@link Result} that can be used out of the box.
  */
-public class DefaultResult extends BaseResult {
+public class SimpleResult extends BaseResult {
 	
 	/**
 	 * Convenience constructor that takes in a value and a {@link Calculation}
@@ -27,7 +27,7 @@ public class DefaultResult extends BaseResult {
 	 * @param value the value to set
 	 * @param calculation the calculation to set
 	 */
-	public DefaultResult(Object value, Calculation calculation) {
+	public SimpleResult(Object value, Calculation calculation) {
 		this(value, calculation, null);
 	}
 	
@@ -39,7 +39,7 @@ public class DefaultResult extends BaseResult {
 	 * @param calculation the calculation to set
 	 * @param calculationContext the CalculationContext to set
 	 */
-	public DefaultResult(Object value, Calculation calculation, CalculationContext calculationContext) {
+	public SimpleResult(Object value, Calculation calculation, CalculationContext calculationContext) {
 		setValue(value);
 		setCalculation(calculation);
 		setCalculationContext(calculationContext);
