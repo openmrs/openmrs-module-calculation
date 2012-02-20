@@ -57,7 +57,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	public CalculationContext createCalculationContext() {
 		return new CalculationContext() {
 			
-			private Date indexDate = new Date();
+			private Date indexDate = null;
 			
 			private Map<String, Object> contextCache = new WeakHashMap<String, Object>();
 			
@@ -243,6 +243,9 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 		if (calculation == null)
 			throw new IllegalArgumentException("Calculation cannot be null");
 		//TODO Check if required parameters are set
+		
+		if (context != null && context.getIndexDate() == null)
+			context.setIndexDate(new Date());
 		
 		CohortResult cr = HandlerUtil.getPreferredHandler(CalculationEvaluator.class, calculation.getClass()).evaluate(
 		    cohort, calculation, parameterValues, context);

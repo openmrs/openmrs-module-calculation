@@ -35,11 +35,11 @@ public class TestCalculationProvider implements CalculationProvider {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculationInstance(String,
+	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculation(String,
 	 *      String)
 	 */
 	@Override
-	public Calculation getCalculationInstance(String calculationName, String configuration) {
+	public Calculation getCalculation(String calculationName, String configuration) {
 		if (calculationName == null)
 			throw new IllegalArgumentException("calculationName cannot be null");
 		

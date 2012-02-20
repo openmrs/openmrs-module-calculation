@@ -43,7 +43,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	@Test
 	public void shouldCalculateThePatientAge() throws Exception {
 		CalculationProvider p = new TestCalculationProvider();
-		Calculation ageCalculation = p.getCalculationInstance("age", null);
+		Calculation ageCalculation = p.getCalculation("age", null);
 		
 		int patientId = 2;
 		
@@ -59,7 +59,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfo() throws Exception {
 		CalculationProvider p = new TestCalculationProvider();
-		Calculation ageCalculation = p.getCalculationInstance("age", null);
+		Calculation ageCalculation = p.getCalculation("age", null);
 		
 		int patientId = 2;
 		
@@ -78,7 +78,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws Exception {
 		CalculationProvider p = new TestCalculationProvider();
-		Calculation ageCalculation = p.getCalculationInstance("age", null);
+		Calculation ageCalculation = p.getCalculation("age", null);
 		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionSet();
 		ParameterDefinition pd = pds.getParameterByKey("units");
 		Assert.assertNotNull(pd);

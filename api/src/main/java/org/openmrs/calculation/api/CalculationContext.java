@@ -26,14 +26,14 @@ import org.openmrs.calculation.result.CohortResult;
 public interface CalculationContext {
 	
 	/**
-	 * Gets the date on which the evaluation for this context should occur
+	 * Gets the date against which the evaluation for this context should be based
 	 * 
 	 * @return the index date
 	 */
 	public Date getIndexDate();
 	
 	/**
-	 * Sets the date on which the evaluation for this context should occur
+	 * Sets the date against which the evaluation for this context should be based
 	 * 
 	 * @param date the index date to set to
 	 */

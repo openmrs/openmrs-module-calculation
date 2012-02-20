@@ -20,7 +20,7 @@ import org.openmrs.calculation.Calculation;
  * calculation name and an optional configuration string, a typical implementation of this class
  * could be a spring bean that holds a list of calculations. It should know how to instantiate each
  * one of them based on the name and configuration string
- * {@link #getCalculationInstance(String, String)} is called. The configuration string argument
+ * {@link #getCalculation(String, String)} is called. The configuration string argument
  * provides an extensibility mechanism for CalculationProviders
  */
 public interface CalculationProvider {
@@ -34,5 +34,5 @@ public interface CalculationProvider {
 	 *            calculation
 	 * @return a {@link Calculation}
 	 */
-	public Calculation getCalculationInstance(String calculationName, String configuration);
+	public Calculation getCalculation(String calculationName, String configuration);
 }
