@@ -250,8 +250,6 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 		CohortResult cr = HandlerUtil.getPreferredHandler(CalculationEvaluator.class, calculation.getClass()).evaluate(
 		    cohort, calculation, parameterValues, context);
 		
-		//TODO Update the calculationContext
-		
 		return cr;
 	}
 }

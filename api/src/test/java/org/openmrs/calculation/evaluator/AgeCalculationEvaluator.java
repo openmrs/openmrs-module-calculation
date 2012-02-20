@@ -30,8 +30,8 @@ import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.SimpleResult;
 import org.openmrs.calculation.result.EmptyResult;
+import org.openmrs.calculation.result.SimpleResult;
 
 /**
  * Test Age calculation evaluator that calculates the age of every single patient in a cohort
