@@ -17,17 +17,17 @@ import org.openmrs.calculation.definition.ParameterDefinitionSet;
 
 /**
  * Base class for Calculations, this class provides a default and very basic implementation of the
- * {@link #getParameterDefinitionsSet()} method by returning a new instance.
+ * {@link #getParameterDefinitionSet()} method by returning a new instance.
  */
 public abstract class BaseCalculation implements Calculation {
 	
 	private ParameterDefinitionSet pds;
 	
 	/**
-	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionsSet()
+	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionSet()
 	 */
 	@Override
-	public ParameterDefinitionSet getParameterDefinitionsSet() {
+	public ParameterDefinitionSet getParameterDefinitionSet() {
 		if (pds == null)
 			pds = new ParameterDefinitionSet();
 		

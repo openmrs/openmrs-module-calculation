@@ -31,5 +31,5 @@ public interface Calculation {
 	 * @return a list of {@link ParameterDefinition}s
 	 * @see ParameterDefinitionSet
 	 */
-	public ParameterDefinitionSet getParameterDefinitionsSet();
+	public ParameterDefinitionSet getParameterDefinitionSet();
 }

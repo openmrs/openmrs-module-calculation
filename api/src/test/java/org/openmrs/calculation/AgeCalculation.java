@@ -22,16 +22,16 @@ import org.openmrs.calculation.util.CalculationUtil;
  */
 public class AgeCalculation extends BaseCalculation {
 	
+	public AgeCalculation() {
+		super.getParameterDefinitionSet().add(
+		    CalculationUtil.createParameterDefinition("units", "java.lang.String", "Units Of Age"));
+	}
+	
 	/**
-	 * @see org.openmrs.calculation.BaseCalculation#getParameterDefinitionsSet()
+	 * @see org.openmrs.calculation.BaseCalculation#getParameterDefinitionSet()
 	 */
 	@Override
-	public ParameterDefinitionSet getParameterDefinitionsSet() {
-		//If this is the first time this is getting called, add the supported parameters
-		if (super.getParameterDefinitionsSet().isEmpty()) {
-			super.getParameterDefinitionsSet().add(
-			    CalculationUtil.createParameterDefinition("units", "java.lang.String", "Units Of Age"));
-		}
-		return super.getParameterDefinitionsSet();
+	public ParameterDefinitionSet getParameterDefinitionSet() {
+		return super.getParameterDefinitionSet();
 	}
 }

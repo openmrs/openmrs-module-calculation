@@ -79,7 +79,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws Exception {
 		CalculationProvider p = new TestCalculationProvider();
 		Calculation ageCalculation = p.getCalculationInstance("age", null);
-		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionsSet();
+		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionSet();
 		ParameterDefinition pd = pds.getParameterByKey("units");
 		Assert.assertNotNull(pd);
 		Assert.assertEquals(pd.getName(), "Units Of Age");
