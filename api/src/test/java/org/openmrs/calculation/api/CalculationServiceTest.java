@@ -18,7 +18,11 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.definition.ParameterDefinition;
+import org.openmrs.calculation.provider.TestCalculationProvider;
+import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
 
@@ -132,5 +136,21 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 		Assert.assertNotNull(editedToken.getDateChanged());
 		Assert.assertNotNull(editedToken.getChangedBy());
 		Assert.assertSame(newTokenName, token.getName());
+	}
+	
+	/**
+	 * @see {@link
+	 *      CalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext )}
+	 */
+	@Test
+	//(expected = MissingParameterException.class)
+	@Verifies(value = "should fail if any required parameter is not set", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
+	public void evaluate_shouldFailIfAnyRequiredParameterIsNotSet() throws Exception {
+		Calculation ageCalculation = new TestCalculationProvider().getCalculation("age", null);
+		ParameterDefinition requiredDefinition = CalculationUtil.createParameterDefinition("testParam", "my data type",
+		    null, true);
+		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
+		service.evaluate(2, ageCalculation);
+		Assert.fail("Need to un comment the expected exception class");
 	}
 }

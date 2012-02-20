@@ -30,6 +30,8 @@ public class ResultUtil {
 	 * 
 	 * @param result
 	 * @return
+	 * @should get the first result if the value of the result is a list
+	 * @should return the same result if the value of the result is a not a list
 	 */
 	public static Result getFirst(Result result) {
 		//TODO Add implementation code
@@ -43,8 +45,26 @@ public class ResultUtil {
 	 * @param result the result to convert
 	 * @param clazz the class to convert to
 	 * @return a value of the specified type
+	 * @should convert a result with a string value to Boolean
+	 * @should convert a result with a character value to Character
+	 * @should convert a result with a string value to Short
+	 * @should convert a result with an string value to Integer
+	 * @should convert a result with a string value to Long
+	 * @should convert a result with a string value to Float
+	 * @should convert a result with a string value to Double
+	 * @should convert a result with a string value to Byte
+	 * @should convert a result with a single character value to Short
+	 * @should convert a result with a single character value to Integer
+	 * @should convert a result with a single character value to Long
+	 * @should convert a result with an number value in the allowed range to byte
+	 * @should return null if the passed in result is null
+	 * @should return null if the passed in result has a null value
+	 * @should return an empty map if the result is null and class is a map
+	 * @should return an empty map if the result has a null value and class is a map
+	 * @should return an empty collection if the result is null and class is a collection
+	 * @should return an empty collection if the result has a null value and class is a collection
 	 */
-	//@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public static <T> T convert(Result result, Class<T> clazz) {
 		if (result == null || result.isEmpty())
 			throw new ConversionException("Cannot convert a null result nor a result with a null value");
