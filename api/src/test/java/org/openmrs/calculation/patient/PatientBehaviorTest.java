@@ -21,6 +21,8 @@ import java.util.Map;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.openmrs.Cohort;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.BehaviorTest;
 import org.openmrs.calculation.Calculation;
@@ -29,6 +31,7 @@ import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.CalculationProvider;
 import org.openmrs.calculation.provider.DemoCalculationProvider;
+import org.openmrs.calculation.result.CohortResult;
 
 /**
  * Contains behaviour tests for patient calculations
@@ -92,5 +95,66 @@ public class PatientBehaviorTest extends BehaviorTest {
 		
 		Assert.assertEquals(296, getService().evaluate(patientId, ageCalculation, values, ctxt).asType(Integer.class)
 		        .intValue());
+	}
+	
+	@Test
+	public void shouldCalculateTheAgesOfPatientsInACohort() throws Exception {
+		Calculation ageCalculation = new DemoCalculationProvider().getCalculation("age", null);
+		int patientId1 = 2;
+		int patientId2 = 7;
+		Cohort cohort = new Cohort();
+		cohort.addMember(patientId1);
+		cohort.addMember(patientId2);
+		
+		PatientService ps = Context.getPatientService();
+		int expected1 = ps.getPatient(patientId1).getAge();
+		int expected2 = ps.getPatient(patientId2).getAge();
+		CohortResult cr = getService().evaluate(cohort, ageCalculation);
+		Assert.assertEquals(expected1, cr.get(patientId1).asType(Integer.class).intValue());
+		Assert.assertEquals(expected2, cr.get(patientId2).asType(Integer.class).intValue());
+	}
+	
+	@Test
+	public void shouldCalculateTheAgesOfPatientsInACohortBasedOnContextualInfo() throws Exception {
+		Calculation ageCalculation = new DemoCalculationProvider().getCalculation("age", null);
+		int patientId1 = 2;
+		int patientId2 = 7;
+		Cohort cohort = new Cohort();
+		cohort.addMember(patientId1);
+		cohort.addMember(patientId2);
+		
+		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
+		CalculationContext ctxt = getService().createCalculationContext();
+		ctxt.setIndexDate(date);
+		
+		PatientService ps = Context.getPatientService();
+		int expected1 = ps.getPatient(patientId1).getAge(date);
+		int expected2 = ps.getPatient(patientId2).getAge(date);
+		
+		CohortResult cr = getService().evaluate(cohort, ageCalculation, ctxt);
+		Assert.assertEquals(expected1, cr.get(patientId1).asType(Integer.class).intValue());
+		Assert.assertEquals(expected2, cr.get(patientId2).asType(Integer.class).intValue());
+	}
+	
+	@Test
+	public void shouldCalculateTheAgesOfPatientsInACohortBasedOnContextualInfoAndParameterValues() throws Exception {
+		Calculation ageCalculation = new DemoCalculationProvider().getCalculation("age", null);
+		int patientId1 = 2;
+		int patientId2 = 7;
+		Cohort cohort = new Cohort();
+		cohort.addMember(patientId1);
+		cohort.addMember(patientId2);
+		
+		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
+		CalculationContext ctxt = getService().createCalculationContext();
+		ctxt.setIndexDate(date);
+		
+		ParameterDefinition pd = ageCalculation.getParameterDefinitionSet().getParameterByKey("units");
+		Map<String, Object> values = new HashMap<String, Object>();
+		values.put(pd.getKey(), "months");
+		
+		CohortResult cr = getService().evaluate(cohort, ageCalculation, values, ctxt);
+		Assert.assertEquals(296, cr.get(patientId1).asType(Integer.class).intValue());
+		Assert.assertEquals(280, cr.get(patientId2).asType(Integer.class).intValue());
 	}
 }
