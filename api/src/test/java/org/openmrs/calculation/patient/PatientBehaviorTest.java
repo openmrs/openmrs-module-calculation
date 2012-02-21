@@ -28,7 +28,7 @@ import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.CalculationProvider;
-import org.openmrs.calculation.provider.TestCalculationProvider;
+import org.openmrs.calculation.provider.DemoCalculationProvider;
 
 /**
  * Contains behaviour tests for patient calculations
@@ -40,7 +40,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	 */
 	@Test
 	public void shouldCalculateThePatientAge() throws Exception {
-		CalculationProvider p = new TestCalculationProvider();
+		CalculationProvider p = new DemoCalculationProvider();
 		Calculation ageCalculation = p.getCalculation("age", null);
 		
 		int patientId = 2;
@@ -56,7 +56,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	 */
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfo() throws Exception {
-		CalculationProvider p = new TestCalculationProvider();
+		CalculationProvider p = new DemoCalculationProvider();
 		Calculation ageCalculation = p.getCalculation("age", null);
 		
 		int patientId = 2;
@@ -75,7 +75,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 	 */
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws Exception {
-		CalculationProvider p = new TestCalculationProvider();
+		CalculationProvider p = new DemoCalculationProvider();
 		Calculation ageCalculation = p.getCalculation("age", null);
 		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionSet();
 		ParameterDefinition pd = pds.getParameterByKey("units");

@@ -21,7 +21,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 /**
  * Superclass for Behavior tests
  */
-public class BehaviorTest extends BaseModuleContextSensitiveTest {
+public abstract class BehaviorTest extends BaseModuleContextSensitiveTest {
 	
 	protected static final String TEST_DATE_FORMAT = "yyyy-MM-dd";
 	

@@ -23,14 +23,14 @@ import org.openmrs.calculation.Calculation;
 /**
  * A simple {@link CalculationProvider} for testing purposes
  */
-public class TestCalculationProvider implements CalculationProvider {
+public class DemoCalculationProvider implements CalculationProvider {
 	
 	private Map<String, Class<? extends Calculation>> calculations = new HashMap<String, Class<? extends Calculation>>();
 	
 	/**
 	 * Convenience constructor that registers the {@link Calculation}s this provider provides
 	 */
-	public TestCalculationProvider() {
+	public DemoCalculationProvider() {
 		calculations.put("age", AgeCalculation.class);
 	}
 	

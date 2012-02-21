@@ -25,7 +25,7 @@ import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.definition.ParameterDefinition;
-import org.openmrs.calculation.provider.TestCalculationProvider;
+import org.openmrs.calculation.provider.DemoCalculationProvider;
 import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
@@ -149,7 +149,7 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail if any required parameter is not set", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailIfAnyRequiredParameterIsNotSet() throws Exception {
-		Calculation ageCalculation = new TestCalculationProvider().getCalculation("age", null);
+		Calculation ageCalculation = new DemoCalculationProvider().getCalculation("age", null);
 		ParameterDefinition requiredDefinition = CalculationUtil.createParameterDefinition("testParam", "my data type",
 		    null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
@@ -163,7 +163,7 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a primitive wrapper", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailForABlankValueForARequiredParameterIfDatatypeIsAPrimitiveWrapper() throws Exception {
-		Calculation ageCalculation = new TestCalculationProvider().getCalculation("age", null);
+		Calculation ageCalculation = new DemoCalculationProvider().getCalculation("age", null);
 		ParameterDefinition requiredDefinition = CalculationUtil.createParameterDefinition("testParam", "java.lang.Integer",
 		    null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
@@ -180,7 +180,7 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a String", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailForABlankValueForARequiredParameterIfDatatypeIsAString() throws Exception {
-		Calculation ageCalculation = new TestCalculationProvider().getCalculation("age", null);
+		Calculation ageCalculation = new DemoCalculationProvider().getCalculation("age", null);
 		ParameterDefinition requiredDefinition = CalculationUtil.createParameterDefinition("testParam", "java.lang.String",
 		    null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
