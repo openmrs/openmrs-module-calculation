@@ -18,20 +18,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.api.CalculationService;
 import org.openmrs.calculation.api.db.CalculationDAO;
+import org.openmrs.calculation.definition.ParameterDefinition;
+import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.CalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.Result;
+import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.util.HandlerUtil;
 
 /**
@@ -242,7 +247,32 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	                             CalculationContext context) throws APIException {
 		if (calculation == null)
 			throw new IllegalArgumentException("Calculation cannot be null");
-		//TODO Check if required parameters are set
+		ParameterDefinitionSet defs = calculation.getParameterDefinitionSet();
+		//Check for missing of values for required parameters
+		if (defs != null) {
+			for (ParameterDefinition parameter : calculation.getParameterDefinitionSet()) {
+				if (parameter.isRequired()) {
+					boolean foundMissingValue = false;
+					if (parameterValues == null) {
+						foundMissingValue = true;
+					} else {
+						Object value = parameterValues.get(parameter.getKey());
+						String datatype = parameter.getDatatype();
+						//the shouldn't be blank if the datatype is String or a primitive wrapper class
+						if (value == null) {
+							foundMissingValue = true;
+						} else if ((CalculationUtil.isPrimitiveWrapperClassName(datatype) || String.class.getName().equals(
+						    datatype))
+						        && StringUtils.isBlank(value.toString())) {
+							foundMissingValue = true;
+						}
+					}
+					
+					if (foundMissingValue)
+						throw new MissingParameterException(parameter);
+				}
+			}
+		}
 		
 		if (context != null && context.getIndexDate() == null)
 			context.setIndexDate(new Date());

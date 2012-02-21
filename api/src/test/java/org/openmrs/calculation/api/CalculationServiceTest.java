@@ -13,12 +13,16 @@
  */
 package org.openmrs.calculation.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.provider.TestCalculationProvider;
@@ -142,8 +146,7 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	 * @see {@link
 	 *      CalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext )}
 	 */
-	@Test
-	//(expected = MissingParameterException.class)
+	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail if any required parameter is not set", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailIfAnyRequiredParameterIsNotSet() throws Exception {
 		Calculation ageCalculation = new TestCalculationProvider().getCalculation("age", null);
@@ -151,6 +154,39 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 		    null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
 		service.evaluate(2, ageCalculation);
-		Assert.fail("Need to un comment the expected exception class");
+	}
+	
+	/**
+	 * @see {@link
+	 *      CalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext )}
+	 */
+	@Test(expected = MissingParameterException.class)
+	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a primitive wrapper", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
+	public void evaluate_shouldFailForABlankValueForARequiredParameterIfDatatypeIsAPrimitiveWrapper() throws Exception {
+		Calculation ageCalculation = new TestCalculationProvider().getCalculation("age", null);
+		ParameterDefinition requiredDefinition = CalculationUtil.createParameterDefinition("testParam", "java.lang.Integer",
+		    null, true);
+		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
+		
+		Map<String, Object> values = new HashMap<String, Object>();
+		values.put(requiredDefinition.getKey(), "");
+		service.evaluate(2, ageCalculation, values, null);
+	}
+	
+	/**
+	 * @see {@link
+	 *      CalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext )}
+	 */
+	@Test(expected = MissingParameterException.class)
+	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a String", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
+	public void evaluate_shouldFailForABlankValueForARequiredParameterIfDatatypeIsAString() throws Exception {
+		Calculation ageCalculation = new TestCalculationProvider().getCalculation("age", null);
+		ParameterDefinition requiredDefinition = CalculationUtil.createParameterDefinition("testParam", "java.lang.String",
+		    null, true);
+		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
+		
+		Map<String, Object> values = new HashMap<String, Object>();
+		values.put(requiredDefinition.getKey(), "");
+		service.evaluate(2, ageCalculation, values, null);
 	}
 }

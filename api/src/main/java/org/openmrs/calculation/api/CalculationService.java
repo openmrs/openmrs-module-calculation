@@ -153,6 +153,8 @@ public interface CalculationService extends OpenmrsService {
 	 * @param context the {@link CalculationContext} to be used by this evaluation
 	 * @return A {@link Result}
 	 * @should fail if any required parameter is not set
+	 * @should fail for a blank value for a required parameter if datatype is a primitive wrapper
+	 * @should fail for a blank value for a required parameter if datatype is a String
 	 */
 	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context) throws APIException;
