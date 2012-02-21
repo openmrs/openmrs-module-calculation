@@ -111,7 +111,7 @@ public class ResultUtil {
 					valueToConvert = stringValue.charAt(0);
 				} else {
 					Method method = clazz.getMethod("valueOf", new Class<?>[] { String.class });
-					valueToConvert = method.invoke(clazz, stringValue);
+					valueToConvert = method.invoke(null, stringValue);
 				}
 				
 				castValue = clazz.cast(valueToConvert);
@@ -119,7 +119,7 @@ public class ResultUtil {
 			catch (ClassCastException e) {
 				throw new ConversionException(result.getValue(), clazz);
 			}
-			catch (Throwable e) {
+			catch (Exception e) {
 				throw new ConversionException(result.getValue(), clazz);
 			}
 		}

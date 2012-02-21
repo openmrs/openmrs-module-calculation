@@ -60,63 +60,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public CalculationContext createCalculationContext() {
-		return new CalculationContext() {
-			
-			private Date indexDate = null;
-			
-			private Map<String, Object> contextCache = new WeakHashMap<String, Object>();
-			
-			/**
-			 * @see org.openmrs.calculation.api.CalculationContext#getIndexDate()
-			 */
-			@Override
-			public Date getIndexDate() {
-				return indexDate;
-			}
-			
-			/**
-			 * @see org.openmrs.calculation.api.CalculationContext#setIndexDate(java.util.Date)
-			 */
-			@Override
-			public void setIndexDate(Date date) {
-				indexDate = date;
-			}
-			
-			/**
-			 * @see org.openmrs.calculation.api.CalculationContext#addToCache(java.lang.String,
-			 *      java.lang.Object)
-			 */
-			@Override
-			public void addToCache(String key, Object value) {
-				contextCache.put(key, value);
-			}
-			
-			/**
-			 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(java.lang.String)
-			 */
-			@Override
-			public Object getFromCache(String key) {
-				return contextCache.get(key);
-			}
-			
-			/**
-			 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(org.openmrs.Cohort,
-			 *      org.openmrs.calculation.Calculation)
-			 */
-			@Override
-			public CohortResult getFromCache(Cohort cohort, Calculation calculation) {
-				//TODO Add implementation code
-				throw null;
-			}
-			
-			/**
-			 * @see org.openmrs.calculation.api.CalculationContext#removeFromCache(java.lang.String)
-			 */
-			@Override
-			public void removeFromCache(String key) {
-				contextCache.remove(key);
-			}
-		};
+		return new BaseCalculationContext() {};
 	}
 	
 	/**
@@ -213,7 +157,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 		Cohort cohort = new Cohort(patientId);
 		cohort.addMember(patientId);
 		CohortResult cr = evaluate(cohort, calculation, parameterValues, context);
-		if (cr.size() == 0)
+		if (cr == null || cr.size() == 0)
 			return new EmptyResult();
 		
 		return cr.get(patientId);
@@ -274,12 +218,73 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 			}
 		}
 		
-		if (context != null && context.getIndexDate() == null)
-			context.setIndexDate(new Date());
+		if (context != null && context.getNow() == null)
+			context.setNow(new Date());
 		
 		CohortResult cr = HandlerUtil.getPreferredHandler(CalculationEvaluator.class, calculation.getClass()).evaluate(
 		    cohort, calculation, parameterValues, context);
 		
 		return cr;
+	}
+	
+	/**
+	 * Base class for {@link CalculationContext}s
+	 */
+	public abstract class BaseCalculationContext implements CalculationContext {
+		
+		private Date now = null;
+		
+		private Map<String, Object> contextCache = new WeakHashMap<String, Object>();
+		
+		/**
+		 * @see org.openmrs.calculation.api.CalculationContext#getNow()
+		 */
+		@Override
+		public Date getNow() {
+			return now;
+		}
+		
+		/**
+		 * @see org.openmrs.calculation.api.CalculationContext#setNow(java.util.Date)
+		 */
+		@Override
+		public void setNow(Date date) {
+			now = date;
+		}
+		
+		/**
+		 * @see org.openmrs.calculation.api.CalculationContext#addToCache(java.lang.String,
+		 *      java.lang.Object)
+		 */
+		@Override
+		public void addToCache(String key, Object value) {
+			contextCache.put(key, value);
+		}
+		
+		/**
+		 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(java.lang.String)
+		 */
+		@Override
+		public Object getFromCache(String key) {
+			return contextCache.get(key);
+		}
+		
+		/**
+		 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(org.openmrs.Cohort,
+		 *      org.openmrs.calculation.Calculation)
+		 */
+		@Override
+		public CohortResult getFromCache(Cohort cohort, Calculation calculation) {
+			//TODO Add implementation code
+			throw null;
+		}
+		
+		/**
+		 * @see org.openmrs.calculation.api.CalculationContext#removeFromCache(java.lang.String)
+		 */
+		@Override
+		public void removeFromCache(String key) {
+			contextCache.remove(key);
+		}
 	}
 }

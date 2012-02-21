@@ -30,14 +30,14 @@ public interface CalculationContext {
 	 * 
 	 * @return the index date
 	 */
-	public Date getIndexDate();
+	public Date getNow();
 	
 	/**
 	 * Sets the date against which the evaluation for this context should be based
 	 * 
 	 * @param date the index date to set to
 	 */
-	public void setIndexDate(Date date);
+	public void setNow(Date date);
 	
 	/**
 	 * Adds an object to the cache mapped to the specified key

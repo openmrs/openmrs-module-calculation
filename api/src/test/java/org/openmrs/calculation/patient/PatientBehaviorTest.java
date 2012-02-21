@@ -66,7 +66,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
 		CalculationContext ctxt = getService().createCalculationContext();
-		ctxt.setIndexDate(date);
+		ctxt.setNow(date);
 		
 		int expected = Context.getPatientService().getPatient(patientId).getAge(date);
 		Assert.assertEquals(expected, getService().evaluate(patientId, ageCalculation, ctxt).asType(Integer.class)
@@ -89,7 +89,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
 		CalculationContext ctxt = getService().createCalculationContext();
-		ctxt.setIndexDate(date);
+		ctxt.setNow(date);
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put(pd.getKey(), "months");
 		
@@ -125,7 +125,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
 		CalculationContext ctxt = getService().createCalculationContext();
-		ctxt.setIndexDate(date);
+		ctxt.setNow(date);
 		
 		PatientService ps = Context.getPatientService();
 		int expected1 = ps.getPatient(patientId1).getAge(date);
@@ -147,7 +147,7 @@ public class PatientBehaviorTest extends BehaviorTest {
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
 		CalculationContext ctxt = getService().createCalculationContext();
-		ctxt.setIndexDate(date);
+		ctxt.setNow(date);
 		
 		ParameterDefinition pd = ageCalculation.getParameterDefinitionSet().getParameterByKey("units");
 		Map<String, Object> values = new HashMap<String, Object>();
