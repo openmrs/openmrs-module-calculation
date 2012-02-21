@@ -104,14 +104,14 @@ public class ResultUtil {
 		// We should be able to convert any value to a String		
 		if (String.class.isAssignableFrom(clazz)) {
 			castValue = (T) valueToConvert.toString();
-		} else if (CalculationUtil.isPrimitiveWrapperType(clazz) || String.class.isAssignableFrom(clazz)) {
+		} else if (CalculationUtil.isPrimitiveWrapperType(clazz)) {
 			String stringValue = valueToConvert.toString();
 			try {
 				if (Character.class.equals(clazz) && stringValue.length() == 1) {
 					valueToConvert = stringValue.charAt(0);
 				} else {
 					Method method = clazz.getMethod("valueOf", new Class<?>[] { String.class });
-					valueToConvert = method.invoke(valueToConvert, stringValue);
+					valueToConvert = method.invoke(clazz, stringValue);
 				}
 				
 				castValue = clazz.cast(valueToConvert);
