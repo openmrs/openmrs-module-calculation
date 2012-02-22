@@ -16,13 +16,14 @@ package org.openmrs.calculation.result;
 import java.util.Date;
 
 /**
- * Superclass of {@link Result}s that need to keep track of when the evaluation of the associated
- * calculation occurred
+ * Base interface for {@link Result}s with values that occur on specific dates e.g Encounter has an
+ * encounterDatetime
  */
-public abstract class DateBasedResult extends BaseResult {
+public interface DateBasedResult extends Result {
 	
 	/**
-	 * Returns the date when the evaluation of this result's calculation occurred
+	 * Returns the date of occurrence of the value that is associated to the result e.g if this is
+	 * an EncounterResult, it would be encounterDatetime
 	 * 
 	 * @return the date when the calculation occurred
 	 */
