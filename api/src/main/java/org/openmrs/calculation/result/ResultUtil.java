@@ -74,6 +74,8 @@ public class ResultUtil {
 	 * @should return an empty collection if the result has a null value and class is a list
 	 * @should return an empty collection if the result is null and class is a set
 	 * @should return an empty collection if the result has a null value and class is a set
+	 * @should convert the value of a result to the specified type if it is compatible
+	 * @should fail if the value of a result is not of a compatible type
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T convert(Result result, Class<T> clazz) {
@@ -104,22 +106,29 @@ public class ResultUtil {
 		// We should be able to convert any value to a String		
 		if (String.class.isAssignableFrom(clazz)) {
 			castValue = (T) valueToConvert.toString();
-		} else if (CalculationUtil.isPrimitiveWrapperType(clazz)) {
-			String stringValue = valueToConvert.toString();
-			try {
-				if (Character.class.equals(clazz) && stringValue.length() == 1) {
-					valueToConvert = stringValue.charAt(0);
-				} else {
-					Method method = clazz.getMethod("valueOf", new Class<?>[] { String.class });
-					valueToConvert = method.invoke(null, stringValue);
+		} else {
+			//we should be able to convert objects that are of primitive types like String "2" to integer 2, 
+			//java types casting doesn't allow this so we need to convert the value first to
+			//a string
+			if (CalculationUtil.isPrimitiveWrapperType(clazz)) {
+				try {
+					String stringValue = valueToConvert.toString();
+					if (Character.class.equals(clazz) && stringValue.length() == 1) {
+						valueToConvert = stringValue.charAt(0);
+					} else {
+						Method method = clazz.getMethod("valueOf", new Class<?>[] { String.class });
+						valueToConvert = method.invoke(null, stringValue);
+					}
 				}
-				
+				catch (Exception e) {
+					throw new ConversionException(result.getValue(), clazz);
+				}
+			}
+			
+			try {
 				castValue = clazz.cast(valueToConvert);
 			}
 			catch (ClassCastException e) {
-				throw new ConversionException(result.getValue(), clazz);
-			}
-			catch (Exception e) {
 				throw new ConversionException(result.getValue(), clazz);
 			}
 		}

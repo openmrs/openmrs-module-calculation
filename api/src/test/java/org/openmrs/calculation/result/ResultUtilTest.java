@@ -21,6 +21,9 @@ import junit.framework.Assert;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openmrs.Patient;
+import org.openmrs.Person;
+import org.openmrs.calculation.ConversionException;
 import org.openmrs.test.Verifies;
 
 public class ResultUtilTest {
@@ -249,5 +252,25 @@ public class ResultUtilTest {
 		Set set = ResultUtil.convert(null, Set.class);
 		Assert.assertNotNull(set);
 		Assert.assertTrue(set.isEmpty());
+	}
+	
+	/**
+	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 */
+	@Test
+	@Verifies(value = "should convert the value of a result to the specified type if it is compatible", method = "convert(Result,Class<T>)")
+	public void convert_shouldConvertTheValueOfAResultToTheSpecifiedTypeIfItIsCompatible() throws Exception {
+		Person convertedObject = ResultUtil.convert(new SimpleResult(new Patient(), null), Person.class);
+		Assert.assertNotNull(convertedObject);
+		Assert.assertTrue(Person.class.isAssignableFrom(convertedObject.getClass()));
+	}
+	
+	/**
+	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 */
+	@Test(expected = ConversionException.class)
+	@Verifies(value = "should fail if the value of a result is not of a compatible type", method = "convert(Result,Class<T>)")
+	public void convert_shouldFailIfTheValueOfAResultIsNotOfACompatibleType() throws Exception {
+		ResultUtil.convert(new SimpleResult(new Person(), null), Patient.class);
 	}
 }
