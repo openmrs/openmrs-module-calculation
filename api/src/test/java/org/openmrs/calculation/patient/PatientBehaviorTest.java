@@ -20,13 +20,14 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.BehaviorTest;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.CalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.CalculationProvider;
@@ -36,7 +37,22 @@ import org.openmrs.calculation.result.CohortResult;
 /**
  * Contains behaviour tests for patient calculations
  */
-public class PatientBehaviorTest extends BehaviorTest {
+public class PatientBehaviorTest {
+	
+	private static final String TEST_DATE_FORMAT = "yyyy-MM-dd";
+	
+	private CalculationService service;
+	
+	private static final String TEST_DATA_XML = "org/openmrs/calculation/include/moduleTestData.xml";
+	
+	@Before
+	public void before() throws Exception {
+		service = Context.getService(CalculationService.class);
+	}
+	
+	protected CalculationService getService() {
+		return service;
+	}
 	
 	/**
 	 * 
