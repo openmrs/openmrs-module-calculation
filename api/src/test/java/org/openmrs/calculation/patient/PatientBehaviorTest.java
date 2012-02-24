@@ -33,11 +33,12 @@ import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.CalculationProvider;
 import org.openmrs.calculation.provider.DemoCalculationProvider;
 import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
  * Contains behaviour tests for patient calculations
  */
-public class PatientBehaviorTest {
+public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	
 	private static final String TEST_DATE_FORMAT = "yyyy-MM-dd";
 	
