@@ -23,6 +23,8 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
+import org.openmrs.Encounter;
+import org.openmrs.Obs;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.Calculation;
@@ -33,6 +35,8 @@ import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.CalculationProvider;
 import org.openmrs.calculation.provider.DemoCalculationProvider;
 import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.EncounterResult;
+import org.openmrs.calculation.result.ObsResult;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
@@ -173,5 +177,52 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		CohortResult cr = getService().evaluate(cohort, ageCalculation, values, ctxt);
 		Assert.assertEquals(296, cr.get(patientId1).asType(Integer.class).intValue());
 		Assert.assertEquals(280, cr.get(patientId2).asType(Integer.class).intValue());
+	}
+	
+	@Test
+	public void shouldGetAnEncounterResultAsADateBasedResult() throws Exception {
+		executeDataSet(TEST_DATA_XML);
+		int patientId = 7;
+		//probably this could be a sql stmt for getting the most recent encounter
+		Encounter expectedEncounter = Context.getEncounterService().getEncounter(5);
+		EncounterResult result = (EncounterResult) getService().evaluate(patientId,
+		    new DemoCalculationProvider().getCalculation("mostRecentEncounter", null));
+		
+		Assert.assertEquals(expectedEncounter, result.asType(Encounter.class));
+		//Since this is a datebased result, check the date
+		Assert.assertEquals(expectedEncounter.getEncounterDatetime(), result.getDateOfResult());
+	}
+	
+	@Test
+	public void shouldGetAnObsResultAsADateBasedResult() throws Exception {
+		executeDataSet(TEST_DATA_XML);
+		int patientId = 7;
+		Obs expectedObs = Context.getObsService().getObs(103);
+		ObsResult result = (ObsResult) getService().evaluate(patientId,
+		    new DemoCalculationProvider().getCalculation("mostRecentObs", null));
+		
+		Assert.assertEquals(expectedObs, result.asType(Obs.class));
+		Assert.assertEquals(expectedObs.getObsDatetime(), result.getDateOfResult());
+	}
+	
+	@Test
+	public void ShouldGetADateBasedResultBasingOnACachedResultInTheCalculationContext() throws Exception {
+		executeDataSet(TEST_DATA_XML);
+		//sanity check, since the cache is empty, it should return the most recent obs amongst all obs for the patient
+		Obs expectedMostRecentObs = Context.getObsService().getObs(103);
+		int patientId = 7;
+		Calculation mostRecentObsCalculation = new DemoCalculationProvider().getCalculation("mostRecentObs", null);
+		ObsResult testResult = (ObsResult) getService().evaluate(patientId, mostRecentObsCalculation);
+		Assert.assertEquals(expectedMostRecentObs, testResult.asType(Obs.class));
+		
+		EncounterResult encounterResult = (EncounterResult) getService().evaluate(patientId,
+		    new DemoCalculationProvider().getCalculation("mostRecentEncounter", null));
+		//Should find the most recent obs for the cached encounter
+		Obs expectedMostRecentObsForMostRecentEncounter = Context.getObsService().getObs(102);
+		ObsResult result = (ObsResult) getService().evaluate(patientId, mostRecentObsCalculation,
+		    encounterResult.getCalculationContext());
+		
+		Assert.assertEquals(expectedMostRecentObsForMostRecentEncounter, result.asType(Obs.class));
+		Assert.assertEquals(expectedMostRecentObsForMostRecentEncounter.getObsDatetime(), result.getDateOfResult());
 	}
 }

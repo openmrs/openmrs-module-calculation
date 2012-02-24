@@ -6,4 +6,9 @@
 	<calculation_token_registration token_registration_id="4" name="family Name1" provider_class_name="org.openmrs.calculation.patient.FamilyNameCalculation" configuration="gender" creator="1" date_created="2012-02-02 00:00:00.0" retired="0" uuid="275194b4-5826-11e1-b480-00248140a5eb" />
 	<calculation_token_registration token_registration_id="5" name="middle name" provider_class_name="org.openmrs.calculation.patient.MiddleNameCalculation" configuration="gender" creator="1" date_created="2012-02-02 00:00:00.0" retired="0" uuid="340be7b8-5826-11e1-b480-00248140a5eb" />
 	<calculation_token_registration token_registration_id="6" name="named" provider_class_name="org.openmrs.calculation.patient.NamedCalculation" configuration="gender" creator="1" date_created="2012-02-02 00:00:00.0" retired="0" uuid="3894d33a-5826-11e1-b480-00248140a5eb" />
+	
+	<obs obs_id="100" person_id="7" concept_id="5089" encounter_id="5" obs_datetime="2008-08-19 10:35:30.0" location_id="2" value_numeric="62.0" creator="1" date_created="2008-08-19 12:35:30.0" voided="0" uuid="354f2bec-5e2c-11e1-8b14-00248140a5eb" />
+	<obs obs_id="101" person_id="7" concept_id="5089" encounter_id="5" obs_datetime="2008-08-19 10:37:30.0" location_id="2" value_numeric="63.0" creator="1" date_created="2008-08-19 12:35:30.0" voided="1" uuid="499c555c-5e2c-11e1-8b14-00248140a5eb" />
+	<obs obs_id="102" person_id="7" concept_id="5089" encounter_id="5" obs_datetime="2008-08-19 10:36:30.0" location_id="2" value_numeric="62.5" creator="1" date_created="2008-08-19 12:35:30.0" voided="0" uuid="830906aa-5e2c-11e1-8b14-00248140a5eb" />
+	<obs obs_id="103" person_id="7" concept_id="5089" encounter_id="4" obs_datetime="2008-08-19 10:38:30.0" location_id="2" value_numeric="61.5" creator="1" date_created="2008-08-19 12:35:30.0" voided="0" uuid="aeca3036-5e70-11e1-8b14-00248140a5eb" />
 </dataset>

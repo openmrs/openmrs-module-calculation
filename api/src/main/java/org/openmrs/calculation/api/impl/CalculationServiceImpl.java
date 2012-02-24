@@ -217,10 +217,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 				}
 			}
 		}
-		
-		if (context != null && context.getNow() == null)
-			context.setNow(new Date());
-		
+		//Should we always check for a null context and pass in a new instance
 		CohortResult cr = HandlerUtil.getPreferredHandler(CalculationEvaluator.class, calculation.getClass()).evaluate(
 		    cohort, calculation, parameterValues, context);
 		

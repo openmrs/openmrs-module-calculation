@@ -19,6 +19,8 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.MostRecentEncounterCalculation;
+import org.openmrs.calculation.MostRecentObsCalculation;
 
 /**
  * A simple {@link CalculationProvider} for testing purposes
@@ -32,11 +34,12 @@ public class DemoCalculationProvider implements CalculationProvider {
 	 */
 	public DemoCalculationProvider() {
 		calculations.put("age", AgeCalculation.class);
+		calculations.put("mostRecentEncounter", MostRecentEncounterCalculation.class);
+		calculations.put("mostRecentObs", MostRecentObsCalculation.class);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculation(String,
-	 *      String)
+	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculation(String, String)
 	 */
 	@Override
 	public Calculation getCalculation(String calculationName, String configuration) {
