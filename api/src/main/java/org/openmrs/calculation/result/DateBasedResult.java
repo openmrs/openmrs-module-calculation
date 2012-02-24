@@ -27,5 +27,5 @@ public interface DateBasedResult extends Result {
 	 * 
 	 * @return the date when the calculation occurred
 	 */
-	public abstract Date getDateOfResult();
+	public Date getDateOfResult();
 }
