@@ -33,18 +33,19 @@ public class ResultUtil {
 	private static final Log log = LogFactory.getLog(ResultUtil.class);
 	
 	/**
-	 * Gets the first result if the value of the result is a list, or self if a single result
+	 * Gets the first result if the passed in result is a {@link ListResult}, or self if it is not a
+	 * {@link ListResult}
 	 * 
 	 * @param result
 	 * @return
 	 * @should get the first result if the value of the result is a list
 	 * @should return the same result if the value of the result is a not a list
 	 */
-	public static Result getFirst(ListResult result) {
-		if (result == null || result.size() == 0)
-			return null;
+	public static Result getFirst(Result result) {
+		if (result instanceof ListResult)
+			return ((ListResult) result).getFirstResult();
 		
-		return result.get(0);
+		return result;
 	}
 	
 	/**

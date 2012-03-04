@@ -13,13 +13,13 @@
  */
 package org.openmrs.calculation.result;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import junit.framework.Assert;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.Person;
@@ -35,8 +35,11 @@ public class ResultUtilTest {
 	@Verifies(value = "should get the first result if the value of the result is a list", method = "getFirst(Result)")
 	public void getFirst_shouldGetTheFirstResultIfTheValueOfTheResultIsAList() throws Exception {
 		ListResult listResult = new ListResult();
-		listResult.add(new SimpleResult("first", null));
-		listResult.add(new SimpleResult("second", null));
+		List<Result> results = new ArrayList<Result>();
+		results.add(new SimpleResult("first", null));
+		results.add(new SimpleResult("second", null));
+		listResult.setValue(results);
+		
 		Result firstResult = ResultUtil.getFirst(listResult);
 		Assert.assertEquals("first", firstResult.getValue());
 	}
@@ -45,11 +48,10 @@ public class ResultUtilTest {
 	 * @see {@link ResultUtil#getFirst(Result)}
 	 */
 	@Test
-	@Ignore
 	@Verifies(value = "should return the same result if the value of the result is a not a list", method = "getFirst(Result)")
 	public void getFirst_shouldReturnTheSameResultIfTheValueOfTheResultIsANotAList() throws Exception {
-		//Result result = new SimpleResult("result", null);
-		//Assert.assertEquals(result, ResultUtil.getFirst(result));
+		Result result = new SimpleResult("result", null);
+		Assert.assertEquals(result, ResultUtil.getFirst(result));
 	}
 	
 	/**

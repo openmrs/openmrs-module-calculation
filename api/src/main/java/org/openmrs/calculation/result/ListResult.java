@@ -13,14 +13,101 @@
  */
 package org.openmrs.calculation.result;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.api.CalculationContext;
 
 /**
  * A {@link Result} backed by a {@link List} of results with convenience methods that get the first
  * and last results in the backing list
  */
-public class ListResult extends ArrayList<Result> {
+public class ListResult implements Result {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private CalculationContext calculationContext;
+	
+	private Calculation calculation;
+	
+	private List<Result> results;
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#getCalculation()
+	 */
+	@Override
+	public Calculation getCalculation() {
+		return calculation;
+	}
+	
+	/**
+	 * @param calculation the calculation to set
+	 */
+	public void setCalculation(Calculation calculation) {
+		this.calculation = calculation;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#getCalculationContext()
+	 */
+	@Override
+	public CalculationContext getCalculationContext() {
+		return calculationContext;
+	}
+	
+	/**
+	 * @param calculationContext the calculationContext to set
+	 */
+	public void setCalculationContext(CalculationContext calculationContext) {
+		this.calculationContext = calculationContext;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#getValue()
+	 */
+	@Override
+	public Object getValue() {
+		return results;
+	}
+	
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(List<Result> value) {
+		this.results = value;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return results == null || results.isEmpty();
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#asType(java.lang.Class)
+	 */
+	@Override
+	public <T> T asType(Class<T> clazz) {
+		return ResultUtil.convert(this, clazz);
+	}
+	
+	/**
+	 * Gets the first result in the backing list
+	 * 
+	 * @return the first result {@link Result}
+	 */
+	public Result getFirstResult() {
+		return isEmpty() ? new EmptyResult() : results.get(0);
+	}
+	
+	/**
+	 * Gets the last result in the backing list
+	 * 
+	 * @return the last result {@link Result}
+	 */
+	public Result getLastResult() {
+		return isEmpty() ? new EmptyResult() : results.get(results.size() - 1);
+	}
 }
