@@ -14,7 +14,6 @@
 package org.openmrs.calculation.result;
 
 import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
@@ -48,7 +47,6 @@ public interface Result {
 	 * 
 	 * @param clazz the class to convert to
 	 * @return the converted result
-	 * @throws ConversionException
 	 */
-	public <T> T asType(Class<T> clazz) throws ConversionException;
+	public <T> T asType(Class<T> clazz);
 }

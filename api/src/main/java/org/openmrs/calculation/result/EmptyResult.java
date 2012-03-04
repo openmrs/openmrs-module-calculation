@@ -55,7 +55,7 @@ public class EmptyResult implements Result {
 	}
 	
 	@Override
-	public <T> T asType(Class<T> clazz) throws ConversionException {
+	public <T> T asType(Class<T> clazz) {
 		throw new ConversionException("Cannot convert an empty result");
 	}
 }
