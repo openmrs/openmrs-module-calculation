@@ -22,15 +22,15 @@ import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.Result;
 
 /**
- * A CalculationEvaluator is responsible for evaluating one or more types of {@link Calculation}s
- * into {@link Result}s. This is where the bulk of all calculations occur, either by performing
- * these calculations directly within the evaluator, or by delegating to service methods that
- * perform calculations. It is highly recommended to extend {@link BaseCalculationEvaluator} rather
- * implementing this class
+ * This is the base interface for all calculation evaluators, a CalculationEvaluator is responsible
+ * for evaluating one or more types of {@link Calculation}s into {@link Result}s. This is where the
+ * bulk of all calculations occur, either by performing these calculations directly within the
+ * evaluator, or by delegating to service methods that perform calculations. It is highly
+ * recommended to extend {@link BaseCalculationEvaluator} rather implementing this class
  * 
  * @see BaseCalculationEvaluator
  */
-public interface CalculationEvaluator extends Evaluator {
+public interface CalculationEvaluator {
 	
 	/**
 	 * Evaluates a calculation for a cohort of patients taking into consideration any specified

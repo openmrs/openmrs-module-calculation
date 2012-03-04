@@ -60,7 +60,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public CalculationContext createCalculationContext() {
-		return new BaseCalculationContext() {};
+		return new DefaultCalculationContext();
 	}
 	
 	/**
@@ -217,7 +217,10 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 				}
 			}
 		}
-		//Should we always check for a null context and pass in a new instance
+		
+		if (context == null)
+			context = createCalculationContext();
+		
 		CohortResult cr = HandlerUtil.getPreferredHandler(CalculationEvaluator.class, calculation.getClass()).evaluate(
 		    cohort, calculation, parameterValues, context);
 		
@@ -227,7 +230,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	/**
 	 * Base class for {@link CalculationContext}s
 	 */
-	public abstract class BaseCalculationContext implements CalculationContext {
+	public class DefaultCalculationContext implements CalculationContext {
 		
 		private Date now = null;
 		

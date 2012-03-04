@@ -25,6 +25,7 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.api.CalculationService;
+import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.CalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
@@ -35,7 +36,15 @@ import org.openmrs.util.OpenmrsUtil;
  * This is an example of the 'short-hand' way of writing a calculation where it evaluates itself
  */
 @Handler(supports = { MostRecentEncounterCalculation.class }, order = 50)
-public class MostRecentEncounterCalculation extends BaseCalculation implements CalculationEvaluator {
+public class MostRecentEncounterCalculation implements Calculation, CalculationEvaluator {
+	
+	/**
+	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionSet()
+	 */
+	@Override
+	public ParameterDefinitionSet getParameterDefinitionSet() {
+		return null;
+	}
 	
 	//Prefix for keys used to map each patient to their most recent encounter in the current context
 	protected static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";
@@ -68,9 +77,6 @@ public class MostRecentEncounterCalculation extends BaseCalculation implements C
 					if (mostRecentEncounterFound != null) {
 						// (As a test usecase) cache the most recent encounter for later use incase the 
 						//caller's next call is for its most recent obs and they share contextual data
-						if (context == null)
-							context = Context.getService(CalculationService.class).createCalculationContext();
-						
 						context.addToCache(MOST_RECENT_ENCOUNTER_KEY_PREFIX + patientId, mostRecentEncounterFound);
 						results.put(patientId, new EncounterResult(mostRecentEncounterFound, calculation, context));
 					} else {

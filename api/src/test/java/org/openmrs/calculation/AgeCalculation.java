@@ -20,11 +20,13 @@ import org.openmrs.calculation.util.CalculationUtil;
  * A simple implementation of a calculation for calculating patient ages and is purely for testing
  * purposes
  */
-public class AgeCalculation extends BaseCalculation {
+public class AgeCalculation implements Calculation {
+	
+	private ParameterDefinitionSet pds = null;
 	
 	public AgeCalculation() {
-		super.getParameterDefinitionSet().add(
-		    CalculationUtil.createParameterDefinition("units", "java.lang.String", "Units Of Age"));
+		pds = new ParameterDefinitionSet();
+		pds.add(CalculationUtil.createParameterDefinition("units", "java.lang.String", "Units Of Age"));
 	}
 	
 	/**
@@ -32,6 +34,6 @@ public class AgeCalculation extends BaseCalculation {
 	 */
 	@Override
 	public ParameterDefinitionSet getParameterDefinitionSet() {
-		return super.getParameterDefinitionSet();
+		return pds;
 	}
 }

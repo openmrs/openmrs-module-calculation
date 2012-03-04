@@ -62,10 +62,8 @@ public class AgeCalculationEvaluator extends BaseCalculationEvaluator {
 				if (patient != null) {
 					DateMidnight birthDate = new DateMidnight(patient.getBirthdate().getTime(), isoChronology);
 					Date date = new Date();//default to current date
-					if (context != null) {
-						if (context.getNow() != null)
-							date = context.getNow();
-					}
+					if (context.getNow() != null)
+						date = context.getNow();
 					
 					DateMidnight asOfDate = new DateMidnight(date.getTime(), isoChronology);
 					Object value = null;

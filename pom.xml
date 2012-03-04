@@ -6,7 +6,7 @@
 	<artifactId>calculation</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Calculation Module</name>
+	<name>Calculation</name>
 	<description>Provides the core functionality for producing a particular piece of data for a single patient or a cohort of patients</description>
 	<url>https://wiki.openmrs.org/display/docs/Logic+2.0+Design</url>
 	

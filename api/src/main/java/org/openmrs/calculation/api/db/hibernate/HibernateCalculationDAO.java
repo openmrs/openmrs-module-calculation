@@ -74,8 +74,9 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	@Override
 	@Transactional(readOnly = true)
 	public TokenRegistration getTokenRegistrationByName(String name) {
-		return (TokenRegistration) getCurrentSession().createQuery("FROM TokenRegistration tr WHERE tr.name = :name")
-		        .setString("name", name).uniqueResult();
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TokenRegistration.class);
+		criteria.add(Restrictions.ilike("name", name, MatchMode.EXACT));
+		return (TokenRegistration) criteria.uniqueResult();
 	}
 	
 	/**

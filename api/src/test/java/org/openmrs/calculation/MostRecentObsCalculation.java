@@ -25,6 +25,7 @@ import org.openmrs.api.ObsService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.CalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
@@ -35,7 +36,15 @@ import org.openmrs.util.OpenmrsUtil;
  * Calculation for most recent obs, this calculation also evaluates itself
  */
 @Handler(supports = { MostRecentObsCalculation.class }, order = 50)
-public class MostRecentObsCalculation extends BaseCalculation implements CalculationEvaluator {
+public class MostRecentObsCalculation implements Calculation, CalculationEvaluator {
+	
+	/**
+	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionSet()
+	 */
+	@Override
+	public ParameterDefinitionSet getParameterDefinitionSet() {
+		return null;
+	}
 	
 	/**
 	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,
@@ -56,14 +65,12 @@ public class MostRecentObsCalculation extends BaseCalculation implements Calcula
 					//check in the cache if we have the most recent encounter
 					Collection<Obs> observations = null;
 					boolean foundCachedEncounter = false;
-					if (context != null) {
-						Object obj = context.getFromCache(MostRecentEncounterCalculation.MOST_RECENT_ENCOUNTER_KEY_PREFIX
+					Object obj = context.getFromCache(MostRecentEncounterCalculation.MOST_RECENT_ENCOUNTER_KEY_PREFIX
 						        + patientId);
 						if (obj != null) {
 							Encounter mostRecentEncounter = (Encounter) obj;
 							observations = mostRecentEncounter.getAllObs(false);
-							foundCachedEncounter = true;
-						}
+						foundCachedEncounter = true;
 					}
 					if (!foundCachedEncounter)
 						observations = os.getObservationsByPerson(patient);

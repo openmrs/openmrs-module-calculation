@@ -14,9 +14,11 @@
 package org.openmrs.calculation.result;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * This class represents a list of {@link Result}s, it a acts a wrapper for an ArrayList.
+ * A {@link Result} backed by a {@link List} of results with convenience methods that get the first
+ * and last results in the backing list
  */
 public class ListResult extends ArrayList<Result> {
 	

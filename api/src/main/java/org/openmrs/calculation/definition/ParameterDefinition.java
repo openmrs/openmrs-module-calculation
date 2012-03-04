@@ -13,12 +13,15 @@
  */
 package org.openmrs.calculation.definition;
 
+import org.openmrs.calculation.api.CalculationContext;
+
 /**
- * {@link Definition}s that implement this interface are evaluated based on the parameters they
- * expose, its highly recommended to extend {@link BaseParameterDefinition} rather implementing this
- * interface
+ * This is the base interface for all parameter definitions, a class that implements this interface
+ * indicates that it represents a definition that can be evaluated in a {@link CalculationContext}
+ * It is highly recommended to extend {@link BaseParameterDefinition} rather implementing this
+ * interface.
  */
-public interface ParameterDefinition extends Definition {
+public interface ParameterDefinition {
 	
 	/**
 	 * @return the key
