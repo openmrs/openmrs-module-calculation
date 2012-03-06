@@ -26,8 +26,8 @@ import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.Result;
 
 /**
- * The RuleService is the primary mechanism for evaluating Rules and for associating Rule instances
- * with saved tokens.
+ * The CalculationService is the primary mechanism for evaluating {@link Calculation}s and for
+ * associating Calculation instances with saved tokens.
  */
 public interface CalculationService extends OpenmrsService {
 	

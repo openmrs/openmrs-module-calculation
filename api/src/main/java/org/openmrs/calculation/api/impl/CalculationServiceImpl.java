@@ -60,7 +60,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	 */
 	@Override
 	public CalculationContext createCalculationContext() {
-		return new DefaultCalculationContext();
+		return new SimpleCalculationContext();
 	}
 	
 	/**
@@ -230,7 +230,7 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	/**
 	 * Base class for {@link CalculationContext}s
 	 */
-	public class DefaultCalculationContext implements CalculationContext {
+	public class SimpleCalculationContext implements CalculationContext {
 		
 		private Date now = null;
 		
