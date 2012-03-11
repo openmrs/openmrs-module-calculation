@@ -22,7 +22,7 @@ import org.openmrs.calculation.api.CalculationContext;
 public interface Result {
 	
 	/**
-	 * @return the Rule that was evaluated to produce this result
+	 * @return the Calculation that was evaluated to produce this result
 	 */
 	public Calculation getCalculation();
 	

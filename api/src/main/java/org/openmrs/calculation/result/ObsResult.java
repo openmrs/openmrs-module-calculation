@@ -22,9 +22,17 @@ import org.openmrs.calculation.api.CalculationContext;
 /**
  * Represents a {@link Result} for an Observation
  */
-public class ObsResult extends BaseDateBasedResult {
+public class ObsResult extends DateBasedResult {
 	
-	private Obs value;
+	/**
+	 * Convenience constructor that takes in an {@link Obs} and {@link Calculation}
+	 * 
+	 * @param obs the obs to set
+	 * @param calculation the calculation to set
+	 */
+	public ObsResult(Obs obs, Calculation calculation) {
+		this(obs, calculation, null);
+	}
 	
 	/**
 	 * Convenience constructor that takes in an {@link Obs}, {@link Calculation} and
@@ -35,24 +43,7 @@ public class ObsResult extends BaseDateBasedResult {
 	 * @param calculationContext the calculationContext to set
 	 */
 	public ObsResult(Obs obs, Calculation calculation, CalculationContext calculationContext) {
-		setValue(obs);
-		setCalculation(calculation);
-		setCalculationContext(calculationContext);
-	}
-	
-	/**
-	 * @return the value
-	 */
-	@Override
-	public Object getValue() {
-		return value;
-	}
-	
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(Obs value) {
-		this.value = value;
+		super(obs, calculation, calculationContext);
 	}
 	
 	/**
@@ -60,9 +51,8 @@ public class ObsResult extends BaseDateBasedResult {
 	 */
 	@Override
 	public Date getDateOfResult() {
-		if (value != null)
-			return value.getObsDatetime();
+		if (getValue() != null)
+			return ((Obs) getValue()).getObsDatetime();
 		return null;
 	}
-	
 }

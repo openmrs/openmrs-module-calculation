@@ -19,7 +19,13 @@ import org.openmrs.calculation.api.CalculationContext;
 /**
  * Provides a simple concrete implementation of a {@link Result} that can be used out of the box.
  */
-public class SimpleResult extends BaseResult {
+public class SimpleResult implements Result {
+	
+	private CalculationContext calculationContext;
+	
+	private Calculation calculation;
+	
+	private Object value;
 	
 	/**
 	 * Convenience constructor that takes in a value and a {@link Calculation}
@@ -43,5 +49,77 @@ public class SimpleResult extends BaseResult {
 		setValue(value);
 		setCalculation(calculation);
 		setCalculationContext(calculationContext);
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#getCalculation()
+	 */
+	@Override
+	public Calculation getCalculation() {
+		return calculation;
+	}
+	
+	/**
+	 * @param calculation the calculation to set
+	 */
+	public void setCalculation(Calculation calculation) {
+		this.calculation = calculation;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#getCalculationContext()
+	 */
+	@Override
+	public CalculationContext getCalculationContext() {
+		return calculationContext;
+	}
+	
+	/**
+	 * @param calculationContext the calculationContext to set
+	 */
+	public void setCalculationContext(CalculationContext calculationContext) {
+		this.calculationContext = calculationContext;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#getValue()
+	 */
+	@Override
+	public Object getValue() {
+		return value;
+	}
+	
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(Object value) {
+		this.value = value;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty() {
+		return getValue() == null;
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.result.Result#asType(java.lang.Class)
+	 */
+	@Override
+	public <T> T asType(Class<T> clazz) {
+		return ResultUtil.convert(this, clazz);
+	}
+	
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		if (value == null)
+			return "";
+		
+		return value.toString();
 	}
 }

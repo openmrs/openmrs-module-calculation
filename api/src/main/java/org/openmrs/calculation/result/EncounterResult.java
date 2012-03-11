@@ -22,9 +22,17 @@ import org.openmrs.calculation.api.CalculationContext;
 /**
  * Represents a {@link Result} for an {@link Encounter}
  */
-public class EncounterResult extends BaseDateBasedResult {
+public class EncounterResult extends DateBasedResult {
 	
-	private Encounter value;
+	/**
+	 * Convenience constructor that takes in an {@link Encounter} and {@link Calculation}
+	 * 
+	 * @param encounter the encounter to set
+	 * @param calculation the calculation to set
+	 */
+	public EncounterResult(Encounter encounter, Calculation calculation) {
+		this(encounter, calculation, null);
+	}
 	
 	/**
 	 * Convenience constructor that takes in an {@link Encounter}, {@link Calculation} and
@@ -35,24 +43,7 @@ public class EncounterResult extends BaseDateBasedResult {
 	 * @param calculationContext the calculationContext to set
 	 */
 	public EncounterResult(Encounter encounter, Calculation calculation, CalculationContext calculationContext) {
-		setValue(encounter);
-		setCalculation(calculation);
-		setCalculationContext(calculationContext);
-	}
-	
-	/**
-	 * @return the value
-	 */
-	@Override
-	public Object getValue() {
-		return value;
-	}
-	
-	/**
-	 * @param value the value to set
-	 */
-	public void setValue(Encounter value) {
-		this.value = value;
+		super(encounter, calculation, calculationContext);
 	}
 	
 	/**
@@ -60,8 +51,8 @@ public class EncounterResult extends BaseDateBasedResult {
 	 */
 	@Override
 	public Date getDateOfResult() {
-		if (value != null)
-			return value.getEncounterDatetime();
+		if (getValue() != null)
+			return ((Encounter) getValue()).getEncounterDatetime();
 		return null;
 	}
 	
