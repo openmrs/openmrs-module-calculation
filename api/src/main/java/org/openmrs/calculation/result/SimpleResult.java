@@ -46,9 +46,9 @@ public class SimpleResult implements Result {
 	 * @param calculationContext the CalculationContext to set
 	 */
 	public SimpleResult(Object value, PatientCalculation calculation, PatientCalculationContext calculationContext) {
-		setValue(value);
-		setCalculation(calculation);
-		setCalculationContext(calculationContext);
+		this.value = value;
+		this.calculation = calculation;
+		this.calculationContext = calculationContext;
 	}
 	
 	/**
