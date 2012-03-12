@@ -13,26 +13,26 @@
  */
 package org.openmrs.calculation.provider;
 
-import org.openmrs.calculation.patient.PatientCalculation;
+import org.openmrs.calculation.Calculation;
 
 /**
- * Base interface for classes responsible for retrieving a {@link PatientCalculation} instance given a
+ * Base interface for classes responsible for retrieving a {@link Calculation} instance given a
  * calculation name and an optional configuration string, a typical implementation of this class
  * could be a spring bean that holds a list of calculations. It should know how to instantiate each
- * one of them based on the name and configuration string
- * {@link #getPatientCalculation(String, String)} is called. The configuration string argument
- * provides an extensibility mechanism for CalculationProviders
+ * one of them based on the name and configuration string {@link #getCalculation(String, String)} is
+ * called. The configuration string argument provides an extensibility mechanism for
+ * CalculationProviders
  */
 public interface CalculationProvider {
 	
 	/**
-	 * Returns a {@link PatientCalculation} instance with the specified calculationName and an optional
+	 * Returns a {@link Calculation} instance with the specified calculationName and an optional
 	 * configuration string
 	 * 
 	 * @param calculationName the name to match against
 	 * @param configuration an optional configuration string to be used while instantiating the
 	 *            calculation
-	 * @return a {@link PatientCalculation}
+	 * @return a {@link Calculation}
 	 */
-	public PatientCalculation getPatientCalculation(String calculationName, String configuration);
+	public Calculation getCalculation(String calculationName, String configuration);
 }

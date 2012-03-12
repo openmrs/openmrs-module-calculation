@@ -148,7 +148,7 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail if any required parameter is not set", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailIfAnyRequiredParameterIsNotSet() throws Exception {
-		PatientCalculation ageCalculation = new DemoCalculationProvider().getPatientCalculation("age", null);
+		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
 		ParameterDefinition requiredDefinition = new SimpleParameterDefinition("testParam", "my data type", null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
 		service.evaluate(2, ageCalculation);
@@ -161,7 +161,7 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a primitive wrapper", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailForABlankValueForARequiredParameterIfDatatypeIsAPrimitiveWrapper() throws Exception {
-		PatientCalculation ageCalculation = new DemoCalculationProvider().getPatientCalculation("age", null);
+		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
 		ParameterDefinition requiredDefinition = new SimpleParameterDefinition("testParam", "java.lang.Integer", null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
 		
@@ -177,7 +177,7 @@ public class CalculationServiceTest extends BaseModuleContextSensitiveTest {
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a String", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailForABlankValueForARequiredParameterIfDatatypeIsAString() throws Exception {
-		PatientCalculation ageCalculation = new DemoCalculationProvider().getPatientCalculation("age", null);
+		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
 		ParameterDefinition requiredDefinition = new SimpleParameterDefinition("testParam", "java.lang.String", null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
 		

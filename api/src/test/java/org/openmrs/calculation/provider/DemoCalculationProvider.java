@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.calculation.AgeCalculation;
+import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.MostRecentEncounterCalculation;
 import org.openmrs.calculation.MostRecentObsCalculation;
 import org.openmrs.calculation.patient.PatientCalculation;
@@ -39,10 +40,10 @@ public class DemoCalculationProvider implements CalculationProvider {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.provider.CalculationProvider#getPatientCalculation(String, String)
+	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculation(String, String)
 	 */
 	@Override
-	public PatientCalculation getPatientCalculation(String calculationName, String configuration) {
+	public Calculation getCalculation(String calculationName, String configuration) {
 		if (calculationName == null)
 			throw new IllegalArgumentException("calculationName cannot be null");
 		
