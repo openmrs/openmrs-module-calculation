@@ -39,10 +39,10 @@ public class DemoCalculationProvider implements CalculationProvider {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculation(String, String)
+	 * @see org.openmrs.calculation.provider.CalculationProvider#getPatientCalculation(String, String)
 	 */
 	@Override
-	public PatientCalculation getCalculation(String calculationName, String configuration) {
+	public PatientCalculation getPatientCalculation(String calculationName, String configuration) {
 		if (calculationName == null)
 			throw new IllegalArgumentException("calculationName cannot be null");
 		
