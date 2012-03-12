@@ -13,18 +13,18 @@
  */
 package org.openmrs.calculation.result;
 
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
- * A Result is the data that is produced from evaluating a {@link Calculation} for a single patient.
+ * A Result is the data that is produced from evaluating a {@link PatientCalculation} for a single patient.
  */
 public interface Result {
 	
 	/**
 	 * @return the Calculation that was evaluated to produce this result
 	 */
-	public Calculation getCalculation();
+	public PatientCalculation getCalculation();
 	
 	/**
 	 * @return the CalculationContext used when the Calculation was evaluated

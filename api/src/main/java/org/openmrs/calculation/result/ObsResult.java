@@ -16,7 +16,7 @@ package org.openmrs.calculation.result;
 import java.util.Date;
 
 import org.openmrs.Obs;
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
@@ -25,24 +25,24 @@ import org.openmrs.calculation.api.CalculationContext;
 public class ObsResult extends DateBasedResult {
 	
 	/**
-	 * Convenience constructor that takes in an {@link Obs} and {@link Calculation}
+	 * Convenience constructor that takes in an {@link Obs} and {@link PatientCalculation}
 	 * 
 	 * @param obs the obs to set
 	 * @param calculation the calculation to set
 	 */
-	public ObsResult(Obs obs, Calculation calculation) {
+	public ObsResult(Obs obs, PatientCalculation calculation) {
 		this(obs, calculation, null);
 	}
 	
 	/**
-	 * Convenience constructor that takes in an {@link Obs}, {@link Calculation} and
+	 * Convenience constructor that takes in an {@link Obs}, {@link PatientCalculation} and
 	 * {@link CalculationContext}
 	 * 
 	 * @param obs the obs to set
 	 * @param calculation the calculation to set
 	 * @param calculationContext the calculationContext to set
 	 */
-	public ObsResult(Obs obs, Calculation calculation, CalculationContext calculationContext) {
+	public ObsResult(Obs obs, PatientCalculation calculation, CalculationContext calculationContext) {
 		super(obs, calculation, calculationContext);
 	}
 	

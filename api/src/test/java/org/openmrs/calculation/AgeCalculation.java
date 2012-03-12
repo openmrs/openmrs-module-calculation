@@ -20,7 +20,7 @@ import org.openmrs.calculation.util.CalculationUtil;
  * A simple implementation of a calculation for calculating patient ages and is purely for testing
  * purposes
  */
-public class AgeCalculation implements Calculation {
+public class AgeCalculation implements PatientCalculation {
 	
 	private ParameterDefinitionSet pds = null;
 	

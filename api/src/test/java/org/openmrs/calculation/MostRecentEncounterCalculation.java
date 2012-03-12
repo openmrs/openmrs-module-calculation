@@ -24,7 +24,7 @@ import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.CalculationContext;
-import org.openmrs.calculation.api.CalculationService;
+import org.openmrs.calculation.api.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.CalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
@@ -36,10 +36,10 @@ import org.openmrs.util.OpenmrsUtil;
  * This is an example of the 'short-hand' way of writing a calculation where it evaluates itself
  */
 @Handler(supports = { MostRecentEncounterCalculation.class }, order = 50)
-public class MostRecentEncounterCalculation implements Calculation, CalculationEvaluator {
+public class MostRecentEncounterCalculation implements PatientCalculation, CalculationEvaluator {
 	
 	/**
-	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionSet()
+	 * @see org.openmrs.calculation.PatientCalculation#getParameterDefinitionSet()
 	 */
 	@Override
 	public ParameterDefinitionSet getParameterDefinitionSet() {
@@ -51,11 +51,11 @@ public class MostRecentEncounterCalculation implements Calculation, CalculationE
 	
 	/**
 	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.Calculation, java.util.Map,
+	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {

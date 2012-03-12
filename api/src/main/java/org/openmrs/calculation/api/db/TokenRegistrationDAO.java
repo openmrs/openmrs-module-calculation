@@ -16,45 +16,45 @@ package org.openmrs.calculation.api.db;
 import java.util.List;
 
 import org.openmrs.calculation.TokenRegistration;
-import org.openmrs.calculation.api.CalculationService;
+import org.openmrs.calculation.api.PatientCalculationService;
 
 /**
- * Database access methods for {@link CalculationService}.
+ * Database access methods for {@link PatientCalculationService}.
  */
-public interface CalculationDAO {
+public interface TokenRegistrationDAO {
 	
 	/**
-	 * @see CalculationService#getTokenRegistration(Integer)
+	 * @see PatientCalculationService#getTokenRegistration(Integer)
 	 */
 	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId);
 	
 	/**
-	 * @see CalculationService#getTokenRegistrationByUuid(String)
+	 * @see PatientCalculationService#getTokenRegistrationByUuid(String)
 	 */
 	public TokenRegistration getTokenRegistrationByUuid(String uuid);
 	
 	/**
-	 * @see CalculationService#getTokenRegistrationByName(String)
+	 * @see PatientCalculationService#getTokenRegistrationByName(String)
 	 */
 	public TokenRegistration getTokenRegistrationByName(String name);
 	
 	/**
-	 * @see CalculationService#getAllTokenRegistrations()
+	 * @see PatientCalculationService#getAllTokenRegistrations()
 	 */
 	public List<TokenRegistration> getAllTokenRegistrations();
 	
 	/**
-	 * @see CalculationService#findTokens(String)
+	 * @see PatientCalculationService#findTokens(String)
 	 */
 	public List<TokenRegistration> findTokens(String partialName);
 	
 	/**
-	 * @see CalculationService#saveTokenRegistration(TokenRegistration)
+	 * @see PatientCalculationService#saveTokenRegistration(TokenRegistration)
 	 */
 	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration);
 	
 	/**
-	 * @see CalculationService#purgeTokenRegistration(TokenRegistration)
+	 * @see PatientCalculationService#purgeTokenRegistration(TokenRegistration)
 	 */
 	public void deleteTokenRegistration(TokenRegistration tokenRegistration);
 	

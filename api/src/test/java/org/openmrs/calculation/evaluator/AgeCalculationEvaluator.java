@@ -27,7 +27,7 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
@@ -44,11 +44,11 @@ public class AgeCalculationEvaluator extends BaseCalculationEvaluator {
 	 * as a parameter value
 	 * 
 	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.Calculation, java.util.Map,
+	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context) {
 		if (calculation == null)
 			throw new IllegalArgumentException("Calculation cannot be null");

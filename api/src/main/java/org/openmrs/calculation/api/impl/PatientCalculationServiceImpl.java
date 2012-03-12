@@ -14,7 +14,6 @@
 package org.openmrs.calculation.api.impl;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -24,12 +23,10 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
-import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.MissingParameterException;
-import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
-import org.openmrs.calculation.api.CalculationService;
-import org.openmrs.calculation.api.db.CalculationDAO;
+import org.openmrs.calculation.api.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.CalculationEvaluator;
@@ -40,23 +37,14 @@ import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.util.HandlerUtil;
 
 /**
- * It is a default implementation of {@link CalculationService}.
+ * It is a default implementation of {@link PatientCalculationService}.
  */
-public class CalculationServiceImpl extends BaseOpenmrsService implements CalculationService {
+public class PatientCalculationServiceImpl extends BaseOpenmrsService implements PatientCalculationService {
 	
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
-	private CalculationDAO dao;
-	
 	/**
-	 * @param dao the dao to set
-	 */
-	public void setDao(CalculationDAO dao) {
-		this.dao = dao;
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.api.CalculationService#createCalculationContext()
+	 * @see org.openmrs.calculation.api.PatientCalculationService#createCalculationContext()
 	 */
 	@Override
 	public CalculationContext createCalculationContext() {
@@ -64,95 +52,41 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistration(java.lang.Integer)
+	 * @see org.openmrs.calculation.api.PatientCalculationService#getCalculation(java.lang.String)
 	 */
 	@Override
-	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) throws APIException {
-		return dao.getTokenRegistration(tokenRegistrationId);
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistrationByUuid(String)
-	 */
-	@Override
-	public TokenRegistration getTokenRegistrationByUuid(String uuid) throws APIException {
-		return dao.getTokenRegistrationByUuid(uuid);
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.api.CalculationService#getTokenRegistrationByName(java.lang.String)
-	 */
-	@Override
-	public TokenRegistration getTokenRegistrationByName(String name) throws APIException {
-		return dao.getTokenRegistrationByName(name);
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.api.CalculationService#getAllTokenRegistrations()
-	 */
-	@Override
-	public List<TokenRegistration> getAllTokenRegistrations() throws APIException {
-		return dao.getAllTokenRegistrations();
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.api.CalculationService#findTokens(java.lang.String)
-	 */
-	@Override
-	public List<TokenRegistration> findTokens(String partialName) throws APIException {
-		return dao.findTokens(partialName);
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.api.CalculationService#saveTokenRegistration(org.openmrs.calculation.TokenRegistration)
-	 */
-	@Override
-	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws APIException {
-		return dao.saveTokenRegistration(tokenRegistration);
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.api.CalculationService#purgeTokenRegistration(TokenRegistration)
-	 */
-	@Override
-	public void purgeTokenRegistration(TokenRegistration tokenRegistration) throws APIException {
-		dao.deleteTokenRegistration(tokenRegistration);
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.api.CalculationService#getCalculation(java.lang.String)
-	 */
-	@Override
-	public Calculation getCalculation(String tokenName) throws APIException {
+	public PatientCalculation getCalculation(String tokenName) throws APIException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#evaluate(java.lang.Integer,
-	 *      org.openmrs.calculation.Calculation)
+	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(java.lang.Integer,
+	 *      org.openmrs.calculation.PatientCalculation)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, Calculation calculation) throws APIException {
+	public Result evaluate(Integer patientId, PatientCalculation calculation) throws APIException {
 		return evaluate(patientId, calculation, null);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#evaluate(java.lang.Integer,
-	 *      org.openmrs.calculation.Calculation, org.openmrs.calculation.api.CalculationContext)
+	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(java.lang.Integer,
+	 *      org.openmrs.calculation.PatientCalculation,
+	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, Calculation calculation, CalculationContext context) throws APIException {
+	public Result evaluate(Integer patientId, PatientCalculation calculation, CalculationContext context)
+	    throws APIException {
 		return evaluate(patientId, calculation, null, context);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#evaluate(java.lang.Integer,
-	 *      org.openmrs.calculation.Calculation, java.util.Map,
+	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(java.lang.Integer,
+	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, Calculation calculation, Map<String, Object> parameterValues,
+	public Result evaluate(Integer patientId, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                       CalculationContext context) throws APIException {
 		Cohort cohort = new Cohort(patientId);
 		cohort.addMember(patientId);
@@ -164,30 +98,32 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.Calculation)
+	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 *      org.openmrs.calculation.PatientCalculation)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation) throws APIException {
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation) throws APIException {
 		return evaluate(cohort, calculation, null);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.Calculation, org.openmrs.calculation.api.CalculationContext)
+	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 *      org.openmrs.calculation.PatientCalculation,
+	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, CalculationContext context) throws APIException {
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, CalculationContext context)
+	    throws APIException {
 		return evaluate(cohort, calculation, null, context);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.CalculationService#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.Calculation, java.util.Map,
+	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context) throws APIException {
 		if (calculation == null)
 			throw new IllegalArgumentException("Calculation cannot be null");
@@ -271,10 +207,10 @@ public class CalculationServiceImpl extends BaseOpenmrsService implements Calcul
 		
 		/**
 		 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(org.openmrs.Cohort,
-		 *      org.openmrs.calculation.Calculation)
+		 *      org.openmrs.calculation.PatientCalculation)
 		 */
 		@Override
-		public CohortResult getFromCache(Cohort cohort, Calculation calculation) {
+		public CohortResult getFromCache(Cohort cohort, PatientCalculation calculation) {
 			//TODO Add implementation code
 			throw null;
 		}

@@ -15,7 +15,7 @@ package org.openmrs.calculation.result;
 
 import java.util.Date;
 
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
@@ -27,14 +27,14 @@ public abstract class DateBasedResult extends SimpleResult {
 	/**
 	 * @see SimpleResult
 	 */
-	public DateBasedResult(Object value, Calculation calculation) {
+	public DateBasedResult(Object value, PatientCalculation calculation) {
 		this(value, calculation, null);
 	}
 	
 	/**
 	 * @see SimpleResult
 	 */
-	public DateBasedResult(Object value, Calculation calculation, CalculationContext calculationContext) {
+	public DateBasedResult(Object value, PatientCalculation calculation, CalculationContext calculationContext) {
 		super(value, calculation, calculationContext);
 	}
 	

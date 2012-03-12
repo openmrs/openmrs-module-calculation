@@ -13,7 +13,7 @@
  */
 package org.openmrs.calculation.result;
 
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.api.CalculationContext;
 
@@ -26,7 +26,7 @@ public class EmptyResult implements Result {
 	 * @see org.openmrs.calculation.result.Result#getCalculation()
 	 */
 	@Override
-	public Calculation getCalculation() {
+	public PatientCalculation getCalculation() {
 		throw null;
 	}
 	

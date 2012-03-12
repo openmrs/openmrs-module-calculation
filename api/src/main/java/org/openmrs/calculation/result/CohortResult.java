@@ -17,10 +17,10 @@ import java.util.LinkedHashMap;
 
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 
 /**
- * A CohortResult is the data that is produced from evaluating a {@link Calculation} for a
+ * A CohortResult is the data that is produced from evaluating a {@link PatientCalculation} for a
  * {@link Cohort} of {@link Patient}s.
  */
 public class CohortResult extends LinkedHashMap<Integer, Result> {

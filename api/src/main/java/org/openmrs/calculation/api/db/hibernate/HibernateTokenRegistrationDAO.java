@@ -23,13 +23,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.calculation.TokenRegistration;
-import org.openmrs.calculation.api.db.CalculationDAO;
+import org.openmrs.calculation.api.db.TokenRegistrationDAO;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * It is a default implementation of {@link CalculationDAO}.
+ * It is a default implementation of {@link TokenRegistrationDAO}.
  */
-public class HibernateCalculationDAO implements CalculationDAO {
+public class HibernateTokenRegistrationDAO implements TokenRegistrationDAO {
 	
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
@@ -50,7 +50,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationDAO#getTokenRegistration(java.lang.Integer)
+	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#getTokenRegistration(java.lang.Integer)
 	 */
 	@Override
 	@Transactional(readOnly = true)
@@ -59,7 +59,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationDAO#getTokenRegistrationByUuid(java.lang.String)
+	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#getTokenRegistrationByUuid(java.lang.String)
 	 */
 	@Override
 	@Transactional(readOnly = true)
@@ -69,7 +69,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationDAO#getTokenRegistrationByName(java.lang.String)
+	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#getTokenRegistrationByName(java.lang.String)
 	 */
 	@Override
 	@Transactional(readOnly = true)
@@ -80,7 +80,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationDAO#getAllTokenRegistrations()
+	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#getAllTokenRegistrations()
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -90,7 +90,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationDAO#findTokens(java.lang.String)
+	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#findTokens(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -102,7 +102,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationDAO#saveTokenRegistration(org.openmrs.calculation.TokenRegistration)
+	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#saveTokenRegistration(org.openmrs.calculation.TokenRegistration)
 	 */
 	@Override
 	@Transactional
@@ -112,7 +112,7 @@ public class HibernateCalculationDAO implements CalculationDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationDAO#deleteTokenRegistration(org.openmrs.calculation.TokenRegistration)
+	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#deleteTokenRegistration(org.openmrs.calculation.TokenRegistration)
 	 */
 	@Override
 	@Transactional

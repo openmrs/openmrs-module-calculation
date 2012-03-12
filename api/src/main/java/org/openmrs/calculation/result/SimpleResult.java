@@ -13,7 +13,7 @@
  */
 package org.openmrs.calculation.result;
 
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
@@ -23,29 +23,29 @@ public class SimpleResult implements Result {
 	
 	private CalculationContext calculationContext;
 	
-	private Calculation calculation;
+	private PatientCalculation calculation;
 	
 	private Object value;
 	
 	/**
-	 * Convenience constructor that takes in a value and a {@link Calculation}
+	 * Convenience constructor that takes in a value and a {@link PatientCalculation}
 	 * 
 	 * @param value the value to set
 	 * @param calculation the calculation to set
 	 */
-	public SimpleResult(Object value, Calculation calculation) {
+	public SimpleResult(Object value, PatientCalculation calculation) {
 		this(value, calculation, null);
 	}
 	
 	/**
-	 * Convenience constructor that takes in a value, a {@link Calculation} and
+	 * Convenience constructor that takes in a value, a {@link PatientCalculation} and
 	 * {@link CalculationContext} in which it was evaluated
 	 * 
 	 * @param value the value to set
 	 * @param calculation the calculation to set
 	 * @param calculationContext the CalculationContext to set
 	 */
-	public SimpleResult(Object value, Calculation calculation, CalculationContext calculationContext) {
+	public SimpleResult(Object value, PatientCalculation calculation, CalculationContext calculationContext) {
 		setValue(value);
 		setCalculation(calculation);
 		setCalculationContext(calculationContext);
@@ -55,14 +55,14 @@ public class SimpleResult implements Result {
 	 * @see org.openmrs.calculation.result.Result#getCalculation()
 	 */
 	@Override
-	public Calculation getCalculation() {
+	public PatientCalculation getCalculation() {
 		return calculation;
 	}
 	
 	/**
 	 * @param calculation the calculation to set
 	 */
-	public void setCalculation(Calculation calculation) {
+	public void setCalculation(PatientCalculation calculation) {
 		this.calculation = calculation;
 	}
 	

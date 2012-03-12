@@ -15,7 +15,7 @@ package org.openmrs.calculation.result;
 
 import java.util.List;
 
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
@@ -28,7 +28,7 @@ public class ListResult implements Result {
 	
 	private CalculationContext calculationContext;
 	
-	private Calculation calculation;
+	private PatientCalculation calculation;
 	
 	private List<Result> results;
 	
@@ -36,14 +36,14 @@ public class ListResult implements Result {
 	 * @see org.openmrs.calculation.result.Result#getCalculation()
 	 */
 	@Override
-	public Calculation getCalculation() {
+	public PatientCalculation getCalculation() {
 		return calculation;
 	}
 	
 	/**
 	 * @param calculation the calculation to set
 	 */
-	public void setCalculation(Calculation calculation) {
+	public void setCalculation(PatientCalculation calculation) {
 		this.calculation = calculation;
 	}
 	

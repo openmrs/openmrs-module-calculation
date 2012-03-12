@@ -21,15 +21,38 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>${project.parent.groupId}.${project.parent.artifactId}.api.CalculationService</value>
+				<value>${project.parent.groupId}.${project.parent.artifactId}.api.PatientCalculationService</value>
 				<bean
 					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.impl.CalculationServiceImpl">
-							<property name="dao" ref="calculationDao" /> 
+						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.impl.PatientCalculationServiceImpl" />
+					</property>
+					<property name="preInterceptors">
+						<ref bean="serviceInterceptors" />
+					</property>
+					<property name="transactionAttributeSource">
+						<ref bean="transactionAttributeSource" />
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>${project.parent.groupId}.${project.parent.artifactId}.api.TokenRegistrationService</value>
+				<bean
+					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager">
+						<ref bean="transactionManager" />
+					</property>
+					<property name="target">
+						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.impl.TokenRegistrationServiceImpl">
+							<property name="dao" ref="tokenRegistrationDao" /> 
 						</bean>
 					</property>
 					<property name="preInterceptors">
@@ -43,7 +66,7 @@
 		</property>
 	</bean>
 	
-	<bean id="calculationDao" class="${project.parent.groupId}.${project.parent.artifactId}.api.db.hibernate.HibernateCalculationDAO">
+	<bean id="tokenRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.api.db.hibernate.HibernateTokenRegistrationDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	

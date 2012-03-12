@@ -18,7 +18,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.calculation.AgeCalculation;
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.MostRecentEncounterCalculation;
 import org.openmrs.calculation.MostRecentObsCalculation;
 
@@ -27,10 +27,10 @@ import org.openmrs.calculation.MostRecentObsCalculation;
  */
 public class DemoCalculationProvider implements CalculationProvider {
 	
-	private Map<String, Class<? extends Calculation>> calculations = new HashMap<String, Class<? extends Calculation>>();
+	private Map<String, Class<? extends PatientCalculation>> calculations = new HashMap<String, Class<? extends PatientCalculation>>();
 	
 	/**
-	 * Convenience constructor that registers the {@link Calculation}s this provider provides
+	 * Convenience constructor that registers the {@link PatientCalculation}s this provider provides
 	 */
 	public DemoCalculationProvider() {
 		calculations.put("age", AgeCalculation.class);
@@ -42,14 +42,14 @@ public class DemoCalculationProvider implements CalculationProvider {
 	 * @see org.openmrs.calculation.provider.CalculationProvider#getCalculation(String, String)
 	 */
 	@Override
-	public Calculation getCalculation(String calculationName, String configuration) {
+	public PatientCalculation getCalculation(String calculationName, String configuration) {
 		if (calculationName == null)
 			throw new IllegalArgumentException("calculationName cannot be null");
 		
-		Class<? extends Calculation> clazz = calculations.get(calculationName);
+		Class<? extends PatientCalculation> clazz = calculations.get(calculationName);
 		if (clazz != null) {
 			try {
-				Calculation calculation = clazz.newInstance();
+				PatientCalculation calculation = clazz.newInstance();
 				if (StringUtils.isNotBlank(configuration)) {
 					//do further initialization
 				}

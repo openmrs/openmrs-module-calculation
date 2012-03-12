@@ -16,7 +16,7 @@ package org.openmrs.calculation.api;
 import java.util.Date;
 
 import org.openmrs.Cohort;
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
 
 /**
@@ -65,7 +65,7 @@ public interface CalculationContext {
 	 * @param calculation
 	 * @return
 	 */
-	public CohortResult getFromCache(Cohort cohort, Calculation calculation);
+	public CohortResult getFromCache(Cohort cohort, PatientCalculation calculation);
 	
 	/**
 	 * Discards the object mapped to the specified key from the cache

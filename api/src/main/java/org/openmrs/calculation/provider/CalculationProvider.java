@@ -13,10 +13,10 @@
  */
 package org.openmrs.calculation.provider;
 
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 
 /**
- * Base interface for classes responsible for retrieving a {@link Calculation} instance given a
+ * Base interface for classes responsible for retrieving a {@link PatientCalculation} instance given a
  * calculation name and an optional configuration string, a typical implementation of this class
  * could be a spring bean that holds a list of calculations. It should know how to instantiate each
  * one of them based on the name and configuration string
@@ -26,13 +26,13 @@ import org.openmrs.calculation.Calculation;
 public interface CalculationProvider {
 	
 	/**
-	 * Returns a {@link Calculation} instance with the specified calculationName and an optional
+	 * Returns a {@link PatientCalculation} instance with the specified calculationName and an optional
 	 * configuration string
 	 * 
 	 * @param calculationName the name to match against
 	 * @param configuration an optional configuration string to be used while instantiating the
 	 *            calculation
-	 * @return a {@link Calculation}
+	 * @return a {@link PatientCalculation}
 	 */
-	public Calculation getCalculation(String calculationName, String configuration);
+	public PatientCalculation getCalculation(String calculationName, String configuration);
 }

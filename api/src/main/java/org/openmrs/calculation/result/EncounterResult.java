@@ -16,7 +16,7 @@ package org.openmrs.calculation.result;
 import java.util.Date;
 
 import org.openmrs.Encounter;
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
 
 /**
@@ -25,24 +25,24 @@ import org.openmrs.calculation.api.CalculationContext;
 public class EncounterResult extends DateBasedResult {
 	
 	/**
-	 * Convenience constructor that takes in an {@link Encounter} and {@link Calculation}
+	 * Convenience constructor that takes in an {@link Encounter} and {@link PatientCalculation}
 	 * 
 	 * @param encounter the encounter to set
 	 * @param calculation the calculation to set
 	 */
-	public EncounterResult(Encounter encounter, Calculation calculation) {
+	public EncounterResult(Encounter encounter, PatientCalculation calculation) {
 		this(encounter, calculation, null);
 	}
 	
 	/**
-	 * Convenience constructor that takes in an {@link Encounter}, {@link Calculation} and
+	 * Convenience constructor that takes in an {@link Encounter}, {@link PatientCalculation} and
 	 * {@link CalculationContext}
 	 * 
 	 * @param encounter the encounter to set
 	 * @param calculation the calculation to set
 	 * @param calculationContext the calculationContext to set
 	 */
-	public EncounterResult(Encounter encounter, Calculation calculation, CalculationContext calculationContext) {
+	public EncounterResult(Encounter encounter, PatientCalculation calculation, CalculationContext calculationContext) {
 		super(encounter, calculation, calculationContext);
 	}
 	

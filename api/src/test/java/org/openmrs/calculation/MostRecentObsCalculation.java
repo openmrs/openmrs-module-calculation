@@ -36,10 +36,10 @@ import org.openmrs.util.OpenmrsUtil;
  * Calculation for most recent obs, this calculation also evaluates itself
  */
 @Handler(supports = { MostRecentObsCalculation.class }, order = 50)
-public class MostRecentObsCalculation implements Calculation, CalculationEvaluator {
+public class MostRecentObsCalculation implements PatientCalculation, CalculationEvaluator {
 	
 	/**
-	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionSet()
+	 * @see org.openmrs.calculation.PatientCalculation#getParameterDefinitionSet()
 	 */
 	@Override
 	public ParameterDefinitionSet getParameterDefinitionSet() {
@@ -48,11 +48,11 @@ public class MostRecentObsCalculation implements Calculation, CalculationEvaluat
 	
 	/**
 	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.Calculation, java.util.Map,
+	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {

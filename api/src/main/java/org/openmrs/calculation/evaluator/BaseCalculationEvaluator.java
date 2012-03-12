@@ -16,7 +16,7 @@ package org.openmrs.calculation.evaluator;
 import java.util.Map;
 
 import org.openmrs.Cohort;
-import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.CalculationContext;
 import org.openmrs.calculation.result.CohortResult;
 
@@ -27,11 +27,11 @@ public abstract class BaseCalculationEvaluator implements CalculationEvaluator {
 	
 	/**
 	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.Calculation, java.util.Map,
+	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.api.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Calculation calculation, Map<String, Object> parameterValues,
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             CalculationContext context) {
 		return new CohortResult();
 	}

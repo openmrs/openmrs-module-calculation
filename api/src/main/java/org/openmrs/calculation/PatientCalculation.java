@@ -17,16 +17,16 @@ import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 
 /**
- * A Calculation represents a definition that can be evaluated to produce data, this is the base
- * interface for all calculations, it is highly recommended that subclasses extend
+ * A PatientCalculation represents a definition that can be evaluated to produce data, this is the
+ * base interface for all calculations, it is highly recommended that subclasses extend
  * {@link BaseCalculation} instead of implementing this interface directly
  * 
  * @see BaseCalculation
  */
-public interface Calculation {
+public interface PatientCalculation {
 	
 	/**
-	 * Gets the {@link ParameterDefinitionSet} for this {@link Calculation}
+	 * Gets the {@link ParameterDefinitionSet} for this {@link PatientCalculation}
 	 * 
 	 * @return a list of {@link ParameterDefinition}s
 	 * @see ParameterDefinitionSet
