@@ -13,12 +13,12 @@
  */
 package org.openmrs.calculation.definition;
 
-import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
 
 /**
  * This is the base interface for all parameter definitions, a class that implements this interface
- * indicates that it represents a definition that can be evaluated in a {@link CalculationContext}
- * It is highly recommended to extend {@link BaseParameterDefinition} rather implementing this
+ * indicates that it represents a definition that can be evaluated in a {@link PatientCalculationContext}
+ * It is highly recommended to extend {@link SimpleParameterDefinition} rather implementing this
  * interface.
  */
 public interface ParameterDefinition {

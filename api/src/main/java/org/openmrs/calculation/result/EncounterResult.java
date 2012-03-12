@@ -17,7 +17,7 @@ import java.util.Date;
 
 import org.openmrs.Encounter;
 import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
 
 /**
  * Represents a {@link Result} for an {@link Encounter}
@@ -36,13 +36,13 @@ public class EncounterResult extends SimpleResult implements DateBasedResult {
 	
 	/**
 	 * Convenience constructor that takes in an {@link Encounter}, {@link PatientCalculation} and
-	 * {@link CalculationContext}
+	 * {@link PatientCalculationContext}
 	 * 
 	 * @param encounter the encounter to set
 	 * @param calculation the calculation to set
 	 * @param calculationContext the calculationContext to set
 	 */
-	public EncounterResult(Encounter encounter, PatientCalculation calculation, CalculationContext calculationContext) {
+	public EncounterResult(Encounter encounter, PatientCalculation calculation, PatientCalculationContext calculationContext) {
 		super(encounter, calculation, calculationContext);
 	}
 	

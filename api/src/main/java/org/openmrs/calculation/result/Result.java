@@ -14,7 +14,7 @@
 package org.openmrs.calculation.result;
 
 import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
 
 /**
  * A Result is the data that is produced from evaluating a {@link PatientCalculation} for a single patient.
@@ -29,7 +29,7 @@ public interface Result {
 	/**
 	 * @return the CalculationContext used when the Calculation was evaluated
 	 */
-	public CalculationContext getCalculationContext();
+	public PatientCalculationContext getCalculationContext();
 	
 	/**
 	 * @return the raw object value (eg. a Patient or an Obs)

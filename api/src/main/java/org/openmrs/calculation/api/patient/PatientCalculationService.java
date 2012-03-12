@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api;
+package org.openmrs.calculation.api.patient;
 
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public interface PatientCalculationService extends OpenmrsService {
 	/**
 	 * @return
 	 */
-	public CalculationContext createCalculationContext();
+	public PatientCalculationContext createCalculationContext();
 	
 	/**
 	 * Gets a {@link PatientCalculation} associated to a {@link TokenRegistration} with a name that
@@ -46,14 +46,14 @@ public interface PatientCalculationService extends OpenmrsService {
 	public PatientCalculation getCalculation(String tokenName) throws APIException;
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, CalculationContext)
+	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, PatientCalculationContext)
 	 */
 	public Result evaluate(Integer patientId, PatientCalculation calculation);
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, Map, CalculationContext)
+	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, Map, PatientCalculationContext)
 	 */
-	public Result evaluate(Integer patientId, PatientCalculation calculation, CalculationContext context)
+	public Result evaluate(Integer patientId, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException;
 	
 	/**
@@ -64,21 +64,21 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @param calculation the calculation to evaluate
 	 * @param parameterValues a map of {@link ParameterDefinition} keys and actual values to be used
 	 *            by the calculation
-	 * @param context the {@link CalculationContext} to be used by this evaluation
+	 * @param context the {@link PatientCalculationContext} to be used by this evaluation
 	 * @return A {@link Result}
 	 */
 	public Result evaluate(Integer patientId, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                       CalculationContext context) throws APIException;
+	                       PatientCalculationContext context) throws APIException;
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation, CalculationContext)
+	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation, PatientCalculationContext)
 	 */
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation) throws APIException;
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation, Map, CalculationContext)
+	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation, Map, PatientCalculationContext)
 	 */
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, CalculationContext context)
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException;
 	
 	/**
@@ -89,13 +89,13 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @param calculation the calculation to evaluate
 	 * @param parameterValues a map of {@link ParameterDefinition} keys and actual values to be used
 	 *            by the calculation
-	 * @param context the {@link CalculationContext} to be used by this evaluation
+	 * @param context the {@link PatientCalculationContext} to be used by this evaluation
 	 * @return A {@link Result}
 	 * @should fail if any required parameter is not set
 	 * @should fail for a blank value for a required parameter if datatype is a primitive wrapper
 	 * @should fail for a blank value for a required parameter if datatype is a String
 	 */
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             CalculationContext context) throws APIException;
+	                             PatientCalculationContext context) throws APIException;
 	
 }

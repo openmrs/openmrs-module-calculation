@@ -72,11 +72,11 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.TokenRegistrationService#findTokens(java.lang.String)
+	 * @see org.openmrs.calculation.api.TokenRegistrationService#findTokenRegistrations(java.lang.String)
 	 */
 	@Override
-	public List<TokenRegistration> findTokens(String partialName) throws APIException {
-		return dao.findTokens(partialName);
+	public List<TokenRegistration> findTokenRegistrations(String partialName) throws APIException {
+		return dao.findTokenRegistrations(partialName);
 	}
 	
 	/**

@@ -23,10 +23,10 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.api.CalculationContext;
-import org.openmrs.calculation.api.PatientCalculationService;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
-import org.openmrs.calculation.evaluator.CalculationEvaluator;
+import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.EncounterResult;
@@ -36,7 +36,7 @@ import org.openmrs.util.OpenmrsUtil;
  * This is an example of the 'short-hand' way of writing a calculation where it evaluates itself
  */
 @Handler(supports = { MostRecentEncounterCalculation.class }, order = 50)
-public class MostRecentEncounterCalculation implements PatientCalculation, CalculationEvaluator {
+public class MostRecentEncounterCalculation implements PatientCalculation, PatientCalculationEvaluator {
 	
 	/**
 	 * @see org.openmrs.calculation.PatientCalculation#getParameterDefinitionSet()
@@ -50,13 +50,13 @@ public class MostRecentEncounterCalculation implements PatientCalculation, Calcu
 	protected static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";
 	
 	/**
-	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.api.CalculationContext)
+	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             CalculationContext context) {
+	                             PatientCalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {
 			PatientService ps = Context.getPatientService();

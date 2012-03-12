@@ -14,7 +14,7 @@
 package org.openmrs.calculation;
 
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
-import org.openmrs.calculation.util.CalculationUtil;
+import org.openmrs.calculation.definition.SimpleParameterDefinition;
 
 /**
  * A simple implementation of a calculation for calculating patient ages and is purely for testing
@@ -26,7 +26,7 @@ public class AgeCalculation implements PatientCalculation {
 	
 	public AgeCalculation() {
 		pds = new ParameterDefinitionSet();
-		pds.add(CalculationUtil.createParameterDefinition("units", "java.lang.String", "Units Of Age"));
+		pds.add(new SimpleParameterDefinition("units", "java.lang.String", "Units Of Age", false));
 	}
 	
 	/**

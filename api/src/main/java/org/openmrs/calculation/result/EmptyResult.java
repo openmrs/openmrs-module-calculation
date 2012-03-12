@@ -15,7 +15,7 @@ package org.openmrs.calculation.result;
 
 import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.ConversionException;
-import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
 
 /**
  * Represents a {@link Result} with no data
@@ -34,7 +34,7 @@ public class EmptyResult implements Result {
 	 * @see org.openmrs.calculation.result.Result#getCalculationContext()
 	 */
 	@Override
-	public CalculationContext getCalculationContext() {
+	public PatientCalculationContext getCalculationContext() {
 		throw null;
 	}
 	

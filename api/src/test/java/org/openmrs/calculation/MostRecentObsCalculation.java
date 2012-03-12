@@ -24,9 +24,9 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
-import org.openmrs.calculation.evaluator.CalculationEvaluator;
+import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.ObsResult;
@@ -36,7 +36,7 @@ import org.openmrs.util.OpenmrsUtil;
  * Calculation for most recent obs, this calculation also evaluates itself
  */
 @Handler(supports = { MostRecentObsCalculation.class }, order = 50)
-public class MostRecentObsCalculation implements PatientCalculation, CalculationEvaluator {
+public class MostRecentObsCalculation implements PatientCalculation, PatientCalculationEvaluator {
 	
 	/**
 	 * @see org.openmrs.calculation.PatientCalculation#getParameterDefinitionSet()
@@ -47,13 +47,13 @@ public class MostRecentObsCalculation implements PatientCalculation, Calculation
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.api.CalculationContext)
+	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             CalculationContext context) {
+	                             PatientCalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {
 			PatientService ps = Context.getPatientService();

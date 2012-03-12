@@ -11,13 +11,13 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.evaluator;
+package org.openmrs.calculation.evaluator.patient;
 
 import java.util.Map;
 
 import org.openmrs.Cohort;
 import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.Result;
 
@@ -30,7 +30,7 @@ import org.openmrs.calculation.result.Result;
  * 
  * @see BaseCalculationEvaluator
  */
-public interface CalculationEvaluator {
+public interface PatientCalculationEvaluator {
 	
 	/**
 	 * Evaluates a calculation for a cohort of patients taking into consideration any specified
@@ -40,10 +40,10 @@ public interface CalculationEvaluator {
 	 * @param calculation the {@link PatientCalculation} to evaluate
 	 * @param parameterValues a map of parameter values, takes the form
 	 *            Map&lt;ParameterDefinition.key, Object Value&gt;
-	 * @param context the {@link CalculationContext} to use while performing the evaluation
+	 * @param context the {@link PatientCalculationContext} to use while performing the evaluation
 	 * @return a {@link CohortResult}
 	 */
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             CalculationContext context);
+	                             PatientCalculationContext context);
 	
 }

@@ -28,7 +28,8 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.SimpleResult;
@@ -37,19 +38,19 @@ import org.openmrs.calculation.result.SimpleResult;
  * Test Age calculation evaluator that calculates the age of every single patient in a cohort
  */
 @Handler(supports = { AgeCalculation.class }, order = 50)
-public class AgeCalculationEvaluator extends BaseCalculationEvaluator {
+public class AgeCalculationEvaluator implements PatientCalculationEvaluator {
 	
 	/**
 	 * Calculates the age of a patient in years, months weekd etc. depending on the units specified
 	 * as a parameter value
 	 * 
-	 * @see org.openmrs.calculation.evaluator.CalculationEvaluator#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.api.CalculationContext)
+	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             CalculationContext context) {
+	                             PatientCalculationContext context) {
 		if (calculation == null)
 			throw new IllegalArgumentException("Calculation cannot be null");
 		

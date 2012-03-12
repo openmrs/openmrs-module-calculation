@@ -16,45 +16,45 @@ package org.openmrs.calculation.api.db;
 import java.util.List;
 
 import org.openmrs.calculation.TokenRegistration;
-import org.openmrs.calculation.api.PatientCalculationService;
+import org.openmrs.calculation.api.TokenRegistrationService;
 
 /**
- * Database access methods for {@link PatientCalculationService}.
+ * Database access methods for {@link TokenRegistrationService}.
  */
 public interface TokenRegistrationDAO {
 	
 	/**
-	 * @see PatientCalculationService#getTokenRegistration(Integer)
+	 * @see TokenRegistrationService#getTokenRegistration(Integer)
 	 */
 	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId);
 	
 	/**
-	 * @see PatientCalculationService#getTokenRegistrationByUuid(String)
+	 * @see TokenRegistrationService#getTokenRegistrationByUuid(String)
 	 */
 	public TokenRegistration getTokenRegistrationByUuid(String uuid);
 	
 	/**
-	 * @see PatientCalculationService#getTokenRegistrationByName(String)
+	 * @see TokenRegistrationService#getTokenRegistrationByName(String)
 	 */
 	public TokenRegistration getTokenRegistrationByName(String name);
 	
 	/**
-	 * @see PatientCalculationService#getAllTokenRegistrations()
+	 * @see TokenRegistrationService#getAllTokenRegistrations()
 	 */
 	public List<TokenRegistration> getAllTokenRegistrations();
 	
 	/**
-	 * @see PatientCalculationService#findTokens(String)
+	 * @see TokenRegistrationService#findTokenRegistrations(String)
 	 */
-	public List<TokenRegistration> findTokens(String partialName);
+	public List<TokenRegistration> findTokenRegistrations(String partialName);
 	
 	/**
-	 * @see PatientCalculationService#saveTokenRegistration(TokenRegistration)
+	 * @see TokenRegistrationService#saveTokenRegistration(TokenRegistration)
 	 */
 	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration);
 	
 	/**
-	 * @see PatientCalculationService#purgeTokenRegistration(TokenRegistration)
+	 * @see TokenRegistrationService#purgeTokenRegistration(TokenRegistration)
 	 */
 	public void deleteTokenRegistration(TokenRegistration tokenRegistration);
 	

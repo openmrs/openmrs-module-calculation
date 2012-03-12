@@ -16,7 +16,7 @@ package org.openmrs.calculation.result;
 import java.util.List;
 
 import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.CalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
 
 /**
  * A {@link Result} backed by a {@link List} of results with convenience methods that get the first
@@ -26,7 +26,7 @@ public class ListResult implements Result {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private CalculationContext calculationContext;
+	private PatientCalculationContext calculationContext;
 	
 	private PatientCalculation calculation;
 	
@@ -51,14 +51,14 @@ public class ListResult implements Result {
 	 * @see org.openmrs.calculation.result.Result#getCalculationContext()
 	 */
 	@Override
-	public CalculationContext getCalculationContext() {
+	public PatientCalculationContext getCalculationContext() {
 		return calculationContext;
 	}
 	
 	/**
 	 * @param calculationContext the calculationContext to set
 	 */
-	public void setCalculationContext(CalculationContext calculationContext) {
+	public void setCalculationContext(PatientCalculationContext calculationContext) {
 		this.calculationContext = calculationContext;
 	}
 	

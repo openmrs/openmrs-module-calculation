@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api;
+package org.openmrs.calculation.api.patient;
 
 import java.util.Date;
 
@@ -23,7 +23,7 @@ import org.openmrs.calculation.result.CohortResult;
  * A CalculationContext contains any contextual information that may be shared across one or more
  * Calculation evaluations
  */
-public interface CalculationContext {
+public interface PatientCalculationContext {
 	
 	/**
 	 * Gets the date against which the evaluation for this context should be based

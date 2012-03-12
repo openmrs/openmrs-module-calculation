@@ -90,12 +90,12 @@ public class HibernateTokenRegistrationDAO implements TokenRegistrationDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#findTokens(java.lang.String)
+	 * @see org.openmrs.calculation.api.db.TokenRegistrationDAO#findTokenRegistrations(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
-	public List<TokenRegistration> findTokens(String partialName) {
+	public List<TokenRegistration> findTokenRegistrations(String partialName) {
 		Criteria criteria = getCurrentSession().createCriteria(TokenRegistration.class);
 		criteria.add(Restrictions.ilike("name", partialName, MatchMode.ANYWHERE));
 		return criteria.list();

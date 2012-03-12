@@ -16,9 +16,10 @@ package org.openmrs.calculation.definition;
 import org.openmrs.util.OpenmrsUtil;
 
 /**
- * Base class for {@link ParameterDefinition}s.
+ * A simple implementation of the {@link ParameterDefinition} interface, you can create your own
+ * implementations of the interface but this should satisfy most use cases
  */
-public abstract class BaseParameterDefinition implements ParameterDefinition {
+public class SimpleParameterDefinition implements ParameterDefinition {
 	
 	/**
 	 * Unique identifier for a calculation and and expected to be a valid java variable name.
@@ -45,6 +46,40 @@ public abstract class BaseParameterDefinition implements ParameterDefinition {
 	 * non-null value for evaluation to occur
 	 */
 	private boolean required;
+	
+	/**
+	 * Convenience constructor
+	 * 
+	 * @param key the key to set
+	 * @param datatype the datatype to set
+	 * @param name the name to set
+	 * @param required whether this property should be marked as required or not for the evaluation
+	 *            of the associated calculation to occur
+	 * @param description the description to set
+	 */
+	public SimpleParameterDefinition(String key, String datatype, String name, boolean required, String description) {
+		this.key = key;
+		this.datatype = datatype;
+		this.name = name;
+		this.required = required;
+		this.description = description;
+	}
+	
+	/**
+	 * Convenience constructor
+	 * 
+	 * @param key the key to set
+	 * @param datatype the datatype to set
+	 * @param name the name to set
+	 * @param required whether this property should be marked as required or not for the evaluation
+	 *            of the associated calculation to occur
+	 */
+	public SimpleParameterDefinition(String key, String datatype, String name, boolean required) {
+		this.key = key;
+		this.datatype = datatype;
+		this.name = name;
+		this.required = required;
+	}
 	
 	/**
 	 * @see org.openmrs.calculation.definition.ParameterDefinition#getKey()

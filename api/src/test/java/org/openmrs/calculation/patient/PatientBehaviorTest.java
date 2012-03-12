@@ -28,8 +28,8 @@ import org.openmrs.Obs;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.CalculationContext;
-import org.openmrs.calculation.api.PatientCalculationService;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.CalculationProvider;
@@ -86,7 +86,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		int patientId = 2;
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
-		CalculationContext ctxt = getService().createCalculationContext();
+		PatientCalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setNow(date);
 		
 		int expected = Context.getPatientService().getPatient(patientId).getAge(date);
@@ -109,7 +109,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		int patientId = 2;
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
-		CalculationContext ctxt = getService().createCalculationContext();
+		PatientCalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setNow(date);
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put(pd.getKey(), "months");
@@ -145,7 +145,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		cohort.addMember(patientId2);
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
-		CalculationContext ctxt = getService().createCalculationContext();
+		PatientCalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setNow(date);
 		
 		PatientService ps = Context.getPatientService();
@@ -167,7 +167,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		cohort.addMember(patientId2);
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
-		CalculationContext ctxt = getService().createCalculationContext();
+		PatientCalculationContext ctxt = getService().createCalculationContext();
 		ctxt.setNow(date);
 		
 		ParameterDefinition pd = ageCalculation.getParameterDefinitionSet().getParameterByKey("units");

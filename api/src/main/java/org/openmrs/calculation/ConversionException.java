@@ -28,7 +28,8 @@ public class ConversionException extends APIException {
 	
 	@SuppressWarnings("rawtypes")
 	public ConversionException(Object value, Class toClass) {
-		this("Cannot cast the value '" + value + "' of type '" + value.getClass() + "' to '" + toClass + "'");
+		this("Cannot cast the value '" + value + "'" + (value != null ? " of type '" + value.getClass() + "'" : "")
+		        + " to '" + toClass + "'");
 	}
 	
 	public ConversionException(String message) {

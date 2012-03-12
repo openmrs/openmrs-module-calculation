@@ -25,11 +25,11 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.CalculationContext;
-import org.openmrs.calculation.api.PatientCalculationService;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
-import org.openmrs.calculation.evaluator.CalculationEvaluator;
+import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.Result;
@@ -44,15 +44,15 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
 	/**
-	 * @see org.openmrs.calculation.api.PatientCalculationService#createCalculationContext()
+	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#createCalculationContext()
 	 */
 	@Override
-	public CalculationContext createCalculationContext() {
+	public PatientCalculationContext createCalculationContext() {
 		return new SimpleCalculationContext();
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.PatientCalculationService#getCalculation(java.lang.String)
+	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#getCalculation(java.lang.String)
 	 */
 	@Override
 	public PatientCalculation getCalculation(String tokenName) throws APIException {
@@ -61,7 +61,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(java.lang.Integer,
+	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(java.lang.Integer,
 	 *      org.openmrs.calculation.PatientCalculation)
 	 */
 	@Override
@@ -70,24 +70,24 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(java.lang.Integer,
+	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(java.lang.Integer,
 	 *      org.openmrs.calculation.PatientCalculation,
-	 *      org.openmrs.calculation.api.CalculationContext)
+	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, PatientCalculation calculation, CalculationContext context)
+	public Result evaluate(Integer patientId, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException {
 		return evaluate(patientId, calculation, null, context);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(java.lang.Integer,
+	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(java.lang.Integer,
 	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.api.CalculationContext)
+	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
 	public Result evaluate(Integer patientId, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                       CalculationContext context) throws APIException {
+	                       PatientCalculationContext context) throws APIException {
 		Cohort cohort = new Cohort(patientId);
 		cohort.addMember(patientId);
 		CohortResult cr = evaluate(cohort, calculation, parameterValues, context);
@@ -98,7 +98,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.PatientCalculation)
 	 */
 	@Override
@@ -107,24 +107,24 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.PatientCalculation,
-	 *      org.openmrs.calculation.api.CalculationContext)
+	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, CalculationContext context)
+	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException {
 		return evaluate(cohort, calculation, null, context);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.api.CalculationContext)
+	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             CalculationContext context) throws APIException {
+	                             PatientCalculationContext context) throws APIException {
 		if (calculation == null)
 			throw new IllegalArgumentException("Calculation cannot be null");
 		ParameterDefinitionSet defs = calculation.getParameterDefinitionSet();
@@ -157,23 +157,23 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		if (context == null)
 			context = createCalculationContext();
 		
-		CohortResult cr = HandlerUtil.getPreferredHandler(CalculationEvaluator.class, calculation.getClass()).evaluate(
+		CohortResult cr = HandlerUtil.getPreferredHandler(PatientCalculationEvaluator.class, calculation.getClass()).evaluate(
 		    cohort, calculation, parameterValues, context);
 		
 		return cr;
 	}
 	
 	/**
-	 * Base class for {@link CalculationContext}s
+	 * Base class for {@link PatientCalculationContext}s
 	 */
-	public class SimpleCalculationContext implements CalculationContext {
+	public class SimpleCalculationContext implements PatientCalculationContext {
 		
 		private Date now = null;
 		
 		private Map<String, Object> contextCache = new WeakHashMap<String, Object>();
 		
 		/**
-		 * @see org.openmrs.calculation.api.CalculationContext#getNow()
+		 * @see org.openmrs.calculation.api.patient.PatientCalculationContext#getNow()
 		 */
 		@Override
 		public Date getNow() {
@@ -181,7 +181,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		}
 		
 		/**
-		 * @see org.openmrs.calculation.api.CalculationContext#setNow(java.util.Date)
+		 * @see org.openmrs.calculation.api.patient.PatientCalculationContext#setNow(java.util.Date)
 		 */
 		@Override
 		public void setNow(Date date) {
@@ -189,7 +189,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		}
 		
 		/**
-		 * @see org.openmrs.calculation.api.CalculationContext#addToCache(java.lang.String,
+		 * @see org.openmrs.calculation.api.patient.PatientCalculationContext#addToCache(java.lang.String,
 		 *      java.lang.Object)
 		 */
 		@Override
@@ -198,7 +198,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		}
 		
 		/**
-		 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(java.lang.String)
+		 * @see org.openmrs.calculation.api.patient.PatientCalculationContext#getFromCache(java.lang.String)
 		 */
 		@Override
 		public Object getFromCache(String key) {
@@ -206,7 +206,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		}
 		
 		/**
-		 * @see org.openmrs.calculation.api.CalculationContext#getFromCache(org.openmrs.Cohort,
+		 * @see org.openmrs.calculation.api.patient.PatientCalculationContext#getFromCache(org.openmrs.Cohort,
 		 *      org.openmrs.calculation.PatientCalculation)
 		 */
 		@Override
@@ -216,7 +216,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		}
 		
 		/**
-		 * @see org.openmrs.calculation.api.CalculationContext#removeFromCache(java.lang.String)
+		 * @see org.openmrs.calculation.api.patient.PatientCalculationContext#removeFromCache(java.lang.String)
 		 */
 		@Override
 		public void removeFromCache(String key) {

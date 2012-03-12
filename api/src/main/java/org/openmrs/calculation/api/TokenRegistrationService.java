@@ -76,7 +76,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @return a list of {@link TokenRegistration}s
 	 * @should get all tokenRegistrations with a matching name
 	 */
-	public List<TokenRegistration> findTokens(String partialName) throws APIException;
+	public List<TokenRegistration> findTokenRegistrations(String partialName) throws APIException;
 	
 	/**
 	 * Purges the specified token from the database

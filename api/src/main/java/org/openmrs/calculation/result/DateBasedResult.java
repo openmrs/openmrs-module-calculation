@@ -25,7 +25,7 @@ public interface DateBasedResult extends Result {
 	 * Returns the date of occurrence of the value that is associated to the result e.g if this is
 	 * an EncounterResult, it would be encounterDatetime
 	 * 
-	 * @return the date when the calculation occurred
+	 * @return the date of occurrence
 	 */
-	public abstract Date getDateOfResult();
+	public Date getDateOfResult();
 }
