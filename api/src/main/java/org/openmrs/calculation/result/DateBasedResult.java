@@ -15,28 +15,11 @@ package org.openmrs.calculation.result;
 
 import java.util.Date;
 
-import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.CalculationContext;
-
 /**
- * Base class for {@link Result}s with values that occur on specific dates e.g Encounter has an
+ * Base interface for {@link Result}s with values that occur on specific dates e.g Encounter has an
  * encounterDatetime
  */
-public abstract class DateBasedResult extends SimpleResult {
-	
-	/**
-	 * @see SimpleResult
-	 */
-	public DateBasedResult(Object value, PatientCalculation calculation) {
-		this(value, calculation, null);
-	}
-	
-	/**
-	 * @see SimpleResult
-	 */
-	public DateBasedResult(Object value, PatientCalculation calculation, CalculationContext calculationContext) {
-		super(value, calculation, calculationContext);
-	}
+public interface DateBasedResult extends Result {
 	
 	/**
 	 * Returns the date of occurrence of the value that is associated to the result e.g if this is
