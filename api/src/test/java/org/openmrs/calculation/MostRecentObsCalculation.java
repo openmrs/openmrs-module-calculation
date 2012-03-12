@@ -27,6 +27,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
+import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.ObsResult;
@@ -39,7 +40,7 @@ import org.openmrs.util.OpenmrsUtil;
 public class MostRecentObsCalculation implements PatientCalculation, PatientCalculationEvaluator {
 	
 	/**
-	 * @see org.openmrs.calculation.PatientCalculation#getParameterDefinitionSet()
+	 * @see org.openmrs.calculation.patient.PatientCalculation#getParameterDefinitionSet()
 	 */
 	@Override
 	public ParameterDefinitionSet getParameterDefinitionSet() {
@@ -48,7 +49,7 @@ public class MostRecentObsCalculation implements PatientCalculation, PatientCalc
 	
 	/**
 	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
+	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override

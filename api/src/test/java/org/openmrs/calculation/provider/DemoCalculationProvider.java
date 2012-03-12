@@ -18,9 +18,9 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.calculation.AgeCalculation;
-import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.MostRecentEncounterCalculation;
 import org.openmrs.calculation.MostRecentObsCalculation;
+import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
  * A simple {@link CalculationProvider} for testing purposes

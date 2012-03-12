@@ -27,9 +27,9 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
-import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
+import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyResult;
 import org.openmrs.calculation.result.SimpleResult;
@@ -45,7 +45,7 @@ public class AgeCalculationEvaluator implements PatientCalculationEvaluator {
 	 * as a parameter value
 	 * 
 	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.PatientCalculation, java.util.Map,
+	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override

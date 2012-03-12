@@ -13,9 +13,9 @@
  */
 package org.openmrs.calculation.result;
 
-import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
  * Represents a {@link Result} with no data

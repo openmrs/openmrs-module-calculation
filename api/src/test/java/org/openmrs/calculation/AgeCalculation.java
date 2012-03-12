@@ -15,6 +15,7 @@ package org.openmrs.calculation;
 
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.definition.SimpleParameterDefinition;
+import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
  * A simple implementation of a calculation for calculating patient ages and is purely for testing

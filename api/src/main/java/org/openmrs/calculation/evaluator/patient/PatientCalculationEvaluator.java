@@ -16,17 +16,16 @@ package org.openmrs.calculation.evaluator.patient;
 import java.util.Map;
 
 import org.openmrs.Cohort;
-import org.openmrs.calculation.PatientCalculation;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.Result;
 
 /**
- * This is the base interface for all calculation evaluators, a CalculationEvaluator is responsible
- * for evaluating one or more types of {@link PatientCalculation}s into {@link Result}s. This is where the
- * bulk of all calculations occur, either by performing these calculations directly within the
- * evaluator, or by delegating to service methods that perform calculations. It is highly
- * recommended to extend {@link BaseCalculationEvaluator} rather implementing this class
+ * Base interface for all patient calculation evaluators, a PatientCalculationEvaluator is
+ * responsible for evaluating one or more types of {@link PatientCalculation}s into {@link Result}s.
+ * This is where the bulk of all calculations occur, either by performing these calculations
+ * directly within the evaluator, or by delegating to service methods that perform calculations.
  * 
  * @see BaseCalculationEvaluator
  */

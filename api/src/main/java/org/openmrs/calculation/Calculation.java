@@ -11,19 +11,22 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.result;
+package org.openmrs.calculation;
 
-import java.util.LinkedHashMap;
-
-import org.openmrs.Cohort;
-import org.openmrs.Patient;
+import org.openmrs.calculation.definition.ParameterDefinition;
+import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
- * A CohortResult is the data that is produced from evaluating a {@link PatientCalculation} for a
- * {@link Cohort} of {@link Patient}s.
+ * Super interface for all calculations
  */
-public class CohortResult extends LinkedHashMap<Integer, Result> {
+public interface Calculation {
 	
-	private static final long serialVersionUID = 1L;
+	/**
+	 * Gets the {@link ParameterDefinitionSet} for this {@link PatientCalculation}
+	 * 
+	 * @return a list of {@link ParameterDefinition}s
+	 * @see ParameterDefinitionSet
+	 */
+	public ParameterDefinitionSet getParameterDefinitionSet();
 }

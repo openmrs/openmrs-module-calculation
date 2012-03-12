@@ -13,7 +13,7 @@
  */
 package org.openmrs.calculation.provider;
 
-import org.openmrs.calculation.PatientCalculation;
+import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
  * Base interface for classes responsible for retrieving a {@link PatientCalculation} instance given a

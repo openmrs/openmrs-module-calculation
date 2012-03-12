@@ -13,64 +13,11 @@
  */
 package org.openmrs.calculation.api.patient;
 
-import java.util.Date;
-
-import org.openmrs.Cohort;
-import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.CalculationContext;
 
 /**
- * A CalculationContext contains any contextual information that may be shared across one or more
- * Calculation evaluations
+ * A {@link CalculationContext} implementation that is specific to patient calculations
  */
-public interface PatientCalculationContext {
-	
-	/**
-	 * Gets the date against which the evaluation for this context should be based
-	 * 
-	 * @return the index date
-	 */
-	public Date getNow();
-	
-	/**
-	 * Sets the date against which the evaluation for this context should be based
-	 * 
-	 * @param date the index date to set to
-	 */
-	public void setNow(Date date);
-	
-	/**
-	 * Adds an object to the cache mapped to the specified key
-	 * 
-	 * @param key the key for object to cache
-	 * @param value the value for the object to cache
-	 */
-	public void addToCache(String key, Object value);
-	
-	/**
-	 * Retrieves an object from the cache mapped to the specified key, or null if this context
-	 * contains no mapping for the key.
-	 * 
-	 * @param key the key for the cached object to look up
-	 * @return the Cached object
-	 */
-	public Object getFromCache(String key);
-	
-	/**
-	 * Fetches a {@link CohortResult} from the cache that was a result of an earlier evaluation of
-	 * the specified calculation for the specified {@link Cohort} of patients, or null if this
-	 * context contains no match
-	 * 
-	 * @param cohort
-	 * @param calculation
-	 * @return
-	 */
-	public CohortResult getFromCache(Cohort cohort, PatientCalculation calculation);
-	
-	/**
-	 * Discards the object mapped to the specified key from the cache
-	 * 
-	 * @param key the unique key for the object to remove
-	 */
-	public void removeFromCache(String key);
+public interface PatientCalculationContext extends CalculationContext {
+
 }

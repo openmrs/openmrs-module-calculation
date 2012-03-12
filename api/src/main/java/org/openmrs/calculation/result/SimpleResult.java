@@ -13,39 +13,39 @@
  */
 package org.openmrs.calculation.result;
 
-import org.openmrs.calculation.PatientCalculation;
-import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.CalculationContext;
 
 /**
  * Provides a simple concrete implementation of a {@link Result} that can be used out of the box.
  */
 public class SimpleResult implements Result {
 	
-	private PatientCalculationContext calculationContext;
+	private CalculationContext calculationContext;
 	
-	private PatientCalculation calculation;
+	private Calculation calculation;
 	
 	private Object value;
 	
 	/**
-	 * Convenience constructor that takes in a value and a {@link PatientCalculation}
+	 * Convenience constructor that takes in a value and a {@link Calculation}
 	 * 
 	 * @param value the value to set
 	 * @param calculation the calculation to set
 	 */
-	public SimpleResult(Object value, PatientCalculation calculation) {
+	public SimpleResult(Object value, Calculation calculation) {
 		this(value, calculation, null);
 	}
 	
 	/**
-	 * Convenience constructor that takes in a value, a {@link PatientCalculation} and
-	 * {@link PatientCalculationContext} in which it was evaluated
+	 * Convenience constructor that takes in a value, a {@link Calculation} and
+	 * {@link CalculationContext} in which it was evaluated
 	 * 
 	 * @param value the value to set
 	 * @param calculation the calculation to set
 	 * @param calculationContext the CalculationContext to set
 	 */
-	public SimpleResult(Object value, PatientCalculation calculation, PatientCalculationContext calculationContext) {
+	public SimpleResult(Object value, Calculation calculation, CalculationContext calculationContext) {
 		this.value = value;
 		this.calculation = calculation;
 		this.calculationContext = calculationContext;
@@ -55,14 +55,14 @@ public class SimpleResult implements Result {
 	 * @see org.openmrs.calculation.result.Result#getCalculation()
 	 */
 	@Override
-	public PatientCalculation getCalculation() {
+	public Calculation getCalculation() {
 		return calculation;
 	}
 	
 	/**
 	 * @param calculation the calculation to set
 	 */
-	public void setCalculation(PatientCalculation calculation) {
+	public void setCalculation(Calculation calculation) {
 		this.calculation = calculation;
 	}
 	
@@ -70,14 +70,14 @@ public class SimpleResult implements Result {
 	 * @see org.openmrs.calculation.result.Result#getCalculationContext()
 	 */
 	@Override
-	public PatientCalculationContext getCalculationContext() {
+	public CalculationContext getCalculationContext() {
 		return calculationContext;
 	}
 	
 	/**
 	 * @param calculationContext the calculationContext to set
 	 */
-	public void setCalculationContext(PatientCalculationContext calculationContext) {
+	public void setCalculationContext(CalculationContext calculationContext) {
 		this.calculationContext = calculationContext;
 	}
 	

@@ -11,25 +11,14 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation;
+package org.openmrs.calculation.patient;
 
-import org.openmrs.calculation.definition.ParameterDefinition;
-import org.openmrs.calculation.definition.ParameterDefinitionSet;
+import org.openmrs.calculation.Calculation;
 
 /**
  * A PatientCalculation represents a definition that can be evaluated to produce data, this is the
- * base interface for all calculations, it is highly recommended that subclasses extend
- * {@link BaseCalculation} instead of implementing this interface directly
- * 
- * @see BaseCalculation
+ * base interface for all Patient calculations.
  */
-public interface PatientCalculation {
-	
-	/**
-	 * Gets the {@link ParameterDefinitionSet} for this {@link PatientCalculation}
-	 * 
-	 * @return a list of {@link ParameterDefinition}s
-	 * @see ParameterDefinitionSet
-	 */
-	public ParameterDefinitionSet getParameterDefinitionSet();
+public interface PatientCalculation extends Calculation {
+
 }
