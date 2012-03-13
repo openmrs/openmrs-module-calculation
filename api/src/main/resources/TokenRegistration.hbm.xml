@@ -18,6 +18,8 @@
         
         <property name="providerClassName" type="java.lang.String" column="provider_class_name" not-null="true" length="512" />
         
+        <property name="calculationName" type="java.lang.String" column="calculation_name" not-null="true" length="512" />
+        
         <property name="configuration" type="java.lang.String" length="65535" />
         
         <property name="description" type="java.lang.String" column="description" length="255" />

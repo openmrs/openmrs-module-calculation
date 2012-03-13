@@ -19,15 +19,17 @@ import org.openmrs.util.OpenmrsUtil;
 /**
  * A TokenRegistration represents a saved Calculation instance. The intention is to allow a fully
  * configured Calculation instance to be retrieved given a unique name String.
+ * The "name" property of the TokenRegistration is the unique Token that is Registered.
+ * The "providerClassName" + "calculationName" + "configuration" properties fully describe how
+ * the Calculation instance should be constructed and returned for this token
  */
 public class TokenRegistration extends BaseOpenmrsMetadata implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private Integer tokenRegistrationId;
-	
 	private String providerClassName;
-	
+	private String calculationName;
 	private String configuration;
 	
 	/**
@@ -58,6 +60,20 @@ public class TokenRegistration extends BaseOpenmrsMetadata implements java.io.Se
 		this.providerClassName = providerClassName;
 	}
 	
+	/**
+	 * @return the calculationName
+	 */
+	public String getCalculationName() {
+		return calculationName;
+	}
+
+	/**
+	 * @param calculationName the calculationName to set
+	 */
+	public void setCalculationName(String calculationName) {
+		this.calculationName = calculationName;
+	}
+
 	/**
 	 * @return the configuration
 	 */

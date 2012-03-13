@@ -52,5 +52,18 @@
 			baseTableName="calculation_token_registration" baseColumnNames="retired_by"
 			referencedTableName="users" referencedColumnNames="user_id" />
     </changeSet>
-    
+
+	<changeSet id="20120313-1139" author="mseaton">
+        <preConditions onFail="MARK_RAN">
+        	<not><columnExists tableName="calculation_token_registration" columnName="calculation_name" /></not>
+        </preConditions>
+        <comment>
+        	Adding calculation_name column to calculation_token_registration table
+        </comment>
+        <addColumn tableName="calculation_token_registration">
+        	<column name="calculation_name" type="varchar(512)">
+        		<constraints nullable="false" />
+        	</column>
+        </addColumn>
+    </changeSet>    
 </databaseChangeLog>
