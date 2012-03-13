@@ -19,12 +19,13 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.SimpleParameterDefinition;
 import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.provider.DemoCalculationProvider;
+import org.openmrs.calculation.provider.ClasspathCalculationProvider;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
 
@@ -52,7 +53,7 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail if any required parameter is not set", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailIfAnyRequiredParameterIsNotSet() throws Exception {
-		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
+		PatientCalculation ageCalculation = getAgeCalculation();
 		ParameterDefinition requiredDefinition = new SimpleParameterDefinition("testParam", "my data type", null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
 		service.evaluate(2, ageCalculation);
@@ -65,7 +66,7 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a primitive wrapper", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailForABlankValueForARequiredParameterIfDatatypeIsAPrimitiveWrapper() throws Exception {
-		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
+		PatientCalculation ageCalculation = getAgeCalculation();
 		ParameterDefinition requiredDefinition = new SimpleParameterDefinition("testParam", "java.lang.Integer", null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
 		
@@ -81,12 +82,20 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a String", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
 	public void evaluate_shouldFailForABlankValueForARequiredParameterIfDatatypeIsAString() throws Exception {
-		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
+		PatientCalculation ageCalculation = getAgeCalculation();
 		ParameterDefinition requiredDefinition = new SimpleParameterDefinition("testParam", "java.lang.String", null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
 		
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put(requiredDefinition.getKey(), "");
 		service.evaluate(2, ageCalculation, values, null);
+	}
+	
+	/**
+	 * @return an Example calculation instance
+	 */
+	private PatientCalculation getAgeCalculation() {
+		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
+		return (PatientCalculation)p.getCalculation(AgeCalculation.class.getName(), null);
 	}
 }

@@ -27,19 +27,21 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
+import org.openmrs.calculation.AgeCalculation;
+import org.openmrs.calculation.MostRecentEncounterCalculation;
+import org.openmrs.calculation.MostRecentObsCalculation;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
-import org.openmrs.calculation.provider.CalculationProvider;
-import org.openmrs.calculation.provider.DemoCalculationProvider;
+import org.openmrs.calculation.provider.ClasspathCalculationProvider;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ObsResult;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
- * Contains behaviour tests for patient calculations
+ * Contains behavior tests for patient calculations
  */
 public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	
@@ -63,8 +65,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void shouldCalculateThePatientAge() throws Exception {
-		CalculationProvider p = new DemoCalculationProvider();
-		PatientCalculation ageCalculation = (PatientCalculation) p.getCalculation("age", null);
+		PatientCalculation ageCalculation = getAgeCalculation();
 		
 		int patientId = 2;
 		
@@ -79,8 +80,8 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfo() throws Exception {
-		CalculationProvider p = new DemoCalculationProvider();
-		PatientCalculation ageCalculation = (PatientCalculation) p.getCalculation("age", null);
+
+		PatientCalculation ageCalculation = getAgeCalculation();
 		
 		int patientId = 2;
 		
@@ -98,8 +99,8 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws Exception {
-		CalculationProvider p = new DemoCalculationProvider();
-		PatientCalculation ageCalculation = (PatientCalculation) p.getCalculation("age", null);
+
+		PatientCalculation ageCalculation = getAgeCalculation();
 		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionSet();
 		ParameterDefinition pd = pds.getParameterByKey("units");
 		Assert.assertNotNull(pd);
@@ -119,7 +120,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void shouldCalculateTheAgesOfPatientsInACohort() throws Exception {
-		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
+		PatientCalculation ageCalculation = getAgeCalculation();
 		int patientId1 = 2;
 		int patientId2 = 7;
 		Cohort cohort = new Cohort();
@@ -136,7 +137,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void shouldCalculateTheAgesOfPatientsInACohortBasedOnContextualInfo() throws Exception {
-		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
+		PatientCalculation ageCalculation = getAgeCalculation();
 		int patientId1 = 2;
 		int patientId2 = 7;
 		Cohort cohort = new Cohort();
@@ -158,7 +159,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void shouldCalculateTheAgesOfPatientsInACohortBasedOnContextualInfoAndParameterValues() throws Exception {
-		PatientCalculation ageCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation("age", null);
+		PatientCalculation ageCalculation = getAgeCalculation();
 		int patientId1 = 2;
 		int patientId2 = 7;
 		Cohort cohort = new Cohort();
@@ -184,11 +185,11 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		int patientId = 7;
 		//probably this could be a sql stmt for getting the most recent encounter
 		Encounter expectedEncounter = Context.getEncounterService().getEncounter(5);
-		EncounterResult result = (EncounterResult) getService().evaluate(patientId,
-		    (PatientCalculation) new DemoCalculationProvider().getCalculation("mostRecentEncounter", null));
+		PatientCalculation calc = getMostRecentEncounterCalculation();
+		EncounterResult result = (EncounterResult) getService().evaluate(patientId, calc);
 		
 		Assert.assertEquals(expectedEncounter, result.asType(Encounter.class));
-		//Since this is a datebased result, check the date
+		//Since this is a date-based result, check the date
 		Assert.assertEquals(expectedEncounter.getEncounterDatetime(), result.getDateOfResult());
 	}
 	
@@ -197,8 +198,8 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		executeDataSet(TEST_DATA_XML);
 		int patientId = 7;
 		Obs expectedObs = Context.getObsService().getObs(103);
-		ObsResult result = (ObsResult) getService().evaluate(patientId,
-		    (PatientCalculation) new DemoCalculationProvider().getCalculation("mostRecentObs", null));
+		PatientCalculation calc = getMostRecentWeightCalculation();
+		ObsResult result = (ObsResult) getService().evaluate(patientId, calc);
 		
 		Assert.assertEquals(expectedObs, result.asType(Obs.class));
 		Assert.assertEquals(expectedObs.getObsDatetime(), result.getDateOfResult());
@@ -207,22 +208,47 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void ShouldGetADateBasedResultBasingOnACachedResultInTheCalculationContext() throws Exception {
 		executeDataSet(TEST_DATA_XML);
-		//sanity check, since the cache is empty, it should return the most recent obs amongst all obs for the patient
-		Obs expectedMostRecentObs = Context.getObsService().getObs(103);
+		
 		Integer patientId = 7;
-		PatientCalculation mostRecentObsCalculation = (PatientCalculation) new DemoCalculationProvider().getCalculation(
-		    "mostRecentObs", null);
-		ObsResult testResult = (ObsResult) getService().evaluate(patientId, mostRecentObsCalculation);
-		Assert.assertEquals(expectedMostRecentObs, testResult.asType(Obs.class));
+		Obs expectedMostRecentObs = Context.getObsService().getObs(103);
+		String cacheKey = MostRecentObsCalculation.class.getName() + ".5089.7";
 		
-		EncounterResult encounterResult = (EncounterResult) getService().evaluate(patientId,
-		    (PatientCalculation) new DemoCalculationProvider().getCalculation("mostRecentEncounter", null));
-		//Should find the most recent obs for the cached encounter
-		Obs expectedMostRecentObsForMostRecentEncounter = Context.getObsService().getObs(102);
-		ObsResult result = (ObsResult) getService().evaluate(patientId, mostRecentObsCalculation,
-		    (PatientCalculationContext) encounterResult.getCalculationContext());
+		PatientCalculationContext context = getService().createCalculationContext();
+		Assert.assertTrue(context.getFromCache(cacheKey) == null);
 		
-		Assert.assertEquals(expectedMostRecentObsForMostRecentEncounter, result.asType(Obs.class));
-		Assert.assertEquals(expectedMostRecentObsForMostRecentEncounter.getObsDatetime(), result.getDateOfResult());
+		//sanity check, since the cache is empty, it should return the most recent obs amongst all obs for the patient
+		PatientCalculation mostRecentObsCalculation = getMostRecentWeightCalculation();
+		ObsResult firstTestResult = (ObsResult) getService().evaluate(patientId, mostRecentObsCalculation, context);
+		Assert.assertEquals(expectedMostRecentObs, firstTestResult.asType(Obs.class));
+		Assert.assertTrue(context.getFromCache(cacheKey) == firstTestResult);
+		
+		PatientCalculation anotherMostRecentObsCalculation = getMostRecentWeightCalculation();
+		ObsResult secondTestResult = (ObsResult) getService().evaluate(patientId, anotherMostRecentObsCalculation, context);
+		Assert.assertTrue(context.getFromCache(cacheKey) == secondTestResult);
+		Assert.assertTrue(firstTestResult == secondTestResult);
+	}
+	
+	/**
+	 * @return an Example calculation instance
+	 */
+	private PatientCalculation getAgeCalculation() {
+		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
+		return (PatientCalculation)p.getCalculation(AgeCalculation.class.getName(), null);
+	}
+	
+	/**
+	 * @return an Example calculation instance
+	 */
+	private PatientCalculation getMostRecentEncounterCalculation() {
+		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
+		return (PatientCalculation)p.getCalculation(MostRecentEncounterCalculation.class.getName(), null);
+	}
+	
+	/**
+	 * @return an Example calculation instance
+	 */
+	private PatientCalculation getMostRecentWeightCalculation() {
+		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
+		return (PatientCalculation)p.getCalculation(MostRecentObsCalculation.class.getName(), "5089");
 	}
 }

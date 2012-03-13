@@ -57,7 +57,7 @@ public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest
 	@Test
 	@Verifies(value = "should fetch a token with a matching name", method = "getTokenRegistrationByName(String)")
 	public void getTokenRegistrationByName_shouldFetchATokenWithAMatchingName() throws Exception {
-		Assert.assertEquals(TOKEN_UUID, service.getTokenRegistrationByName("gender").getUuid());
+		Assert.assertEquals(TOKEN_UUID, service.getTokenRegistrationByName("age").getUuid());
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest
 	@Test
 	@Verifies(value = "should fetch a token with a matching uuid", method = "getTokenRegistrationByUuid(Integer)")
 	public void getTokenRegistrationByUuid_shouldFetchATokenWithAMatchingUuid() throws Exception {
-		Assert.assertEquals("gender", service.getTokenRegistrationByUuid(TOKEN_UUID).getName());
+		Assert.assertEquals("age", service.getTokenRegistrationByUuid(TOKEN_UUID).getName());
 	}
 	
 	/**
@@ -75,7 +75,7 @@ public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest
 	@Test
 	@Verifies(value = "should get all tokens in the database", method = "getAllTokenRegistrations()")
 	public void getAllTokenRegistrations_shouldGetAllTokensInTheDatabase() throws Exception {
-		Assert.assertEquals(6, service.getAllTokenRegistrations().size());
+		Assert.assertEquals(3, service.getAllTokenRegistrations().size());
 	}
 	
 	/**
@@ -88,6 +88,7 @@ public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest
 		TokenRegistration token = new TokenRegistration();
 		token.setName("test token registration");
 		token.setProviderClassName("test.provider.class");
+		token.setCalculationName("testing");
 		service.saveTokenRegistration(token);
 		Assert.assertNotNull(token.getTokenRegistrationId());
 		Assert.assertEquals(originalTokenCount + 1, service.getAllTokenRegistrations().size());
@@ -111,7 +112,7 @@ public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest
 	@Test
 	@Verifies(value = "should get all tokenRegistrations with a matching name", method = "findTokenRegistrations(String)")
 	public void findTokens_shouldGetAllTokenRegistrationsWithAMatchingName() throws Exception {
-		Assert.assertEquals(5, service.findTokenRegistrations("name").size());
+		Assert.assertEquals(2, service.findTokenRegistrations("mostRecent").size());
 	}
 	
 	/**

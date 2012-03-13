@@ -24,7 +24,6 @@ import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
-import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.patient.PatientCalculation;
@@ -47,8 +46,15 @@ public class MostRecentEncounterCalculation implements PatientCalculation, Patie
 		return null;
 	}
 	
+	/**
+	 * @see org.openmrs.calculation.Calculation#setConfiguration(java.lang.String)
+	 */
+	@Override
+	public void setConfiguration(String configuration) {
+	}
+
 	//Prefix for keys used to map each patient to their most recent encounter in the current context
-	protected static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";
+	public static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";
 	
 	/**
 	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,

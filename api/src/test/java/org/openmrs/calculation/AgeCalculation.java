@@ -31,6 +31,12 @@ public class AgeCalculation implements PatientCalculation {
 	}
 	
 	/**
+	 * @see Calculation#setConfiguration(String)
+	 */
+	@Override
+	public void setConfiguration(String configuration) { }
+
+	/**
 	 * @see org.openmrs.calculation.BaseCalculation#getParameterDefinitionSet()
 	 */
 	@Override
