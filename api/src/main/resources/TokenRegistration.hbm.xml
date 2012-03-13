@@ -14,7 +14,7 @@
         
         <discriminator column="token_registration_id" insert="false" />
         
-        <property name="name" type="java.lang.String" column="name" length="512" update="true" unique="true" />
+        <property name="name" type="java.lang.String" column="name" length="512" unique="true" />
         
         <property name="providerClassName" type="java.lang.String" column="provider_class_name" not-null="true" length="512" />
         
