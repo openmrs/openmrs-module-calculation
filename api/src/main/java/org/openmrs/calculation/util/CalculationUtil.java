@@ -30,6 +30,7 @@ public class CalculationUtil {
 	 * 
 	 * @param clazz the class to check
 	 * @return true if the class is a wrapper class for a primitive type otherwise false
+	 * @should return true for primitive type wrappers classes
 	 */
 	public static boolean isPrimitiveWrapperType(Class<?> clazz) {
 		return ArrayUtils.contains(PRIMITIVE_TYPES, clazz);
@@ -40,6 +41,7 @@ public class CalculationUtil {
 	 * 
 	 * @param className the class name to check
 	 * @return true if the class name is for a wrapper class for a primitive type otherwise false
+	 * @should return true for primitive type wrapper class names
 	 */
 	public static boolean isPrimitiveWrapperClassName(String className) {
 		if (className != null) {
