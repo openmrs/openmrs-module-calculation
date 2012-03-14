@@ -30,6 +30,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.MostRecentEncounterCalculation;
 import org.openmrs.calculation.MostRecentObsCalculation;
+import org.openmrs.calculation.RecentEncounterCalculation;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
@@ -37,6 +38,7 @@ import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.provider.ClasspathCalculationProvider;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EncounterResult;
+import org.openmrs.calculation.result.ListResult;
 import org.openmrs.calculation.result.ObsResult;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
@@ -80,7 +82,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfo() throws Exception {
-
+		
 		PatientCalculation ageCalculation = getAgeCalculation();
 		
 		int patientId = 2;
@@ -99,7 +101,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void shouldCalculateThePatientAgeBasedOnContextualInfoAndParameterValues() throws Exception {
-
+		
 		PatientCalculation ageCalculation = getAgeCalculation();
 		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionSet();
 		ParameterDefinition pd = pds.getParameterByKey("units");
@@ -228,12 +230,29 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		Assert.assertTrue(firstTestResult == secondTestResult);
 	}
 	
+	@Test
+	public void shouldGetListResultOfRecentEncounters() throws Exception {
+		executeDataSet(TEST_DATA_XML);
+		
+		PatientCalculation calc = (PatientCalculation) new ClasspathCalculationProvider().getCalculation(
+		    RecentEncounterCalculation.class.getName(), "2008-07-01");
+		
+		int patientId = 7;
+		ListResult result = (ListResult) getService().evaluate(patientId, calc);
+		
+		Encounter expectedFirst = Context.getEncounterService().getEncounter(3);
+		Assert.assertEquals(expectedFirst, result.getFirstResult().asType(Encounter.class));
+		
+		Encounter expectedLast = Context.getEncounterService().getEncounter(5);
+		Assert.assertEquals(expectedLast, result.getLastResult().asType(Encounter.class));
+	}
+	
 	/**
 	 * @return an Example calculation instance
 	 */
 	private PatientCalculation getAgeCalculation() {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
-		return (PatientCalculation)p.getCalculation(AgeCalculation.class.getName(), null);
+		return (PatientCalculation) p.getCalculation(AgeCalculation.class.getName(), null);
 	}
 	
 	/**
@@ -241,7 +260,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	 */
 	private PatientCalculation getMostRecentEncounterCalculation() {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
-		return (PatientCalculation)p.getCalculation(MostRecentEncounterCalculation.class.getName(), null);
+		return (PatientCalculation) p.getCalculation(MostRecentEncounterCalculation.class.getName(), null);
 	}
 	
 	/**
@@ -249,6 +268,6 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	 */
 	private PatientCalculation getMostRecentWeightCalculation() {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
-		return (PatientCalculation)p.getCalculation(MostRecentObsCalculation.class.getName(), "5089");
+		return (PatientCalculation) p.getCalculation(MostRecentObsCalculation.class.getName(), "5089");
 	}
 }
