@@ -16,7 +16,7 @@
             <column name="token_registration_id" autoIncrement="true" type="int">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="name" type="varchar(512)">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false" unique="true" />
             </column>
             <column name="provider_class_name" type="varchar(512)">
@@ -42,13 +42,13 @@
 				<constraints nullable="false" unique="true" />
 			</column>
         </createTable>
-        <addForeignKeyConstraint constraintName="token_registration_creator"
+        <addForeignKeyConstraint constraintName="calculation_token_registration_creator"
         	baseTableName="calculation_token_registration" baseColumnNames="creator" 
 			referencedTableName="users" referencedColumnNames="user_id" />
-        <addForeignKeyConstraint constraintName="token_registration_changed_by"
+        <addForeignKeyConstraint constraintName="calculation_token_registration_changed_by"
         	baseTableName="calculation_token_registration" baseColumnNames="changed_by" 
              referencedTableName="users" referencedColumnNames="user_id" />
-		<addForeignKeyConstraint constraintName="token_registration_retirer" 
+		<addForeignKeyConstraint constraintName="calculation_token_registration_retirer" 
 			baseTableName="calculation_token_registration" baseColumnNames="retired_by"
 			referencedTableName="users" referencedColumnNames="user_id" />
     </changeSet>
