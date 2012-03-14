@@ -23,12 +23,11 @@ import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
 
-
 /**
  * Contains test methods for {@link TokenRegistrationService}
  */
 public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest {
-
+	
 	private static final String TOKEN_UUID = "467dd0d8-5785-11e1-80a0-00248140a5eb";
 	
 	private static final String TEST_DATA_PATH = "org/openmrs/calculation/include/";

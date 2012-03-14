@@ -16,7 +16,7 @@ package org.openmrs.calculation;
 /**
  * Constants used by the module.
  */
-public abstract class CalculationConstants {
+public final class CalculationConstants {
 	
 	public static final String PRIV_MANAGE_TOKEN_REGISTRATIONS = "Manage Token Registrations";
 	
