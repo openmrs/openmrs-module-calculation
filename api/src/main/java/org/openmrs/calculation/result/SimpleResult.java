@@ -21,11 +21,11 @@ import org.openmrs.calculation.CalculationContext;
  */
 public class SimpleResult implements Result {
 	
-	private CalculationContext calculationContext;
+	protected CalculationContext calculationContext;
 	
-	private Calculation calculation;
+	protected Calculation calculation;
 	
-	private Object value;
+	protected Object value;
 	
 	/**
 	 * Convenience constructor that takes in a value and a {@link Calculation}
