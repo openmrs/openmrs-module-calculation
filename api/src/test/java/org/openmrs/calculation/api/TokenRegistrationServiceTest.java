@@ -123,16 +123,11 @@ public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest
 	public void saveTokenRegistration_shouldUpdateAnExistingToken() throws Exception {
 		String newTokenName = "new test token name";
 		TokenRegistration token = service.getTokenRegistrationByUuid(TOKEN_UUID);
-		Assert.assertNull(token.getDateChanged());
-		Assert.assertNull(token.getChangedBy());
 		Assert.assertNotSame(newTokenName, token.getName());
 		
 		token.setName(newTokenName);
 		service.saveTokenRegistration(token);
 		
-		TokenRegistration editedToken = service.getTokenRegistrationByUuid(TOKEN_UUID);
-		Assert.assertNotNull(editedToken.getDateChanged());
-		Assert.assertNotNull(editedToken.getChangedBy());
 		Assert.assertSame(newTokenName, token.getName());
 	}
 }

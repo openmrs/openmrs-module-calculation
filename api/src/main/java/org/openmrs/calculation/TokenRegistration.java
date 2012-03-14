@@ -13,7 +13,7 @@
  */
 package org.openmrs.calculation;
 
-import org.openmrs.BaseOpenmrsMetadata;
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.util.OpenmrsUtil;
 
 /**
@@ -23,7 +23,7 @@ import org.openmrs.util.OpenmrsUtil;
  * The "providerClassName" + "calculationName" + "configuration" properties fully describe how
  * the Calculation instance should be constructed and returned for this token
  */
-public class TokenRegistration extends BaseOpenmrsMetadata implements java.io.Serializable {
+public class TokenRegistration extends BaseOpenmrsObject implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -31,6 +31,7 @@ public class TokenRegistration extends BaseOpenmrsMetadata implements java.io.Se
 	private String providerClassName;
 	private String calculationName;
 	private String configuration;
+	private String name;
 	
 	/**
 	 * @return the tokenRegistrationId
@@ -44,6 +45,20 @@ public class TokenRegistration extends BaseOpenmrsMetadata implements java.io.Se
 	 */
 	public void setTokenRegistrationId(Integer tokenRegistrationId) {
 		this.tokenRegistrationId = tokenRegistrationId;
+	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	/**
