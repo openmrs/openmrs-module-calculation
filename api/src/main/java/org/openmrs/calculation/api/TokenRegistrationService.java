@@ -15,8 +15,10 @@ package org.openmrs.calculation.api;
 
 import java.util.List;
 
+import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.calculation.CalculationConstants;
 import org.openmrs.calculation.TokenRegistration;
 
 /**
@@ -31,6 +33,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @return
 	 * @should return a token with a matching id
 	 */
+	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) throws APIException;
 	
 	/**
@@ -40,6 +43,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @return
 	 * @should fetch a token with a matching uuid
 	 */
+	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public TokenRegistration getTokenRegistrationByUuid(String uuid) throws APIException;
 	
 	/**
@@ -49,6 +53,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @return
 	 * @should fetch a token with a matching name
 	 */
+	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public TokenRegistration getTokenRegistrationByName(String name) throws APIException;
 	
 	/**
@@ -59,6 +64,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should save the specified tokenRegistration to the database
 	 * @should update an existing token
 	 */
+	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
 	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws APIException;
 	
 	/**
@@ -67,6 +73,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @return a list of {@link TokenRegistration}s
 	 * @should get all tokens in the database
 	 */
+	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public List<TokenRegistration> getAllTokenRegistrations() throws APIException;
 	
 	/**
@@ -76,6 +83,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @return a list of {@link TokenRegistration}s
 	 * @should get all tokenRegistrations with a matching name
 	 */
+	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public List<TokenRegistration> findTokenRegistrations(String partialName) throws APIException;
 	
 	/**
@@ -84,6 +92,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @param tokenRegistration the tokenRegistration to purge
 	 * @should purge the specified tokenRegistration from the database
 	 */
+	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
 	public void purgeTokenRegistration(TokenRegistration tokenRegistration) throws APIException;
 	
 }

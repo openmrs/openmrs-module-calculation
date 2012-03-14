@@ -6,20 +6,34 @@
 	<id>${project.parent.artifactId}</id>
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
-	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<package>${project.parent.groupId}.${project.parent.artifactId}
+	</package>
 	<author>OpenMRS Core Developers</author>
 	<description>
 		${project.parent.description}
 	</description>
-	<updateURL>https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
+	<updateURL>https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf
+	</updateURL>
 	<require_version>${openMRSVersion}</require_version>
 	<!-- / Module Properties -->
 
-	
+
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.CalculationActivator</activator>
-	
-	
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.CalculationActivator
+	</activator>
+
+	<!-- Required Privileges -->
+	<privilege>
+		<name>View Token Registrations</name>
+		<description>Allows to view token registrations</description>
+	</privilege>
+	<privilege>
+		<name>Manage Token Registrations</name>
+		<description>Allows to create/update/delete token registrations
+		</description>
+	</privilege>
+	<!-- /Required Privileges -->
+
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
 		TokenRegistration.hbm.xml
