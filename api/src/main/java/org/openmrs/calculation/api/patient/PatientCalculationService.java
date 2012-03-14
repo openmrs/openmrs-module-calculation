@@ -36,16 +36,6 @@ public interface PatientCalculationService extends OpenmrsService {
 	public PatientCalculationContext createCalculationContext();
 	
 	/**
-	 * Gets a {@link PatientCalculation} associated to a {@link TokenRegistration} with a name that
-	 * matches the specified tokenName
-	 * 
-	 * @param tokenName
-	 * @return {@link PatientCalculation}
-	 * @should return the calculation associated to the tokenRegistration with the given name
-	 */
-	public PatientCalculation getCalculation(String tokenName) throws APIException;
-	
-	/**
 	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, PatientCalculationContext)
 	 */
 	public Result evaluate(Integer patientId, PatientCalculation calculation);

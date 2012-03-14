@@ -21,4 +21,6 @@ public abstract class CalculationConstants {
 	public static final String PRIV_MANAGE_TOKEN_REGISTRATIONS = "Manage Token Registrations";
 	
 	public static final String PRIV_VIEW_TOKEN_REGISTRATIONS = "View Token Registrations";
+	
+	public static final String PRIV_VIEW_CALCULATIONS = "View Calculations";
 }

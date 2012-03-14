@@ -15,13 +15,17 @@ package org.openmrs.calculation.api.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.api.TokenRegistrationService;
 import org.openmrs.calculation.api.db.TokenRegistrationDAO;
+import org.openmrs.calculation.provider.CalculationProvider;
 
 /**
  * It is a default implementation of {@link TokenRegistrationService}.
@@ -93,5 +97,38 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	@Override
 	public void purgeTokenRegistration(TokenRegistration tokenRegistration) throws APIException {
 		dao.deleteTokenRegistration(tokenRegistration);
+	}
+	
+	/**
+	 * @see org.openmrs.calculation.api.TokenRegistrationService#getCalculation(java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+    @Override
+	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws APIException {
+		T result = null;
+		/* first we need to look up for token registration by given token name */
+		TokenRegistration tokenRegistration = getTokenRegistrationByName(tokenName);
+		if (tokenRegistration != null) {
+			/* if there is a token registration by given token name we should instantiate 
+			 * calculation provider for the matching token registration*/
+			if (StringUtils.isNotBlank(tokenRegistration.getProviderClassName())) {
+				CalculationProvider calculationProvider = null;
+				try {
+					Class<?> providerClass = Context.loadClass(tokenRegistration.getProviderClassName());
+					calculationProvider = (CalculationProvider) providerClass.newInstance();
+				}
+				catch (Exception ex) {
+					log.error("Unable to get calculation for given token name " + tokenName
+					        + ", because of occurred error: ", ex);
+				}
+				/* and the last we need to do is to invoke the getCalculation() method of the 
+				 * created instance of the calculation provider and return the value */
+				if (calculationProvider != null) {
+					result = (T) calculationProvider.getCalculation(tokenRegistration.getCalculationName(), tokenRegistration.getConfiguration());
+					result.setConfiguration(tokenRegistration.getConfiguration());
+				}
+			}
+		}
+		return result;
 	}
 }

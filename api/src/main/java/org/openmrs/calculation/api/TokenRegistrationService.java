@@ -18,8 +18,10 @@ import java.util.List;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.CalculationConstants;
 import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
  * Contains service methods for managing {@link TokenRegistration}s
@@ -94,5 +96,16 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 */
 	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
 	public void purgeTokenRegistration(TokenRegistration tokenRegistration) throws APIException;
+	
+	/**
+	 * Gets a {@link PatientCalculation} with given name associated to a {@link TokenRegistration} with a name that
+	 * matches the specified tokenName
+	 * 
+	 * @param tokenName
+	 * @return {@link PatientCalculation}
+	 * @should return the calculation associated to the tokenRegistration with the given name
+	 */
+	@Authorized(CalculationConstants.PRIV_VIEW_CALCULATIONS)
+	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz);
 	
 }

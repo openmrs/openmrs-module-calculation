@@ -52,15 +52,6 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#getCalculation(java.lang.String)
-	 */
-	@Override
-	public PatientCalculation getCalculation(String tokenName) throws APIException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/**
 	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(java.lang.Integer,
 	 *      org.openmrs.calculation.patient.PatientCalculation)
 	 */
