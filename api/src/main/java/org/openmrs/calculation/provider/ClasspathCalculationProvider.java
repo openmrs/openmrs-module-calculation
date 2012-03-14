@@ -21,7 +21,7 @@ import org.openmrs.calculation.Calculation;
  * Implementation of {@link CalculationProvider} which retrieves a {@link Calculation}
  * given a fully qualified class name of the {@link Calculation} to instantiate
  */
-public class ClasspathCalculationProvider {
+public class ClasspathCalculationProvider implements CalculationProvider {
 	
 	/**
 	 * @see CalculationProvider#getCalculation(String, String)
