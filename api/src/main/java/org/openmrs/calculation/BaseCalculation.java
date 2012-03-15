@@ -19,7 +19,7 @@ import org.openmrs.calculation.definition.ParameterDefinitionSet;
 /**
  * Simple abstract base class for Calculation to provide an empty ParameterDefinitionSet
  */
-public abstract class BaseCalculation {
+public abstract class BaseCalculation implements Calculation {
 	
 	private ParameterDefinitionSet parameterDefinitionSet;
 	
