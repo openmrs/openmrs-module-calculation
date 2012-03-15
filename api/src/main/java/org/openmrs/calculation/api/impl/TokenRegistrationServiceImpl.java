@@ -15,17 +15,15 @@ package org.openmrs.calculation.api.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.APIException;
-import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.api.TokenRegistrationService;
 import org.openmrs.calculation.api.db.TokenRegistrationDAO;
-import org.openmrs.calculation.provider.CalculationProvider;
+import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.validator.ValidateUtil;
 
 /**
@@ -48,7 +46,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 * @see org.openmrs.calculation.api.TokenRegistrationService#getTokenRegistration(java.lang.Integer)
 	 */
 	@Override
-	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) throws APIException {
+	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) {
 		return dao.getTokenRegistration(tokenRegistrationId);
 	}
 	
@@ -56,7 +54,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 * @see org.openmrs.calculation.api.TokenRegistrationService#getTokenRegistrationByUuid(String)
 	 */
 	@Override
-	public TokenRegistration getTokenRegistrationByUuid(String uuid) throws APIException {
+	public TokenRegistration getTokenRegistrationByUuid(String uuid) {
 		return dao.getTokenRegistrationByUuid(uuid);
 	}
 	
@@ -64,7 +62,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 * @see org.openmrs.calculation.api.TokenRegistrationService#getTokenRegistrationByName(java.lang.String)
 	 */
 	@Override
-	public TokenRegistration getTokenRegistrationByName(String name) throws APIException {
+	public TokenRegistration getTokenRegistrationByName(String name) {
 		return dao.getTokenRegistrationByName(name);
 	}
 	
@@ -72,7 +70,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 * @see org.openmrs.calculation.api.TokenRegistrationService#getAllTokenRegistrations()
 	 */
 	@Override
-	public List<TokenRegistration> getAllTokenRegistrations() throws APIException {
+	public List<TokenRegistration> getAllTokenRegistrations() {
 		return dao.getAllTokenRegistrations();
 	}
 	
@@ -80,7 +78,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 * @see org.openmrs.calculation.api.TokenRegistrationService#findTokenRegistrations(java.lang.String)
 	 */
 	@Override
-	public List<TokenRegistration> findTokenRegistrations(String partialName) throws APIException {
+	public List<TokenRegistration> findTokenRegistrations(String partialName) {
 		return dao.findTokenRegistrations(partialName);
 	}
 	
@@ -88,7 +86,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 * @see org.openmrs.calculation.api.TokenRegistrationService#saveTokenRegistration(org.openmrs.calculation.TokenRegistration)
 	 */
 	@Override
-	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws APIException {
+	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) {
 		ValidateUtil.validate(tokenRegistration);
 		return dao.saveTokenRegistration(tokenRegistration);
 	}
@@ -97,7 +95,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 * @see org.openmrs.calculation.api.TokenRegistrationService#purgeTokenRegistration(TokenRegistration)
 	 */
 	@Override
-	public void purgeTokenRegistration(TokenRegistration tokenRegistration) throws APIException {
+	public void purgeTokenRegistration(TokenRegistration tokenRegistration) {
 		dao.deleteTokenRegistration(tokenRegistration);
 	}
 	
@@ -106,32 +104,8 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws APIException {
-		T result = null;
-		/* first we need to look up for token registration by given token name */
+	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws InvalidCalculationException {
 		TokenRegistration tokenRegistration = getTokenRegistrationByName(tokenName);
-		if (tokenRegistration != null) {
-			/* if there is a token registration by given token name we should instantiate 
-			 * calculation provider for the matching token registration*/
-			if (StringUtils.isNotBlank(tokenRegistration.getProviderClassName())) {
-				CalculationProvider calculationProvider = null;
-				try {
-					Class<?> providerClass = Context.loadClass(tokenRegistration.getProviderClassName());
-					calculationProvider = (CalculationProvider) providerClass.newInstance();
-				}
-				catch (Exception ex) {
-					log.error("Unable to get calculation for given token name " + tokenName
-					        + ", because of occurred error: ", ex);
-				}
-				/* and the last we need to do is to invoke the getCalculation() method of the 
-				 * created instance of the calculation provider and return the value */
-				if (calculationProvider != null) {
-					result = (T) calculationProvider.getCalculation(tokenRegistration.getCalculationName(),
-					    tokenRegistration.getConfiguration());
-					result.setConfiguration(tokenRegistration.getConfiguration());
-				}
-			}
-		}
-		return result;
+		return (T)CalculationUtil.getCalcuationForTokenRegistration(tokenRegistration);
 	}
 }

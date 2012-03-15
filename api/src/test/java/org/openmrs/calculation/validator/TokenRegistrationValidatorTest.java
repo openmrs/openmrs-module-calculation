@@ -18,8 +18,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.api.TokenRegistrationService;
+import org.openmrs.calculation.provider.ClasspathCalculationProvider;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
 import org.springframework.validation.BindException;
@@ -50,9 +52,9 @@ public class TokenRegistrationValidatorTest extends BaseModuleContextSensitiveTe
 	@Verifies(value = "pass valid token registration", method = "validate(Object,Errors)")
 	public void validate_shouldPassValidTokenRegistration() throws Exception {
 		TokenRegistration tokenRegistration = new TokenRegistration();
-		tokenRegistration.setName("test");
-		tokenRegistration.setProviderClassName("test");
-		tokenRegistration.setCalculationName("A1");
+		tokenRegistration.setName("ageCalc");
+		tokenRegistration.setProviderClassName(ClasspathCalculationProvider.class.getName());
+		tokenRegistration.setCalculationName(AgeCalculation.class.getName());
 		Errors errors = new BindException(tokenRegistration, "tokenRegistration");
 		new TokenRegistrationValidator().validate(tokenRegistration, errors);
 		Assert.assertEquals(Boolean.FALSE, errors.hasErrors());

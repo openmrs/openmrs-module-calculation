@@ -14,6 +14,11 @@
 package org.openmrs.calculation.util;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.openmrs.api.context.Context;
+import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.InvalidCalculationException;
+import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.provider.CalculationProvider;
 
 /**
  * Contains utility methods for the module
@@ -51,5 +56,30 @@ public class CalculationUtil {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Utility method that constructs a Calculation instance from a TokenRegistration instance
+	 * @param tokenRegistration
+	 * @return the Calculation represented by the passed TokenRegistration
+	 * @throws InvalidCalculationException if the TokenRegistration is invalid
+	 */
+	public static Calculation getCalcuationForTokenRegistration(TokenRegistration tokenRegistration) throws InvalidCalculationException {
+		Calculation c = null;
+		if (tokenRegistration != null) {
+			CalculationProvider calculationProvider = null;
+			try {
+				Class<?> providerClass = Context.loadClass(tokenRegistration.getProviderClassName());
+				calculationProvider = (CalculationProvider) providerClass.newInstance();
+			}
+			catch (Exception e) {
+				String msg = "Unable to instantiate CalculationProvider:" +  tokenRegistration.getProviderClassName();
+				throw new InvalidCalculationException(msg, e);
+			}
+			String calcName = tokenRegistration.getCalculationName();
+			String config = tokenRegistration.getConfiguration();
+			c = calculationProvider.getCalculation(calcName, config);
+		}
+		return c;
 	}
 }

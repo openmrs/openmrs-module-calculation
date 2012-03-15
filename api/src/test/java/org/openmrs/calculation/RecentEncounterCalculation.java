@@ -28,7 +28,6 @@ import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
-import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
@@ -41,7 +40,7 @@ import org.openmrs.util.OpenmrsUtil;
  * Evaluates encounters since a given date.
  */
 @Handler(supports = { RecentEncounterCalculation.class }, order = 50)
-public class RecentEncounterCalculation implements PatientCalculation, PatientCalculationEvaluator {
+public class RecentEncounterCalculation extends BaseCalculation implements ConfigurableCalculation, PatientCalculation, PatientCalculationEvaluator {
 	
 	private Date since;
 	
@@ -49,22 +48,14 @@ public class RecentEncounterCalculation implements PatientCalculation, PatientCa
 	 * @see org.openmrs.calculation.Calculation#setConfiguration(java.lang.String)
 	 */
 	@Override
-	public void setConfiguration(String configuration) {
+	public void setConfiguration(String configuration) throws InvalidCalculationException {
 		try {
 			since = new SimpleDateFormat("yyyy-MM-dd").parse(configuration);
 		}
 		catch (Exception e) {}
 		if (since == null) {
-			throw new InvalidConfigurationException(getClass(), configuration);
+			throw new InvalidCalculationException(this, configuration);
 		}
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.Calculation#getParameterDefinitionSet()
-	 */
-	@Override
-	public ParameterDefinitionSet getParameterDefinitionSet() {
-		return null;
 	}
 	
 	/**

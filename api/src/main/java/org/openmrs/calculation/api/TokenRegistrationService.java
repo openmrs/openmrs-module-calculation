@@ -16,10 +16,10 @@ package org.openmrs.calculation.api;
 import java.util.List;
 
 import org.openmrs.annotation.Authorized;
-import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.CalculationConstants;
+import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.patient.PatientCalculation;
 
@@ -36,7 +36,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should return a token with a matching id
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId) throws APIException;
+	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId);
 	
 	/**
 	 * Gets a token from the database with a matching uuid
@@ -46,7 +46,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should fetch a token with a matching uuid
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public TokenRegistration getTokenRegistrationByUuid(String uuid) throws APIException;
+	public TokenRegistration getTokenRegistrationByUuid(String uuid);
 	
 	/**
 	 * Gets a token from the database with a matching name
@@ -56,7 +56,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should fetch a token with a matching name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public TokenRegistration getTokenRegistrationByName(String name) throws APIException;
+	public TokenRegistration getTokenRegistrationByName(String name);
 	
 	/**
 	 * Saves or updates the specified token in the database
@@ -67,7 +67,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should update an existing token
 	 */
 	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
-	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws APIException;
+	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws InvalidCalculationException;
 	
 	/**
 	 * Gets all tokens in the database
@@ -76,7 +76,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should get all tokens in the database
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public List<TokenRegistration> getAllTokenRegistrations() throws APIException;
+	public List<TokenRegistration> getAllTokenRegistrations();
 	
 	/**
 	 * Fetches all tokens that have a name that contains the specified phrase
@@ -86,7 +86,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should get all tokenRegistrations with a matching name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public List<TokenRegistration> findTokenRegistrations(String partialName) throws APIException;
+	public List<TokenRegistration> findTokenRegistrations(String partialName);
 	
 	/**
 	 * Purges the specified token from the database
@@ -95,7 +95,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should purge the specified tokenRegistration from the database
 	 */
 	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
-	public void purgeTokenRegistration(TokenRegistration tokenRegistration) throws APIException;
+	public void purgeTokenRegistration(TokenRegistration tokenRegistration);
 	
 	/**
 	 * Gets a {@link PatientCalculation} with given name associated to a {@link TokenRegistration} with a name that
@@ -106,6 +106,6 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should return the calculation associated to the tokenRegistration with the given name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_CALCULATIONS)
-	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz);
+	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws InvalidCalculationException;
 	
 }

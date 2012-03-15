@@ -18,7 +18,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.DummyCalculation;
+import org.openmrs.calculation.MostRecentObsCalculation;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
@@ -75,7 +75,7 @@ public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest
 	@Test
 	@Verifies(value = "should get all tokens in the database", method = "getAllTokenRegistrations()")
 	public void getAllTokenRegistrations_shouldGetAllTokensInTheDatabase() throws Exception {
-		Assert.assertEquals(4, service.getAllTokenRegistrations().size());
+		Assert.assertEquals(3, service.getAllTokenRegistrations().size());
 	}
 	
 	/**
@@ -137,9 +137,8 @@ public class TokenRegistrationServiceTest extends BaseModuleContextSensitiveTest
 	@Test
 	@Verifies(value = "should return the calculation associated to the tokenRegistration with the given name", method = "getCalculation(java.lang.String)")
 	public void getCalculation_shouldReturnTheCalculationAssociatedToTheTokenRegistrationWithTheGivenName() throws Exception {
-		TokenRegistration tokenRegistration = service.getTokenRegistrationByName("dummy");
-		DummyCalculation calculation = service.getCalculation(tokenRegistration.getName(), DummyCalculation.class);
+		MostRecentObsCalculation calculation = service.getCalculation("mostRecentCD4", MostRecentObsCalculation.class);
 		Assert.assertNotNull(calculation);
-		Assert.assertEquals(tokenRegistration.getConfiguration(), calculation.getConfiguration());
+		Assert.assertEquals(5497, calculation.getWhichConcept().getConceptId().intValue());
 	}
 }

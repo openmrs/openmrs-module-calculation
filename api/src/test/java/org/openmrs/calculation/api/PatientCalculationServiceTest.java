@@ -20,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
+import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
@@ -94,7 +95,7 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	/**
 	 * @return an Example calculation instance
 	 */
-	private PatientCalculation getAgeCalculation() {
+	private PatientCalculation getAgeCalculation() throws InvalidCalculationException {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		return (PatientCalculation)p.getCalculation(AgeCalculation.class.getName(), null);
 	}

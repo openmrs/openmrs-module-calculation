@@ -18,6 +18,7 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.api.TokenRegistrationService;
+import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -43,6 +44,7 @@ public class TokenRegistrationValidator implements Validator {
 	 * @should fail if token registration name is empty or whitespace
 	 * @should fail if token registration provider class name is empty or whitespace
 	 * @should fail if token registration calculation name is empty or whitespace
+	 * @should fail if token registration does not represent a valid calculation
 	 * @should pass valid token registration
 	 * @should pass existing token registration
 	 */
@@ -59,6 +61,12 @@ public class TokenRegistrationValidator implements Validator {
 			if (possibleDuplicate != null && !OpenmrsUtil.nullSafeEquals(possibleDuplicate.getId(), target.getId())) {
 				errors.rejectValue("name", "calculation.TokenRegistration.error.nonUniqueTokenName");
 			}
+		}
+		try {
+			CalculationUtil.getCalcuationForTokenRegistration(target);
+		}
+		catch (Exception e) {
+			errors.reject(e.getMessage());
 		}
 	}
 	

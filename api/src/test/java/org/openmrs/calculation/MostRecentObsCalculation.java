@@ -22,7 +22,6 @@ import org.openmrs.Obs;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
-import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
@@ -33,29 +32,21 @@ import org.openmrs.calculation.result.Result;
  * Calculation for most recent obs, this calculation also evaluates itself
  */
 @Handler(supports = { MostRecentObsCalculation.class }, order = 50)
-public class MostRecentObsCalculation implements PatientCalculation, PatientCalculationEvaluator {
+public class MostRecentObsCalculation extends BaseCalculation implements ConfigurableCalculation, PatientCalculation, PatientCalculationEvaluator {
 	
 	private Concept whichConcept;
-	
-	/**
-	 * @see org.openmrs.calculation.patient.PatientCalculation#getParameterDefinitionSet()
-	 */
-	@Override
-	public ParameterDefinitionSet getParameterDefinitionSet() {
-		return null;
-	}
 	
 	/**
 	 * @see Calculation#setConfiguration(String)
 	 */
 	@Override
-	public void setConfiguration(String configuration) {
+	public void setConfiguration(String configuration) throws InvalidCalculationException {
 		try {
 			whichConcept = Context.getConceptService().getConcept(configuration);
 		}
 		catch (Exception e) {}
 		if (whichConcept == null) {
-			throw new InvalidConfigurationException(getClass(), configuration);
+			throw new InvalidCalculationException(this, configuration);
 		}
 	}
 	
@@ -79,5 +70,12 @@ public class MostRecentObsCalculation implements PatientCalculation, PatientCalc
 			results.put(pId, r);
 		}
 		return results;
+	}
+
+	/**
+	 * @return the whichConcept
+	 */
+	public Concept getWhichConcept() {
+		return whichConcept;
 	}
 }

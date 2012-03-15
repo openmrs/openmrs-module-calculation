@@ -16,20 +16,11 @@ package org.openmrs.calculation;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.provider.CalculationProvider;
 
 /**
  * Super interface for all calculations
  */
 public interface Calculation {
-	
-	/**
-	 * This method allows for {@link Calculation}s to define how their instances should be initialized
-	 * Typically a {@link CalculationProvider} will call this method when it creates a new instance of a {@link Calculation}
-	 * 
-	 * @param configuration the configuration string that can be used to set the {@link Calculation}s initial state
-	 */
-	public void setConfiguration(String configuration);
 	
 	/**
 	 * Gets the {@link ParameterDefinitionSet} for this {@link PatientCalculation}

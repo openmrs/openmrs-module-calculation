@@ -28,6 +28,7 @@ import org.openmrs.Obs;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
+import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.MostRecentEncounterCalculation;
 import org.openmrs.calculation.MostRecentObsCalculation;
 import org.openmrs.calculation.RecentEncounterCalculation;
@@ -250,7 +251,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	/**
 	 * @return an Example calculation instance
 	 */
-	private PatientCalculation getAgeCalculation() {
+	private PatientCalculation getAgeCalculation() throws InvalidCalculationException {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		return (PatientCalculation) p.getCalculation(AgeCalculation.class.getName(), null);
 	}
@@ -258,7 +259,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	/**
 	 * @return an Example calculation instance
 	 */
-	private PatientCalculation getMostRecentEncounterCalculation() {
+	private PatientCalculation getMostRecentEncounterCalculation() throws InvalidCalculationException {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		return (PatientCalculation) p.getCalculation(MostRecentEncounterCalculation.class.getName(), null);
 	}
@@ -266,7 +267,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	/**
 	 * @return an Example calculation instance
 	 */
-	private PatientCalculation getMostRecentWeightCalculation() {
+	private PatientCalculation getMostRecentWeightCalculation() throws InvalidCalculationException {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		return (PatientCalculation) p.getCalculation(MostRecentObsCalculation.class.getName(), "5089");
 	}

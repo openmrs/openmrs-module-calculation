@@ -24,7 +24,6 @@ import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
-import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
@@ -36,22 +35,7 @@ import org.openmrs.util.OpenmrsUtil;
  * This is an example of the 'short-hand' way of writing a calculation where it evaluates itself
  */
 @Handler(supports = { MostRecentEncounterCalculation.class }, order = 50)
-public class MostRecentEncounterCalculation implements PatientCalculation, PatientCalculationEvaluator {
-	
-	/**
-	 * @see org.openmrs.calculation.patient.PatientCalculation#getParameterDefinitionSet()
-	 */
-	@Override
-	public ParameterDefinitionSet getParameterDefinitionSet() {
-		return null;
-	}
-	
-	/**
-	 * @see org.openmrs.calculation.Calculation#setConfiguration(java.lang.String)
-	 */
-	@Override
-	public void setConfiguration(String configuration) {
-	}
+public class MostRecentEncounterCalculation extends BaseCalculation implements PatientCalculation, PatientCalculationEvaluator {
 
 	//Prefix for keys used to map each patient to their most recent encounter in the current context
 	public static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";

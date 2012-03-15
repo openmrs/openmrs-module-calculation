@@ -14,14 +14,16 @@
 package org.openmrs.calculation.provider;
 
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.InvalidCalculationException;
 
 /**
  * Base interface for classes responsible for retrieving a {@link Calculation} instance given a
  * calculation name and an optional configuration string, a typical implementation of this class
  * could be a spring bean that holds a list of calculations. It should know how to instantiate each
- * one of them based on the name and configuration string {@link #getCalculation(String, String)} is
- * called. The configuration string argument provides an extensibility mechanism for
- * CalculationProviders
+ * one of them based on the name and configuration string.  It is the responsibility of implementing
+ * subclasses to utilize the configuration property as appropriate when providing new Calculation
+ * instances.  If a configuration string is passed in that is not valid for a given {@link CalculationProvider}
+ * then it should throw an {@link InvalidCalculationException} to indicate this.
  */
 public interface CalculationProvider {
 	
@@ -30,9 +32,8 @@ public interface CalculationProvider {
 	 * configuration string
 	 * 
 	 * @param calculationName the name to match against
-	 * @param configuration an optional configuration string to be used while instantiating the
-	 *            calculation
+	 * @param configuration an optional configuration string to be used while instantiating the calculation
 	 * @return a {@link Calculation}
 	 */
-	public Calculation getCalculation(String calculationName, String configuration);
+	public Calculation getCalculation(String calculationName, String configuration) throws InvalidCalculationException;
 }

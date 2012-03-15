@@ -13,16 +13,13 @@
  */
 package org.openmrs.calculation;
 
-import org.openmrs.calculation.definition.SimpleParameterDefinition;
-import org.openmrs.calculation.patient.PatientCalculation;
-
 /**
- * A simple implementation of a calculation for calculating patient ages and is purely for testing
- * purposes
+ * Interface for Calculations that support configuration
  */
-public class AgeCalculation extends BaseCalculation implements PatientCalculation {
+public interface ConfigurableCalculation extends Calculation {
 	
-	public AgeCalculation() {
-		addParameterDefinition(new SimpleParameterDefinition("units", "java.lang.String", "Units Of Age", false));
-	}
+	/**
+	 * @param the configuration String that should be used to initialize this Calculation
+	 */
+	public void setConfiguration(String configuration) throws InvalidCalculationException;
 }
