@@ -26,6 +26,7 @@ import org.openmrs.calculation.TokenRegistration;
 import org.openmrs.calculation.api.TokenRegistrationService;
 import org.openmrs.calculation.api.db.TokenRegistrationDAO;
 import org.openmrs.calculation.provider.CalculationProvider;
+import org.openmrs.validator.ValidateUtil;
 
 /**
  * It is a default implementation of {@link TokenRegistrationService}.
@@ -88,6 +89,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 */
 	@Override
 	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws APIException {
+		ValidateUtil.validate(tokenRegistration);
 		return dao.saveTokenRegistration(tokenRegistration);
 	}
 	
@@ -103,7 +105,7 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	 * @see org.openmrs.calculation.api.TokenRegistrationService#getCalculation(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-    @Override
+	@Override
 	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws APIException {
 		T result = null;
 		/* first we need to look up for token registration by given token name */
@@ -124,7 +126,8 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 				/* and the last we need to do is to invoke the getCalculation() method of the 
 				 * created instance of the calculation provider and return the value */
 				if (calculationProvider != null) {
-					result = (T) calculationProvider.getCalculation(tokenRegistration.getCalculationName(), tokenRegistration.getConfiguration());
+					result = (T) calculationProvider.getCalculation(tokenRegistration.getCalculationName(),
+					    tokenRegistration.getConfiguration());
 					result.setConfiguration(tokenRegistration.getConfiguration());
 				}
 			}
