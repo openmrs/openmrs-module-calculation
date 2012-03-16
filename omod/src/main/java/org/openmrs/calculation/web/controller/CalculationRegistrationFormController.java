@@ -113,20 +113,25 @@ public class CalculationRegistrationFormController {
 		}
 		catch (Exception e) {
 			log.error("Unable to save token registration, because of error:", e);
-			request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Error saving " + calculationRegistration, WebRequest.SCOPE_SESSION);
+			updateSessionMessage(request, "calculation.CalculationRegistration.errorSaving", calculationRegistration);
 			return null;
 		}
 		
-		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Saved " + calculationRegistration, WebRequest.SCOPE_SESSION);
-		return "redirect:calculationRegistration.form?id=" + calculationRegistration.getId();
+		updateSessionMessage(request, "calculation.CalculationRegistration.saved", calculationRegistration);
+		return "redirect:calculationRegistrations.list";
 	}
 	
 	/**
 	 * Purges given token registration and redirects to the list of existing ones
 	 */
-	@RequestMapping(value = "/module/calculation/deleteCalculationRegistration", method = RequestMethod.POST)
+	@RequestMapping(value = "/module/calculation/deleteCalculationRegistration")
 	public String purgeCalculationRegistration(@ModelAttribute(value = "calculationRegistration") CalculationRegistration calculationRegistration) {
 		Context.getService(CalculationRegistrationService.class).purgeCalculationRegistration(calculationRegistration);
 		return "redirect:calculationRegistrations.list";
+	}
+	
+	private void updateSessionMessage(WebRequest request, String code, Object...args) {
+		String msg = Context.getMessageSourceService().getMessage(code, args, Context.getLocale());
+		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, msg, WebRequest.SCOPE_SESSION);
 	}
 }

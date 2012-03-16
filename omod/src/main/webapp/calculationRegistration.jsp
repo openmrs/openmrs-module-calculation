@@ -1,20 +1,14 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-<openmrs:require privilege="Manage Token Registrations" otherwise="/login.htm" redirect="/module/calculation/calculationRegistrations.list" />
+<openmrs:require privilege="Manage Token Registrations" otherwise="/login.htm" redirect="/module/calculation/calculationRegistration.form" />
 <%@ include file="localHeader.jsp" %>
 
+<h2>
 <c:choose>
-	<c:when test="${empty calculationRegistration.id}">
-		<h2><spring:message code="calculation.CalculationRegistration.create.pageTitle"/></h2><br/>
-	</c:when>
-	<c:otherwise>
-		<h2><spring:message code="calculation.CalculationRegistration.edit.pageTitle"/></h2><br/>
-		<form method="post" action="deleteCalculationRegistration.form">
-			<input type="hidden" name="id" value="${ calculationRegistration.id }"/>
-			<input type="submit" value="<spring:message code="calculation.CalculationRegistration.delete.title" />"/>
-		</form>
-	</c:otherwise>
+	<c:when test="${empty calculationRegistration.id}"><spring:message code="calculation.CalculationRegistration.create.pageTitle"/></c:when>
+	<c:otherwise><spring:message code="calculation.CalculationRegistration.edit.pageTitle"/></c:otherwise>
 </c:choose>
+</h2><br/>
 
 <spring:hasBindErrors name="calculationRegistration">
 	<spring:message code="fix.error"/>
@@ -80,6 +74,8 @@
 		<tr>
 			<td colspan="2">
 				<input type="submit" value="<spring:message code='general.save'/>" />
+				&nbsp;&nbsp;
+				<input type="button" value="<spring:message code='general.cancel'/>" onclick="document.location.href='calculationRegistrations.list';" />
 			</td>
 		</tr>
 	</table>

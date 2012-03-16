@@ -16,6 +16,7 @@ package org.openmrs.calculation.patient;
 import java.util.Map;
 
 import org.openmrs.Cohort;
+import org.openmrs.annotation.Handler;
 import org.openmrs.calculation.BaseCalculation;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CohortResult;
@@ -25,6 +26,7 @@ import org.openmrs.calculation.result.SimpleResult;
  * A very simple Patient Calculation, mainly to use as an example and for testing purposes
  * @should return a result containing the patient id for each member of the input cohort
  */
+@Handler(supports=PatientIdCalculation.class)
 public class PatientIdCalculation extends BaseCalculation implements PatientCalculation, PatientCalculationEvaluator {
 
 	/**
