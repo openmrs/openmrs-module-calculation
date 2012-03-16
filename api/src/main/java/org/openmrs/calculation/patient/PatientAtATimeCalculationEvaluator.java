@@ -1,0 +1,85 @@
+/**
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
+package org.openmrs.calculation.patient;
+
+import java.util.Map;
+
+import org.openmrs.Cohort;
+import org.openmrs.calculation.EvaluationInstanceData;
+import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.Result;
+
+/**
+ * Abstract implementation of a PatientCalculationEvaluator that makes it easier to support
+ * Cohort-based calculations by defining the calculation for a single patient
+ * Also provides mechanisms to enable pre-processing and cleanup steps which
+ * might be particularly useful for maximizing performance.
+ * Any instance data that this Evaluator needs to store during the course of it's evaluation should
+ * be done within an EvaluationInstanceData object, as these Evaluators are not guaranteed to be thread-safe
+ * 
+ * @see PatientCalculationEvaluator
+ */
+public abstract class PatientAtATimeCalculationEvaluator implements PatientCalculationEvaluator {
+	
+	/**
+	 * Optional method that allows for the Evaluator to perform some pre-processing activities prior
+	 * to running the evaluate method for each individual patient.
+	 */
+    public EvaluationInstanceData preprocess(Cohort cohort, 
+    										 PatientCalculation calculation, 
+    					   					 Map<String, Object> parameterValues, 
+    					   					 PatientCalculationContext context) {
+    	return null;
+    }
+    
+    /**
+     * Required method which encapsulates the actual calculation that will be performed on each patient
+     */
+    public abstract Result evaluateForPatient(EvaluationInstanceData instanceData, 
+    										  Integer patientId, 
+    										  PatientCalculation calculation, 
+			  								  Map<String, Object> parameterValues, 
+			  								  PatientCalculationContext context);
+    
+    /**
+     * Optional method that allows for any necessary cleanup activities to be performed
+     * This method will be called whether or not the evaluation succeeds, 
+     */
+    public void cleanup(EvaluationInstanceData instanceData, 
+    					Cohort cohort, 
+    					PatientCalculation calculation, 
+			 			Map<String, Object> parameterValues, 
+			 			PatientCalculationContext context) {
+    }
+    
+    /**
+     * @see PatientAtATimeCalculationEvaluator#evaluate(Cohort, PatientCalculation, Map, PatientCalculationContext)
+     */
+	public final CohortResult evaluate(Cohort cohort, PatientCalculation calculation, 
+								 Map<String, Object> parameterValues, PatientCalculationContext context) {
+		CohortResult result = new CohortResult();
+		EvaluationInstanceData instanceData = preprocess(cohort, calculation, parameterValues, context);
+        try {
+        	for (Integer patientId : cohort.getMemberIds()) {
+        		result.put(patientId, evaluateForPatient(instanceData, patientId, calculation, parameterValues, context));
+        	}
+        }
+        finally {
+        	cleanup(instanceData, cohort, calculation, parameterValues, context);
+        }
+        return result;
+  }
+	
+}
