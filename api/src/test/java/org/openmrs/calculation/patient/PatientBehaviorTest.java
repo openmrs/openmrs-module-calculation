@@ -31,6 +31,7 @@ import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.MostRecentEncounterCalculation;
 import org.openmrs.calculation.MostRecentObsCalculation;
+import org.openmrs.calculation.OuterCalculation;
 import org.openmrs.calculation.RecentEncounterCalculation;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.api.patient.PatientCalculationService;
@@ -41,6 +42,7 @@ import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ListResult;
 import org.openmrs.calculation.result.ObsResult;
+import org.openmrs.calculation.result.Result;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
@@ -246,6 +248,14 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		
 		Encounter expectedLast = Context.getEncounterService().getEncounter(5);
 		Assert.assertEquals(expectedLast, result.getLastResult().asType(Encounter.class));
+	}
+	
+	@Test
+	public void shouldNotFailWhenInnerCalculationMakesDBChangesForOuterCalculation() throws Exception {
+		PatientCalculation calc = (PatientCalculation) new ClasspathCalculationProvider().getCalculation(
+		    OuterCalculation.class.getName(), null);
+		
+		getService().evaluate(1, calc);
 	}
 	
 	/**
