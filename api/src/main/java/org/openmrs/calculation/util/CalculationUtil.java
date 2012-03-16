@@ -64,7 +64,7 @@ public class CalculationUtil {
 	 * @return the Calculation represented by the passed TokenRegistration
 	 * @throws InvalidCalculationException if the TokenRegistration is invalid
 	 */
-	public static Calculation getCalcuationForTokenRegistration(TokenRegistration tokenRegistration) throws InvalidCalculationException {
+	public static Calculation getCalculationForTokenRegistration(TokenRegistration tokenRegistration) throws InvalidCalculationException {
 		Calculation c = null;
 		if (tokenRegistration != null) {
 			CalculationProvider calculationProvider = null;

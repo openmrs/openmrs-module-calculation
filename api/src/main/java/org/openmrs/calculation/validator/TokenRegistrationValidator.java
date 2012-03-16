@@ -63,7 +63,7 @@ public class TokenRegistrationValidator implements Validator {
 			}
 		}
 		try {
-			CalculationUtil.getCalcuationForTokenRegistration(target);
+			CalculationUtil.getCalculationForTokenRegistration(target);
 		}
 		catch (Exception e) {
 			errors.reject(e.getMessage());

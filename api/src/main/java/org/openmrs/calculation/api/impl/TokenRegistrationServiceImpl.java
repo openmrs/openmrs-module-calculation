@@ -106,6 +106,6 @@ public class TokenRegistrationServiceImpl extends BaseOpenmrsService implements 
 	@Override
 	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws InvalidCalculationException {
 		TokenRegistration tokenRegistration = getTokenRegistrationByName(tokenName);
-		return (T)CalculationUtil.getCalcuationForTokenRegistration(tokenRegistration);
+		return (T) CalculationUtil.getCalculationForTokenRegistration(tokenRegistration);
 	}
 }
