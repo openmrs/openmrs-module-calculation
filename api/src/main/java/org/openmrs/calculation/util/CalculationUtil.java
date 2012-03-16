@@ -59,26 +59,34 @@ public class CalculationUtil {
 	}
 	
 	/**
+	 * Utility method that constructs a Calculation instance from 
+	 * a provider Name, calculation name, and configuration string
+	 * @return the Calculation represented by the passed parameters
+	 * @throws InvalidCalculationException if there is no valid Calculation matching the parameters
+	 */
+	public static Calculation getCalculation(String providerClassName, String calculationName, String configuration) throws InvalidCalculationException {
+		CalculationProvider calculationProvider = null;
+		try {
+			Class<?> providerClass = Context.loadClass(providerClassName);
+			calculationProvider = (CalculationProvider) providerClass.newInstance();
+		}
+		catch (Exception e) {
+			String msg = "Unable to instantiate CalculationProvider:" +  providerClassName;
+			throw new InvalidCalculationException(msg, e);
+		}
+		return calculationProvider.getCalculation(calculationName, configuration);
+	}
+	
+	/**
 	 * Utility method that constructs a Calculation instance from a TokenRegistration instance
 	 * @param tokenRegistration
 	 * @return the Calculation represented by the passed TokenRegistration
 	 * @throws InvalidCalculationException if the TokenRegistration is invalid
 	 */
-	public static Calculation getCalculationForTokenRegistration(TokenRegistration tokenRegistration) throws InvalidCalculationException {
+	public static Calculation getCalculationForTokenRegistration(TokenRegistration r) throws InvalidCalculationException {
 		Calculation c = null;
-		if (tokenRegistration != null) {
-			CalculationProvider calculationProvider = null;
-			try {
-				Class<?> providerClass = Context.loadClass(tokenRegistration.getProviderClassName());
-				calculationProvider = (CalculationProvider) providerClass.newInstance();
-			}
-			catch (Exception e) {
-				String msg = "Unable to instantiate CalculationProvider:" +  tokenRegistration.getProviderClassName();
-				throw new InvalidCalculationException(msg, e);
-			}
-			String calcName = tokenRegistration.getCalculationName();
-			String config = tokenRegistration.getConfiguration();
-			c = calculationProvider.getCalculation(calcName, config);
+		if (r != null) {
+			return getCalculation(r.getProviderClassName(), r.getCalculationName(), r.getConfiguration());
 		}
 		return c;
 	}
