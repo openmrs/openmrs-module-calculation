@@ -20,23 +20,23 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.CalculationConstants;
 import org.openmrs.calculation.InvalidCalculationException;
-import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
- * Contains service methods for managing {@link TokenRegistration}s
+ * Contains service methods for managing {@link CalculationRegistration}s
  */
-public interface TokenRegistrationService extends OpenmrsService {
+public interface CalculationRegistrationService extends OpenmrsService {
 	
 	/**
 	 * Gets a token from the database with a matching id
 	 * 
-	 * @param tokenRegistrationId
+	 * @param calculationRegistrationId
 	 * @return
 	 * @should return a token with a matching id
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public TokenRegistration getTokenRegistration(Integer tokenRegistrationId);
+	public CalculationRegistration getCalculationRegistration(Integer calculationRegistrationId);
 	
 	/**
 	 * Gets a token from the database with a matching uuid
@@ -46,7 +46,7 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should fetch a token with a matching uuid
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public TokenRegistration getTokenRegistrationByUuid(String uuid);
+	public CalculationRegistration getCalculationRegistrationByUuid(String uuid);
 	
 	/**
 	 * Gets a token from the database with a matching name
@@ -56,54 +56,54 @@ public interface TokenRegistrationService extends OpenmrsService {
 	 * @should fetch a token with a matching name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public TokenRegistration getTokenRegistrationByName(String name);
+	public CalculationRegistration getCalculationRegistrationByToken(String token);
 	
 	/**
 	 * Saves or updates the specified token in the database
 	 * 
-	 * @param tokenRegistration the tokenRegistration to save or update
+	 * @param calculationRegistration the calculationRegistration to save or update
 	 * @return
-	 * @should save the specified tokenRegistration to the database
+	 * @should save the specified calculationRegistration to the database
 	 * @should update an existing token
 	 */
 	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
-	public TokenRegistration saveTokenRegistration(TokenRegistration tokenRegistration) throws InvalidCalculationException;
+	public CalculationRegistration saveCalculationRegistration(CalculationRegistration calculationRegistration) throws InvalidCalculationException;
 	
 	/**
 	 * Gets all tokens in the database
 	 * 
-	 * @return a list of {@link TokenRegistration}s
+	 * @return a list of {@link CalculationRegistration}s
 	 * @should get all tokens in the database
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public List<TokenRegistration> getAllTokenRegistrations();
+	public List<CalculationRegistration> getAllCalculationRegistrations();
 	
 	/**
-	 * Fetches all tokens that have a name that contains the specified phrase
+	 * Fetches all tokens that have a token that contains the specified phrase
 	 * 
-	 * @param partialName the phrase to search against
-	 * @return a list of {@link TokenRegistration}s
-	 * @should get all tokenRegistrations with a matching name
+	 * @param partialToken the phrase to search against
+	 * @return a list of {@link CalculationRegistration}s
+	 * @should get all calculationRegistrations with a matching name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
-	public List<TokenRegistration> findTokenRegistrations(String partialName);
+	public List<CalculationRegistration> findCalculationRegistrations(String partialToken);
 	
 	/**
 	 * Purges the specified token from the database
 	 * 
-	 * @param tokenRegistration the tokenRegistration to purge
-	 * @should purge the specified tokenRegistration from the database
+	 * @param calculationRegistration the calculationRegistration to purge
+	 * @should purge the specified calculationRegistration from the database
 	 */
 	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
-	public void purgeTokenRegistration(TokenRegistration tokenRegistration);
+	public void purgeCalculationRegistration(CalculationRegistration calculationRegistration);
 	
 	/**
-	 * Gets a {@link PatientCalculation} with given name associated to a {@link TokenRegistration} with a name that
+	 * Gets a {@link PatientCalculation} with given name associated to a {@link CalculationRegistration} with a name that
 	 * matches the specified tokenName
 	 * 
 	 * @param tokenName
 	 * @return {@link PatientCalculation}
-	 * @should return the calculation associated to the tokenRegistration with the given name
+	 * @should return the calculation associated to the calculationRegistration with the given name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_CALCULATIONS)
 	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws InvalidCalculationException;

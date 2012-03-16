@@ -21,8 +21,8 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.api.patient.PatientCalculationService;
-import org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.patient.PatientCalculation;
+import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.provider.ClasspathCalculationProvider;
 import org.openmrs.calculation.result.CohortResult;
 

@@ -16,8 +16,8 @@ package org.openmrs.calculation.validator;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.TokenRegistration;
-import org.openmrs.calculation.api.TokenRegistrationService;
+import org.openmrs.calculation.CalculationRegistration;
+import org.openmrs.calculation.api.CalculationRegistrationService;
 import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.validation.Errors;
@@ -25,17 +25,17 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- * Validator for {@link TokenRegistration}
+ * Validator for {@link CalculationRegistration}
  */
-@Handler(supports = { TokenRegistration.class }, order = 50)
-public class TokenRegistrationValidator implements Validator {
+@Handler(supports = { CalculationRegistration.class }, order = 50)
+public class CalculationRegistrationValidator implements Validator {
 	
 	/**
 	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
 	 */
 	@SuppressWarnings("rawtypes")
     public boolean supports(Class c) {
-		return TokenRegistration.class.isAssignableFrom(c);
+		return CalculationRegistration.class.isAssignableFrom(c);
 	}
 	
 	/**
@@ -49,21 +49,21 @@ public class TokenRegistrationValidator implements Validator {
 	 * @should pass existing token registration
 	 */
 	public void validate(Object obj, Errors errors) {
-		TokenRegistration target = (TokenRegistration) obj;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "error.null");
+		CalculationRegistration target = (CalculationRegistration) obj;
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "token", "error.null");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "providerClassName", "error.null");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "calculationName", "error.null");
 		
 		/* we need to check if this registration token has unique name amongst all registered tokens for each provider */
-		if (StringUtils.isNotBlank(target.getName())) {
-			TokenRegistrationService tokenService = Context.getService(TokenRegistrationService.class);
-			TokenRegistration possibleDuplicate = tokenService.getTokenRegistrationByName(target.getName());
+		if (StringUtils.isNotBlank(target.getToken())) {
+			CalculationRegistrationService tokenService = Context.getService(CalculationRegistrationService.class);
+			CalculationRegistration possibleDuplicate = tokenService.getCalculationRegistrationByToken(target.getToken());
 			if (possibleDuplicate != null && !OpenmrsUtil.nullSafeEquals(possibleDuplicate.getId(), target.getId())) {
-				errors.rejectValue("name", "calculation.TokenRegistration.error.nonUniqueTokenName");
+				errors.rejectValue("token", "calculation.CalculationRegistration.error.nonUniqueTokenName");
 			}
 		}
 		try {
-			CalculationUtil.getCalculationForTokenRegistration(target);
+			CalculationUtil.getCalculationForCalculationRegistration(target);
 		}
 		catch (Exception e) {
 			errors.reject(e.getMessage());

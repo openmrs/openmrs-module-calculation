@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<calculation_token_registration token_registration_id="1" name="age" provider_class_name="org.openmrs.calculation.provider.ClasspathCalculationProvider" calculation_name="org.openmrs.calculation.AgeCalculation" configuration="" uuid="467dd0d8-5785-11e1-80a0-00248140a5eb" />
-	<calculation_token_registration token_registration_id="2" name="mostRecentWeight" provider_class_name="org.openmrs.calculation.provider.ClasspathCalculationProvider" calculation_name="org.openmrs.calculation.MostRecentObsCalculation" configuration="5089" uuid="0ee98666-5826-11e1-b480-00248140a5eb" />
-	<calculation_token_registration token_registration_id="3" name="mostRecentCD4" provider_class_name="org.openmrs.calculation.provider.ClasspathCalculationProvider" calculation_name="org.openmrs.calculation.MostRecentObsCalculation" configuration="5497" uuid="0ee98666-5826-11e1-b591-00248140a5eb" />
+	<calculation_registration calculation_registration_id="1" token="age" provider_class_name="org.openmrs.calculation.provider.ClasspathCalculationProvider" calculation_name="org.openmrs.calculation.AgeCalculation" configuration="" uuid="467dd0d8-5785-11e1-80a0-00248140a5eb" />
+	<calculation_registration calculation_registration_id="2" token="mostRecentWeight" provider_class_name="org.openmrs.calculation.provider.ClasspathCalculationProvider" calculation_name="org.openmrs.calculation.MostRecentObsCalculation" configuration="5089" uuid="0ee98666-5826-11e1-b480-00248140a5eb" />
+	<calculation_registration calculation_registration_id="3" token="mostRecentCD4" provider_class_name="org.openmrs.calculation.provider.ClasspathCalculationProvider" calculation_name="org.openmrs.calculation.MostRecentObsCalculation" configuration="5497" uuid="0ee98666-5826-11e1-b591-00248140a5eb" />
 	
 	<obs obs_id="100" person_id="7" concept_id="5089" encounter_id="5" obs_datetime="2008-08-19 10:35:30.0" location_id="2" value_numeric="62.0" creator="1" date_created="2008-08-19 12:35:30.0" voided="0" uuid="354f2bec-5e2c-11e1-8b14-00248140a5eb" />
 	<obs obs_id="101" person_id="7" concept_id="5089" encounter_id="5" obs_datetime="2008-08-19 10:37:30.0" location_id="2" value_numeric="63.0" creator="1" date_created="2008-08-19 12:35:30.0" voided="1" uuid="499c555c-5e2c-11e1-8b14-00248140a5eb" />

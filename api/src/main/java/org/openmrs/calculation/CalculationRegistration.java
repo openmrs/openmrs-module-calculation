@@ -17,48 +17,50 @@ import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.util.OpenmrsUtil;
 
 /**
- * A TokenRegistration represents a saved Calculation instance. The intention is to allow a fully
- * configured Calculation instance to be retrieved given a unique name String.
- * The "name" property of the TokenRegistration is the unique Token that is Registered.
+ * A CalculationRegistration represents a saved Calculation instance. The intention is to allow a fully
+ * configured Calculation instance to be retrieved given a unique token String.
+ * The "token" property of the CalculationRegistration is the unique String that identifies this saved Calculation
  * The "providerClassName" + "calculationName" + "configuration" properties fully describe how
  * the Calculation instance should be constructed and returned for this token
  */
-public class TokenRegistration extends BaseOpenmrsObject implements java.io.Serializable {
+public class CalculationRegistration extends BaseOpenmrsObject implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer tokenRegistrationId;
+	private Integer id;
+	private String token;
 	private String providerClassName;
 	private String calculationName;
 	private String configuration;
-	private String name;
 	
 	/**
-	 * @return the tokenRegistrationId
+	 * @see OpenmrsObject#getId()
 	 */
-	public Integer getTokenRegistrationId() {
-		return tokenRegistrationId;
+	@Override
+	public Integer getId() {
+		return id;
 	}
 	
 	/**
-	 * @param tokenRegistrationId the tokenRegistrationId to set
+	 * @see OpenmrsObject#setId(Integer)
 	 */
-	public void setTokenRegistrationId(Integer tokenRegistrationId) {
-		this.tokenRegistrationId = tokenRegistrationId;
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	/**
-	 * @return the name
+	 * @return the token
 	 */
-	public String getName() {
-		return name;
+	public String getToken() {
+		return token;
 	}
-	
+
 	/**
-	 * @param name the name to set
+	 * @param token the token to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	/**
@@ -104,31 +106,15 @@ public class TokenRegistration extends BaseOpenmrsObject implements java.io.Seri
 	}
 	
 	/**
-	 * @see org.openmrs.OpenmrsObject#getId()
-	 */
-	@Override
-	public Integer getId() {
-		return getTokenRegistrationId();
-	}
-	
-	/**
-	 * @see org.openmrs.OpenmrsObject#setId(java.lang.Integer)
-	 */
-	@Override
-	public void setId(Integer id) {
-		setTokenRegistrationId(id);
-	}
-	
-	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof TokenRegistration))
+		if (!(obj instanceof CalculationRegistration))
 			return false;
-		TokenRegistration other = (TokenRegistration) obj;
+		CalculationRegistration other = (CalculationRegistration) obj;
 		return OpenmrsUtil.nullSafeEquals(this.getUuid(), other.getUuid());
 	}
 	
@@ -147,9 +133,9 @@ public class TokenRegistration extends BaseOpenmrsObject implements java.io.Seri
 	 */
 	@Override
 	public String toString() {
-		if (getName() == null)
-			return "";
-		return getName();
+		if (getToken() == null)
+			return super.toString();
+		return getToken();
 	}
 	
 }

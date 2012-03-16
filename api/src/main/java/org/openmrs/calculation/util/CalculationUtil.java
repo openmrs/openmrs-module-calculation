@@ -17,7 +17,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.InvalidCalculationException;
-import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.provider.CalculationProvider;
 
 /**
@@ -78,12 +78,12 @@ public class CalculationUtil {
 	}
 	
 	/**
-	 * Utility method that constructs a Calculation instance from a TokenRegistration instance
-	 * @param tokenRegistration
-	 * @return the Calculation represented by the passed TokenRegistration
-	 * @throws InvalidCalculationException if the TokenRegistration is invalid
+	 * Utility method that constructs a Calculation instance from a CalculationRegistration instance
+	 * @param calculationRegistration
+	 * @return the Calculation represented by the passed CalculationRegistration
+	 * @throws InvalidCalculationException if the CalculationRegistration is invalid
 	 */
-	public static Calculation getCalculationForTokenRegistration(TokenRegistration r) throws InvalidCalculationException {
+	public static Calculation getCalculationForCalculationRegistration(CalculationRegistration r) throws InvalidCalculationException {
 		Calculation c = null;
 		if (r != null) {
 			return getCalculation(r.getProviderClassName(), r.getCalculationName(), r.getConfiguration());

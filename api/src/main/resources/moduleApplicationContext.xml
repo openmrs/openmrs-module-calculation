@@ -43,14 +43,14 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>${project.parent.groupId}.${project.parent.artifactId}.api.TokenRegistrationService</value>
+				<value>${project.parent.groupId}.${project.parent.artifactId}.api.CalculationRegistrationService</value>
 				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.impl.TokenRegistrationServiceImpl">
-							<property name="dao" ref="tokenRegistrationDao" /> 
+						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.impl.CalculationRegistrationServiceImpl">
+							<property name="dao" ref="calculationRegistrationDao" /> 
 						</bean>
 					</property>
 					<property name="preInterceptors">
@@ -64,8 +64,10 @@
 		</property>
 	</bean>
 	
-	<bean id="tokenRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.api.db.hibernate.HibernateTokenRegistrationDAO">
+	<bean id="calculationRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.api.db.hibernate.HibernateCalculationRegistrationDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean id="classPathCalculationProvider" class="${project.parent.groupId}.${project.parent.artifactId}.provider.ClasspathCalculationProvider" />
 	
 </beans>

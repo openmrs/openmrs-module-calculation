@@ -22,6 +22,11 @@
 	<activator>
 		${project.parent.groupId}.${project.parent.artifactId}.CalculationActivator
 	</activator>
+	
+	<extension>
+        <point>org.openmrs.admin.list</point>
+        <class>org.openmrs.calculation.web.extension.AdminList</class>
+    </extension>
 
 	<!-- Required Privileges -->
 	<privilege>
@@ -40,7 +45,7 @@
 
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-		TokenRegistration.hbm.xml
+		CalculationRegistration.hbm.xml
 	</mappingFiles>
 
 	<!-- Internationalization -->

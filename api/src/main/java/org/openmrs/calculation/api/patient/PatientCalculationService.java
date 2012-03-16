@@ -18,7 +18,7 @@ import java.util.Map;
 import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.calculation.TokenRegistration;
+import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
