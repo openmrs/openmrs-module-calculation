@@ -71,13 +71,10 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void shouldCalculateThePatientAge() throws Exception {
 		PatientCalculation ageCalculation = getAgeCalculation();
-		
 		int patientId = 2;
-		
 		int expected = Context.getPatientService().getPatient(patientId).getAge();
-		Assert.assertNotNull(getService().evaluate(patientId, ageCalculation));
-		Assert.assertEquals(expected, getService().evaluate(patientId, ageCalculation).asType(Integer.class).intValue());
-		
+		Result calculated = getService().evaluate(patientId, ageCalculation);
+		Assert.assertEquals(expected, calculated.asType(Integer.class).intValue());
 	}
 	
 	/**

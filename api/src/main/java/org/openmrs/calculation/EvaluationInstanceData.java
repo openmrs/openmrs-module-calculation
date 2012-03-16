@@ -13,15 +13,12 @@
  */
 package org.openmrs.calculation;
 
-import java.util.HashMap;
-
 /**
- * This class is meant to encapsulate any data that needs to exist during the course of the
+ * This interface is meant to encapsulate any data that needs to exist during the course of the
  * evaluation of a single Calculation.  It's primary purpose is to allow for evaluators to
- * store instance data during the course of an Evaluation, without using instance variables
- * since they are singletons that are shared for evaluations occurring in multiple threads
+ * store instance data without using instance variables, since they are singletons 
+ * that are shared for evaluations occurring in multiple threads
  */
-public class EvaluationInstanceData extends HashMap<String, Object> {
-
-	private static final long serialVersionUID = 1L;
+public interface EvaluationInstanceData {
+	
 }
