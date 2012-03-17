@@ -163,6 +163,10 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		
 		private Map<String, Object> contextCache = new WeakHashMap<String, Object>();
 		
+		public SimplePatientCalculationContext() {
+			this.now = new Date();
+		}
+		
 		/**
 		 * @see org.openmrs.calculation.api.patient.PatientCalculationContext#getNow()
 		 */

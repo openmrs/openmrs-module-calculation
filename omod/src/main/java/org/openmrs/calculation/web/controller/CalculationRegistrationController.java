@@ -13,6 +13,8 @@
  */
 package org.openmrs.calculation.web.controller;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,9 +54,11 @@ public class CalculationRegistrationController {
 	@RequestMapping(value = "/module/calculation/patientCalculationTest")
 	public void patientCalculationTest(Model model,
 									   @RequestParam(value="id", required=true) Integer id,
-									   @RequestParam(value="patientIds", required=false) String patientIds) {
+									   @RequestParam(value="patientIds", required=false) String patientIds,
+									   @RequestParam(value="randomIds", required=false) Integer randomIds) {
 		model.addAttribute("id", id);
 		model.addAttribute("patientIds", patientIds);
+		model.addAttribute("randomIds", randomIds);
 		
 		try {
 			CalculationRegistrationService service = Context.getService(CalculationRegistrationService.class);
@@ -64,8 +68,16 @@ public class CalculationRegistrationController {
 			PatientCalculation calculation = service.getCalculation(r.getToken(), PatientCalculation.class);
 			model.addAttribute("calculation", calculation);
 			
+			Cohort cohort = null;
 			if (StringUtils.isNotBlank(patientIds)) {
-				Cohort cohort = new Cohort(patientIds);
+				cohort = new Cohort(patientIds);
+			}
+			else if (randomIds != null) {
+				cohort = new Cohort();
+				String sql = "select patient_id from patient where voided = 0 limit " + randomIds;
+				for (List<Object> row : Context.getAdministrationService().executeSQL(sql, true)) {
+					cohort.addMember((Integer)row.get(0));
+				}
 				model.addAttribute("cohort", cohort);
 				
 				long startTime = System.currentTimeMillis();

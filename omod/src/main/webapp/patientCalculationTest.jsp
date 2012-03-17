@@ -28,11 +28,17 @@
 		<td>${calculationRegistration.configuration}</td>
 	</tr>
 </table>
-<br/><br/>
-<b></b><spring:message code="calculation.CalculationRegistration.test.enterPatientIds"/></b>
+<br/>
 <form>
 	<input type="hidden" name="id" value="${id}"/>
-	<textarea name="patientIds" rows="2", cols="100">${patientIds}</textarea>
+	<spring:message code="calculation.CalculationRegistration.test.randomPatientIds"/>
+	<input type="text" name="randomIds" size="10" value="${randomIds}"/>
+	<br/>
+	 - <spring:message code="general.or"/> -
+	<br/>
+	<spring:message code="calculation.CalculationRegistration.test.enterPatientIds"/>
+	<input type="text" name="patientIds" size="50" value="${patientIds}"/>
+	<br/><br/>
 	<input type="submit" value="<spring:message code="calculation.CalculationRegistration.test"/>"/>
 </form>
 <hr/>
