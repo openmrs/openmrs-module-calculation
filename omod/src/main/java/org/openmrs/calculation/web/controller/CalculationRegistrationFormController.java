@@ -116,7 +116,8 @@ public class CalculationRegistrationFormController {
 		}
 		catch (Exception e) {
 			log.error("Unable to save token registration, because of error:", e);
-			updateSessionMessage(request, "calculation.CalculationRegistration.errorSaving", calculationRegistration);
+			request.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "calculation.CalculationRegistration.errorSaving",
+			    WebRequest.SCOPE_SESSION);
 			return null;
 		}
 		
