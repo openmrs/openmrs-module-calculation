@@ -87,8 +87,8 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 		int originalTokenCount = service.getAllCalculationRegistrations().size();
 		CalculationRegistration token = new CalculationRegistration();
 		token.setToken("test token registration");
-		token.setProviderClassName("test.provider.class");
-		token.setCalculationName("testing");
+		token.setProviderClassName("org.openmrs.calculation.provider.ClasspathCalculationProvider");
+		token.setCalculationName("org.openmrs.calculation.AgeCalculation");
 		service.saveCalculationRegistration(token);
 		Assert.assertNotNull(token.getId());
 		Assert.assertEquals(originalTokenCount + 1, service.getAllCalculationRegistrations().size());

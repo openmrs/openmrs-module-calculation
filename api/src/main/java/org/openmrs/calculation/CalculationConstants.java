@@ -18,6 +18,8 @@ package org.openmrs.calculation;
  */
 public final class CalculationConstants {
 	
+	public static final String MODULE_ID = "calculation";
+	
 	public static final String PRIV_MANAGE_TOKEN_REGISTRATIONS = "Manage Token Registrations";
 	
 	public static final String PRIV_VIEW_TOKEN_REGISTRATIONS = "View Token Registrations";
