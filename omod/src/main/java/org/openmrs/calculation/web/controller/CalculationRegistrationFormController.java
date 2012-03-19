@@ -46,10 +46,12 @@ public class CalculationRegistrationFormController {
 	/**
 	 * Default constructor
 	 */
-	public CalculationRegistrationFormController() {}
+	public CalculationRegistrationFormController() {
+	}
 	
 	/**
 	 * Constructor that takes in a validator
+	 * 
 	 * @param calculationRegistrationValidator
 	 */
 	@Autowired
@@ -59,6 +61,7 @@ public class CalculationRegistrationFormController {
 	
 	/**
 	 * Gets registered calculation providers as model attribute
+	 * 
 	 * @return not-null collection of calculation providers
 	 */
 	@ModelAttribute("providers")
@@ -76,10 +79,10 @@ public class CalculationRegistrationFormController {
 	@ModelAttribute("calculationRegistration")
 	public CalculationRegistration formBackingObject(@RequestParam(value = "id", required = false) Integer id) {
 		if (id != null) {
-			CalculationRegistrationService calculationRegistrationService = Context.getService(CalculationRegistrationService.class);
+			CalculationRegistrationService calculationRegistrationService = Context
+			        .getService(CalculationRegistrationService.class);
 			return calculationRegistrationService.getCalculationRegistration(id);
-		} 
-		else {
+		} else {
 			return new CalculationRegistration();
 		}
 	}
@@ -97,9 +100,8 @@ public class CalculationRegistrationFormController {
 	 * edit page.
 	 */
 	@RequestMapping(value = "/module/calculation/calculationRegistration", method = RequestMethod.POST)
-	public String saveCalculationRegistration(@ModelAttribute("calculationRegistration") CalculationRegistration calculationRegistration, 
-	        							BindingResult result, 
-	        							WebRequest request) {
+	public String saveCalculationRegistration(@ModelAttribute("calculationRegistration") CalculationRegistration calculationRegistration,
+	                                          BindingResult result, WebRequest request) {
 		
 		// Validate CalculationRegistration
 		calculationRegistrationValidator.validate(calculationRegistration, result);
@@ -107,7 +109,8 @@ public class CalculationRegistrationFormController {
 			return null;
 		}
 		
-		CalculationRegistrationService calculationRegistrationService = Context.getService(CalculationRegistrationService.class);
+		CalculationRegistrationService calculationRegistrationService = Context
+		        .getService(CalculationRegistrationService.class);
 		try {
 			calculationRegistration = calculationRegistrationService.saveCalculationRegistration(calculationRegistration);
 		}
@@ -130,7 +133,7 @@ public class CalculationRegistrationFormController {
 		return "redirect:calculationRegistrations.list";
 	}
 	
-	private void updateSessionMessage(WebRequest request, String code, Object...args) {
+	private void updateSessionMessage(WebRequest request, String code, Object... args) {
 		String msg = Context.getMessageSourceService().getMessage(code, args, Context.getLocale());
 		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, msg, WebRequest.SCOPE_SESSION);
 	}
