@@ -78,6 +78,8 @@ public class CalculationRegistrationController {
 				for (List<Object> row : Context.getAdministrationService().executeSQL(sql, true)) {
 					cohort.addMember((Integer)row.get(0));
 				}
+			}
+			if (cohort != null) {
 				model.addAttribute("cohort", cohort);
 				
 				long startTime = System.currentTimeMillis();
