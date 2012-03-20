@@ -34,6 +34,21 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	private String configuration;
 	
 	/**
+	 * Default Constructor
+	 */
+	public CalculationRegistration() {}
+	
+	/**
+	 * Full Constructor
+	 */
+	public CalculationRegistration(String token, String providerClassName, String calculationName, String configuration) {
+		this.token = token;
+		this.providerClassName = providerClassName;
+		this.calculationName = calculationName;
+		this.configuration = configuration;
+	}
+	
+	/**
 	 * @see OpenmrsObject#getId()
 	 */
 	@Override

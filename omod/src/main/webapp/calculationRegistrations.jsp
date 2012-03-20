@@ -33,7 +33,13 @@
 
 <h2><spring:message code="calculation.CalculationRegistration.manage.pageTitle" /></h2>
 
-<a href="calculationRegistration.form"><spring:message code="general.add"/></a>
+<button onclick="document.location.href='calculationRegistration.form';">
+	<spring:message code="calculation.registerCalculationManually"/>
+</button>
+&nbsp;&nbsp;
+<button onclick="document.location.href='calculationAutoRegistration.form';">
+	<spring:message code="calculation.registerCalculationsAutomatically"/>
+</button>
 <br/><br/>
 
 <b class="boxHeader"><spring:message code="calculation.CalculationRegistration.listExistings.boxTitle"/></b>
