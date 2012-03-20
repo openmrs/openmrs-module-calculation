@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api;
+package org.openmrs.calculation.api.patient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.MissingParameterException;
-import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.SimpleParameterDefinition;
 import org.openmrs.calculation.patient.PatientCalculation;
@@ -48,8 +47,9 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	}
 	
 	/**
-	 * @see {@link
-	 *      PatientCalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext )}
+	 * @see {@link 
+	 *      PatientCalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext
+	 *      )}
 	 */
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail if any required parameter is not set", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
@@ -61,8 +61,9 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	}
 	
 	/**
-	 * @see {@link
-	 *      PatientCalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext )}
+	 * @see {@link 
+	 *      PatientCalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext
+	 *      )}
 	 */
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a primitive wrapper", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
@@ -77,8 +78,9 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	}
 	
 	/**
-	 * @see {@link
-	 *      PatientCalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext )}
+	 * @see {@link 
+	 *      PatientCalculationService#evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext
+	 *      )}
 	 */
 	@Test(expected = MissingParameterException.class)
 	@Verifies(value = "should fail for a blank value for a required parameter if datatype is a String", method = "evaluate(Cohort,Calculation,Map<String,Object>,CalculationContext)")
@@ -97,6 +99,6 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	 */
 	private PatientCalculation getAgeCalculation() throws InvalidCalculationException {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
-		return (PatientCalculation)p.getCalculation(AgeCalculation.class.getName(), null);
+		return (PatientCalculation) p.getCalculation(AgeCalculation.class.getName(), null);
 	}
 }
