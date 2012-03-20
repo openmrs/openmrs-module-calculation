@@ -13,7 +13,9 @@
 	<updateURL>
 		https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf
 	</updateURL>
-	<require_version>${openMRSVersion}</require_version>
+	<require_version>1.6.6</require_version>
+	<!-- Change the require version back to the below, and update the openMRSVersion property accordingly when 1.6.6 is released -->
+	<!-- require_version>${openMRSVersion}</require_version -->
 	<!-- / Module Properties -->
 
 
