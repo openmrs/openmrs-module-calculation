@@ -31,8 +31,8 @@ import org.openmrs.calculation.EvaluationInstanceData;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientAtATimeCalculationEvaluator;
 import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.result.EmptyResult;
-import org.openmrs.calculation.result.Result;
+import org.openmrs.calculation.result.EmptyCalculationResult;
+import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.SimpleResult;
 
 /**
@@ -79,13 +79,13 @@ public class AgeCalculationEvaluator extends PatientAtATimeCalculationEvaluator 
 	 * @see PatientAtATimeCalculationEvaluator#evaluateForPatient(EvaluationInstanceData, Integer, PatientCalculation, Map, PatientCalculationContext)
 	 */
 	@Override
-	public Result evaluateForPatient(EvaluationInstanceData instanceData,
+	public CalculationResult evaluateForPatient(EvaluationInstanceData instanceData,
 			Integer patientId, PatientCalculation calculation,
 			Map<String, Object> parameterValues,
 			PatientCalculationContext context) {
 
 		BirthdateData data = (BirthdateData)instanceData;
-		Result r = new EmptyResult();
+		CalculationResult r = new EmptyCalculationResult();
 		Date birthdate = data.get(patientId);
 		if (birthdate != null) {
 			Chronology isoChronology = ISOChronology.getInstance();

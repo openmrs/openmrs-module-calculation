@@ -26,46 +26,46 @@ import org.openmrs.test.Verifies;
 public class ResultUtilTest {
 	
 	/**
-	 * @see {@link ResultUtil#getFirst(Result)}
+	 * @see {@link ResultUtil#getFirst(CalculationResult)}
 	 */
 	@Test
-	@Verifies(value = "should get the first result if the value of the result is a list", method = "getFirst(Result)")
+	@Verifies(value = "should get the first result if the value of the result is a list", method = "getFirst(CalculationResult)")
 	public void getFirst_shouldGetTheFirstResultIfTheValueOfTheResultIsAList() throws Exception {
 		ListResult listResult = new ListResult();
-		List<Result> results = new ArrayList<Result>();
+		List<CalculationResult> results = new ArrayList<CalculationResult>();
 		results.add(new SimpleResult("first", null));
 		results.add(new SimpleResult("second", null));
 		listResult.setValue(results);
 		
-		Result firstResult = ResultUtil.getFirst(listResult);
+		CalculationResult firstResult = ResultUtil.getFirst(listResult);
 		Assert.assertEquals("first", firstResult.getValue());
 	}
 	
 	/**
-	 * @see {@link ResultUtil#getFirst(Result)}
+	 * @see {@link ResultUtil#getFirst(CalculationResult)}
 	 */
 	@Test
-	@Verifies(value = "should return the same result if the value of the result is a not a list", method = "getFirst(Result)")
+	@Verifies(value = "should return the same result if the value of the result is a not a list", method = "getFirst(CalculationResult)")
 	public void getFirst_shouldReturnTheSameResultIfTheValueOfTheResultIsANotAList() throws Exception {
-		Result result = new SimpleResult("result", null);
+		CalculationResult result = new SimpleResult("result", null);
 		Assert.assertEquals(result, ResultUtil.getFirst(result));
 	}
 	
 	/**
-	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 * @see {@link ResultUtil#convert(CalculationResult,Class<T>)}
 	 */
 	@Test
-	@Verifies(value = "should return null if the passed in result is null", method = "convert(Result,Class<T>)")
+	@Verifies(value = "should return null if the passed in result is null", method = "convert(CalculationResult,Class<T>)")
 	public void convert_shouldReturnNullIfThePassedInResultIsNull() throws Exception {
 		Assert.assertNull(ResultUtil.convert(null, String.class));
 	}
 	
 	/**
-	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 * @see {@link ResultUtil#convert(CalculationResult,Class<T>)}
 	 */
 	@SuppressWarnings("rawtypes")
 	@Test
-	@Verifies(value = "should return an empty collection if the result has a null value and class is a list", method = "convert(Result,Class<T>)")
+	@Verifies(value = "should return an empty collection if the result has a null value and class is a list", method = "convert(CalculationResult,Class<T>)")
 	public void convert_shouldReturnAnEmptyCollectionIfTheResultHasANullValueAndClassIsAList() throws Exception {
 		List list = ResultUtil.convert(new SimpleResult(null, null), List.class);
 		Assert.assertNotNull(list);
@@ -73,11 +73,11 @@ public class ResultUtilTest {
 	}
 	
 	/**
-	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 * @see {@link ResultUtil#convert(CalculationResult,Class<T>)}
 	 */
 	@SuppressWarnings("rawtypes")
 	@Test
-	@Verifies(value = "should return an empty collection if the result is null and class is a list", method = "convert(Result,Class<T>)")
+	@Verifies(value = "should return an empty collection if the result is null and class is a list", method = "convert(CalculationResult,Class<T>)")
 	public void convert_shouldReturnAnEmptyCollectionIfTheResultIsNullAndClassIsAList() throws Exception {
 		List list = ResultUtil.convert(null, List.class);
 		Assert.assertNotNull(list);
@@ -85,11 +85,11 @@ public class ResultUtilTest {
 	}
 	
 	/**
-	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 * @see {@link ResultUtil#convert(CalculationResult,Class<T>)}
 	 */
 	@SuppressWarnings("rawtypes")
 	@Test
-	@Verifies(value = "should return an empty map if the result has a null value and class is a map", method = "convert(Result,Class<T>)")
+	@Verifies(value = "should return an empty map if the result has a null value and class is a map", method = "convert(CalculationResult,Class<T>)")
 	public void convert_shouldReturnAnEmptyMapIfTheResultHasANullValueAndClassIsAMap() throws Exception {
 		Map map = ResultUtil.convert(new SimpleResult(null, null), Map.class);
 		Assert.assertNotNull(map);
@@ -97,11 +97,11 @@ public class ResultUtilTest {
 	}
 	
 	/**
-	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 * @see {@link ResultUtil#convert(CalculationResult,Class<T>)}
 	 */
 	@SuppressWarnings("rawtypes")
 	@Test
-	@Verifies(value = "should return an empty map if the result is null and class is a map", method = "convert(Result,Class<T>)")
+	@Verifies(value = "should return an empty map if the result is null and class is a map", method = "convert(CalculationResult,Class<T>)")
 	public void convert_shouldReturnAnEmptyMapIfTheResultIsNullAndClassIsAMap() throws Exception {
 		Map map = ResultUtil.convert(null, Map.class);
 		Assert.assertNotNull(map);
@@ -109,23 +109,23 @@ public class ResultUtilTest {
 	}
 	
 	/**
-	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 * @see {@link ResultUtil#convert(CalculationResult,Class<T>)}
 	 */
 	@SuppressWarnings("rawtypes")
 	@Test
-	@Verifies(value = "should return an empty collection if the result has a null value and class is a set", method = "convert(Result,Class<T>)")
+	@Verifies(value = "should return an empty collection if the result has a null value and class is a set", method = "convert(CalculationResult,Class<T>)")
 	public void convert_shouldReturnAnEmptyCollectionIfTheResultHasANullValueAndClassIsASet() throws Exception {
-		Set set = ResultUtil.convert(new EmptyResult(), Set.class);
+		Set set = ResultUtil.convert(new EmptyCalculationResult(), Set.class);
 		Assert.assertNotNull(set);
 		Assert.assertTrue(set.isEmpty());
 	}
 	
 	/**
-	 * @see {@link ResultUtil#convert(Result,Class<T>)}
+	 * @see {@link ResultUtil#convert(CalculationResult,Class<T>)}
 	 */
 	@SuppressWarnings("rawtypes")
 	@Test
-	@Verifies(value = "should return an empty collection if the result is null and class is a set", method = "convert(Result,Class<T>)")
+	@Verifies(value = "should return an empty collection if the result is null and class is a set", method = "convert(CalculationResult,Class<T>)")
 	public void convert_shouldReturnAnEmptyCollectionIfTheResultIsNullAndClassIsASet() throws Exception {
 		Set set = ResultUtil.convert(null, Set.class);
 		Assert.assertNotNull(set);

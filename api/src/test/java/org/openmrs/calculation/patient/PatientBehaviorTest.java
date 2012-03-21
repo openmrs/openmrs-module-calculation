@@ -42,7 +42,7 @@ import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ListResult;
 import org.openmrs.calculation.result.ObsResult;
-import org.openmrs.calculation.result.Result;
+import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
@@ -73,7 +73,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		PatientCalculation ageCalculation = getAgeCalculation();
 		int patientId = 2;
 		int expected = Context.getPatientService().getPatient(patientId).getAge();
-		Result calculated = getService().evaluate(patientId, ageCalculation);
+		CalculationResult calculated = getService().evaluate(patientId, ageCalculation);
 		Assert.assertEquals(expected, calculated.asType(Integer.class).intValue());
 	}
 	

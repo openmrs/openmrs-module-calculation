@@ -19,7 +19,7 @@ import org.openmrs.Cohort;
 import org.openmrs.calculation.EvaluationInstanceData;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.Result;
+import org.openmrs.calculation.result.CalculationResult;
 
 /**
  * Abstract implementation of a PatientCalculationEvaluator that makes it easier
@@ -50,7 +50,7 @@ public abstract class PatientAtATimeCalculationEvaluator implements PatientCalcu
 	 * Required method which encapsulates the actual calculation that will be
 	 * performed on each patient
 	 */
-	public abstract Result evaluateForPatient(
+	public abstract CalculationResult evaluateForPatient(
 			EvaluationInstanceData instanceData, Integer patientId,
 			PatientCalculation calculation,
 			Map<String, Object> parameterValues,

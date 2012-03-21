@@ -17,9 +17,9 @@ import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.CalculationContext;
 
 /**
- * Provides a simple concrete implementation of a {@link Result} that can be used out of the box.
+ * Provides a simple concrete implementation of a {@link CalculationResult} that can be used out of the box.
  */
-public class SimpleResult implements Result {
+public class SimpleResult implements CalculationResult {
 	
 	protected CalculationContext calculationContext;
 	
@@ -52,7 +52,7 @@ public class SimpleResult implements Result {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#getCalculation()
+	 * @see org.openmrs.calculation.result.CalculationResult#getCalculation()
 	 */
 	@Override
 	public Calculation getCalculation() {
@@ -67,7 +67,7 @@ public class SimpleResult implements Result {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#getCalculationContext()
+	 * @see org.openmrs.calculation.result.CalculationResult#getCalculationContext()
 	 */
 	@Override
 	public CalculationContext getCalculationContext() {
@@ -82,7 +82,7 @@ public class SimpleResult implements Result {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#getValue()
+	 * @see org.openmrs.calculation.result.CalculationResult#getValue()
 	 */
 	@Override
 	public Object getValue() {
@@ -97,7 +97,7 @@ public class SimpleResult implements Result {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#isEmpty()
+	 * @see org.openmrs.calculation.result.CalculationResult#isEmpty()
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -105,7 +105,7 @@ public class SimpleResult implements Result {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#asType(java.lang.Class)
+	 * @see org.openmrs.calculation.result.CalculationResult#asType(java.lang.Class)
 	 */
 	@Override
 	public <T> T asType(Class<T> clazz) {

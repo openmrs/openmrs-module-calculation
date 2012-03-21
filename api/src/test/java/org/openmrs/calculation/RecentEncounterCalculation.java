@@ -31,7 +31,7 @@ import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.EmptyResult;
+import org.openmrs.calculation.result.EmptyCalculationResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ListResult;
 import org.openmrs.util.OpenmrsUtil;
@@ -97,7 +97,7 @@ public class RecentEncounterCalculation extends BaseCalculation implements Confi
 						}
 						results.put(patientId, list);
 					} else {
-						results.put(patientId, new EmptyResult());
+						results.put(patientId, new EmptyCalculationResult());
 					}
 				}
 			}

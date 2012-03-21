@@ -33,9 +33,9 @@ import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationEvaluator;
+import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.EmptyResult;
-import org.openmrs.calculation.result.Result;
+import org.openmrs.calculation.result.EmptyCalculationResult;
 import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.util.HandlerUtil;
 
@@ -59,7 +59,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	 *      org.openmrs.calculation.patient.PatientCalculation)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, PatientCalculation calculation) throws APIException {
+	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation) throws APIException {
 		return evaluate(patientId, calculation, null);
 	}
 	
@@ -69,7 +69,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, PatientCalculation calculation, PatientCalculationContext context)
+	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException {
 		return evaluate(patientId, calculation, null, context);
 	}
@@ -80,13 +80,14 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
 	 */
 	@Override
-	public Result evaluate(Integer patientId, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                       PatientCalculationContext context) throws APIException {
+	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation,
+	                                  Map<String, Object> parameterValues, PatientCalculationContext context)
+	    throws APIException {
 		Cohort cohort = new Cohort(patientId);
 		cohort.addMember(patientId);
 		CohortResult cr = evaluate(cohort, calculation, parameterValues, context);
 		if (cr == null || cr.size() == 0)
-			return new EmptyResult();
+			return new EmptyCalculationResult();
 		
 		return cr.get(patientId);
 	}

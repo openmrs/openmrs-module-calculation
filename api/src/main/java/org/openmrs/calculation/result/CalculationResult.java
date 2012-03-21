@@ -17,9 +17,9 @@ import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.CalculationContext;
 
 /**
- * A Result is the data that is produced from evaluating a {@link Calculation} for a single patient.
+ * A CalculationResult is the data that is produced from evaluating a {@link Calculation} for a single patient.
  */
-public interface Result {
+public interface CalculationResult {
 	
 	/**
 	 * @return the Calculation that was evaluated to produce this result

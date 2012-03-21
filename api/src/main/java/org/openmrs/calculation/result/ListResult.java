@@ -20,10 +20,10 @@ import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
- * A {@link Result} backed by a {@link List} of results with convenience methods
+ * A {@link CalculationResult} backed by a {@link List} of results with convenience methods
  * that get the first and last results in the backing list
  */
-public class ListResult implements Result {
+public class ListResult implements CalculationResult {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,10 +31,10 @@ public class ListResult implements Result {
 
 	private PatientCalculation calculation;
 
-	private List<Result> results;
+	private List<CalculationResult> results;
 
 	/**
-	 * @see org.openmrs.calculation.result.Result#getCalculation()
+	 * @see org.openmrs.calculation.result.CalculationResult#getCalculation()
 	 */
 	@Override
 	public PatientCalculation getCalculation() {
@@ -50,7 +50,7 @@ public class ListResult implements Result {
 	}
 
 	/**
-	 * @see org.openmrs.calculation.result.Result#getCalculationContext()
+	 * @see org.openmrs.calculation.result.CalculationResult#getCalculationContext()
 	 */
 	@Override
 	public PatientCalculationContext getCalculationContext() {
@@ -67,7 +67,7 @@ public class ListResult implements Result {
 	}
 
 	/**
-	 * @see org.openmrs.calculation.result.Result#getValue()
+	 * @see org.openmrs.calculation.result.CalculationResult#getValue()
 	 */
 	@Override
 	public Object getValue() {
@@ -78,12 +78,12 @@ public class ListResult implements Result {
 	 * @param value
 	 *            the value to set
 	 */
-	public void setValue(List<Result> value) {
+	public void setValue(List<CalculationResult> value) {
 		this.results = value;
 	}
 
 	/**
-	 * @see org.openmrs.calculation.result.Result#isEmpty()
+	 * @see org.openmrs.calculation.result.CalculationResult#isEmpty()
 	 */
 	@Override
 	public boolean isEmpty() {
@@ -91,7 +91,7 @@ public class ListResult implements Result {
 	}
 
 	/**
-	 * @see org.openmrs.calculation.result.Result#asType(java.lang.Class)
+	 * @see org.openmrs.calculation.result.CalculationResult#asType(java.lang.Class)
 	 */
 	@Override
 	public <T> T asType(Class<T> clazz) {
@@ -101,19 +101,19 @@ public class ListResult implements Result {
 	/**
 	 * Gets the first result in the backing list
 	 * 
-	 * @return the first result {@link Result}
+	 * @return the first result {@link CalculationResult}
 	 */
-	public Result getFirstResult() {
-		return isEmpty() ? new EmptyResult() : results.get(0);
+	public CalculationResult getFirstResult() {
+		return isEmpty() ? new EmptyCalculationResult() : results.get(0);
 	}
 
 	/**
 	 * Gets the last result in the backing list
 	 * 
-	 * @return the last result {@link Result}
+	 * @return the last result {@link CalculationResult}
 	 */
-	public Result getLastResult() {
-		return isEmpty() ? new EmptyResult() : results.get(results.size() - 1);
+	public CalculationResult getLastResult() {
+		return isEmpty() ? new EmptyCalculationResult() : results.get(results.size() - 1);
 	}
 
 	/**
@@ -121,11 +121,11 @@ public class ListResult implements Result {
 	 * 
 	 * @param result
 	 *            the result to add
-	 * @return the added {@link Result}
+	 * @return the added {@link CalculationResult}
 	 */
-	public Result add(Result result) {
+	public CalculationResult add(CalculationResult result) {
 		if (results == null) {
-			results = new ArrayList<Result>();
+			results = new ArrayList<CalculationResult>();
 		}
 
 		results.add(result);
@@ -140,7 +140,7 @@ public class ListResult implements Result {
 	 *            the result to remove
 	 * @return true if this list contained the specified result and it was removed
 	 */
-	public boolean remove(Result result) {
+	public boolean remove(CalculationResult result) {
 		if (isEmpty()) {
 			return false;
 		}
@@ -153,9 +153,9 @@ public class ListResult implements Result {
 	 * 
 	 * @param index
 	 *            the position
-	 * @return the removed {@link Result}
+	 * @return the removed {@link CalculationResult}
 	 */
-	public Result remove(int index) {
+	public CalculationResult remove(int index) {
 		if (isEmpty()) {
 			return null;
 		}

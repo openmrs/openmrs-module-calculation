@@ -19,11 +19,11 @@ import org.openmrs.Cohort;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.Result;
+import org.openmrs.calculation.result.CalculationResult;
 
 /**
  * Base interface for all patient calculation evaluators, a PatientCalculationEvaluator is
- * responsible for evaluating one or more types of {@link PatientCalculation}s into {@link Result}s.
+ * responsible for evaluating one or more types of {@link PatientCalculation}s into {@link CalculationResult}s.
  * This is where the bulk of all calculations occur, either by performing these calculations
  * directly within the evaluator, or by delegating to service methods that perform calculations.
  * 

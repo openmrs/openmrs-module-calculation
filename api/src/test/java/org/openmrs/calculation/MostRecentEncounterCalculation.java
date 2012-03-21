@@ -27,7 +27,7 @@ import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.EmptyResult;
+import org.openmrs.calculation.result.EmptyCalculationResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -71,7 +71,7 @@ public class MostRecentEncounterCalculation extends BaseCalculation implements P
 						context.addToCache(MOST_RECENT_ENCOUNTER_KEY_PREFIX + patientId, mostRecentEncounterFound);
 						results.put(patientId, new EncounterResult(mostRecentEncounterFound, calculation, context));
 					} else {
-						results.put(patientId, new EmptyResult());
+						results.put(patientId, new EmptyCalculationResult());
 					}
 				}
 			}

@@ -26,7 +26,7 @@ import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.ObsResult;
-import org.openmrs.calculation.result.Result;
+import org.openmrs.calculation.result.CalculationResult;
 
 /**
  * Calculation for most recent obs, this calculation also evaluates itself
@@ -62,7 +62,7 @@ public class MostRecentObsCalculation extends BaseCalculation implements Configu
 		Map<Integer, List<Obs>> patientObs = Context.getPatientSetService().getObservations(cohort, calc.whichConcept);
 		for (Integer pId : patientObs.keySet()) {
 			String cacheKey = calc.getClass().getName() + "." + calc.whichConcept + "." + pId;
-			Result r = (Result)context.getFromCache(cacheKey);
+			CalculationResult r = (CalculationResult)context.getFromCache(cacheKey);
 			if (r == null) {
 				r = new ObsResult(patientObs.get(pId).get(0), calculation);
 				context.addToCache(cacheKey, r);

@@ -21,7 +21,7 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.Result;
+import org.openmrs.calculation.result.CalculationResult;
 
 /**
  * The PatientCalculationService is the primary mechanism for evaluating {@link PatientCalculation}s
@@ -38,13 +38,13 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation,
 	 *      PatientCalculationContext)
 	 */
-	public Result evaluate(Integer patientId, PatientCalculation calculation);
+	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation);
 	
 	/**
 	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, Map,
 	 *      PatientCalculationContext)
 	 */
-	public Result evaluate(Integer patientId, PatientCalculation calculation, PatientCalculationContext context)
+	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException;
 	
 	/**
@@ -56,9 +56,9 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @param parameterValues a map of {@link ParameterDefinition} keys and actual values to be used
 	 *            by the calculation
 	 * @param context the {@link PatientCalculationContext} to be used by this evaluation
-	 * @return A {@link Result}
+	 * @return A {@link CalculationResult}
 	 */
-	public Result evaluate(Integer patientId, PatientCalculation calculation, Map<String, Object> parameterValues,
+	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                       PatientCalculationContext context) throws APIException;
 	
 	/**
@@ -83,7 +83,7 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @param parameterValues a map of {@link ParameterDefinition} keys and actual values to be used
 	 *            by the calculation
 	 * @param context the {@link PatientCalculationContext} to be used by this evaluation
-	 * @return A {@link Result}
+	 * @return A {@link CalculationResult}
 	 * @should fail if any required parameter is not set
 	 * @should fail for a blank value for a required parameter if datatype is a primitive wrapper
 	 * @should fail for a blank value for a required parameter if datatype is a String

@@ -20,7 +20,7 @@ import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
- * Represents a {@link Result} for an Observation
+ * Represents a {@link CalculationResult} for an Observation
  */
 public class ObsResult extends SimpleResult implements DateBasedResult {
 	

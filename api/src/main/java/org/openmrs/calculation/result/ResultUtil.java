@@ -25,7 +25,7 @@ import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.util.CalculationUtil;
 
 /**
- * Contains utility methods to handle {@link Result}s
+ * Contains utility methods to handle {@link CalculationResult}s
  */
 public class ResultUtil {
 	
@@ -40,7 +40,7 @@ public class ResultUtil {
 	 * @should get the first result if the value of the result is a list
 	 * @should return the same result if the value of the result is a not a list
 	 */
-	public static Result getFirst(Result result) {
+	public static CalculationResult getFirst(CalculationResult result) {
 		if (result instanceof ListResult)
 			return ((ListResult) result).getFirstResult();
 		
@@ -63,7 +63,7 @@ public class ResultUtil {
 	 * @should return an empty collection if the result has a null value and class is a set
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T convert(Result result, Class<T> clazz) {
+	public static <T> T convert(CalculationResult result, Class<T> clazz) {
 		if (clazz == null)
 			throw new ConversionException("Please specify a class to which to convert the result");
 		

@@ -18,12 +18,12 @@ import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
- * Represents a {@link Result} with no data
+ * Represents a {@link CalculationResult} with no data or has a null value
  */
-public class EmptyResult implements Result {
+public class EmptyCalculationResult implements CalculationResult {
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#getCalculation()
+	 * @see org.openmrs.calculation.result.CalculationResult#getCalculation()
 	 */
 	@Override
 	public PatientCalculation getCalculation() {
@@ -31,7 +31,7 @@ public class EmptyResult implements Result {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#getCalculationContext()
+	 * @see org.openmrs.calculation.result.CalculationResult#getCalculationContext()
 	 */
 	@Override
 	public PatientCalculationContext getCalculationContext() {
@@ -39,7 +39,7 @@ public class EmptyResult implements Result {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#getValue()
+	 * @see org.openmrs.calculation.result.CalculationResult#getValue()
 	 */
 	@Override
 	public Object getValue() {
@@ -47,7 +47,7 @@ public class EmptyResult implements Result {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.result.Result#isEmpty()
+	 * @see org.openmrs.calculation.result.CalculationResult#isEmpty()
 	 */
 	@Override
 	public boolean isEmpty() {

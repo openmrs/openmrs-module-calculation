@@ -16,10 +16,10 @@ package org.openmrs.calculation.result;
 import java.util.Date;
 
 /**
- * Base interface for {@link Result}s with values that occur on specific dates e.g Encounter has an
+ * Base interface for {@link CalculationResult}s with values that occur on specific dates e.g Encounter has an
  * encounterDatetime
  */
-public interface DateBasedResult extends Result {
+public interface DateBasedResult extends CalculationResult {
 	
 	/**
 	 * Returns the date of occurrence of the value that is associated to the result e.g if this is
