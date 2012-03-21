@@ -21,8 +21,8 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.CalculationResult;
+import org.openmrs.calculation.result.CohortResult;
 
 /**
  * The PatientCalculationService is the primary mechanism for evaluating {@link PatientCalculation}s
@@ -59,8 +59,9 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @param context the {@link PatientCalculationContext} to be used by this evaluation
 	 * @return A {@link CalculationResult}
 	 */
-	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                       PatientCalculationContext context) throws APIException;
+	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation,
+	                                  Map<String, Object> parameterValues, PatientCalculationContext context)
+	    throws APIException;
 	
 	/**
 	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation,
@@ -89,6 +90,7 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @should fail for a blank value for a required parameter if datatype is a primitive wrapper
 	 * @should fail for a blank value for a required parameter if datatype is a String
 	 * @should fail if the a parameter value doesnt match the allowed datatype
+	 * @should pass if the passed in datatype cannot be loaded
 	 */
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException;

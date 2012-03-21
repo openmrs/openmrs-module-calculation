@@ -13,11 +13,14 @@
  */
 package org.openmrs.calculation.api.patient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.ConceptNumeric;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.ClasspathCalculationProvider;
@@ -116,6 +119,23 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 		
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put(param.getKey(), "2s");
+		service.evaluate(2, ageCalculation, values, null);
+	}
+	
+	/**
+	 * @see {@link PatientCalculationService#evaluate(Cohort,PatientCalculation,Map<String,Object>,
+	 *      PatientCalculationContext)}
+	 */
+	@Test
+	@Verifies(value = "should pass if the passed in datatype cannot be loaded", method = "evaluate(Cohort,PatientCalculation,Map<String,Object>,PatientCalculationContext)")
+	public void evaluate_shouldPassIfThePassedInDatatypeCannotBeLoaded() throws Exception {
+		PatientCalculation ageCalculation = getAgeCalculation();
+		ParameterDefinition conceptDefinition = new SimpleParameterDefinition("conceptParam", "numericConcepts", null, false);
+		ageCalculation.getParameterDefinitionSet().add(conceptDefinition);
+		
+		Map<String, Object> values = new HashMap<String, Object>();
+		List<ConceptNumeric> numericConcepts = new ArrayList<ConceptNumeric>();
+		values.put(conceptDefinition.getKey(), numericConcepts);
 		service.evaluate(2, ageCalculation, values, null);
 	}
 }
