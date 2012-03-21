@@ -190,7 +190,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	@Override
 	public String toString() {
 		if (getName() == null)
-			return "";
+			return super.toString();
 		return getName();
 	}
 	
