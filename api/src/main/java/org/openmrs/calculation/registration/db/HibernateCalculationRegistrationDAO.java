@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api.db;
+package org.openmrs.calculation.registration.db;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationRegistrationDAO#getCalculationRegistration(java.lang.Integer)
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#getCalculationRegistration(java.lang.Integer)
 	 */
 	@Override
 	@Transactional(readOnly = true)
@@ -58,7 +58,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationRegistrationDAO#getCalculationRegistrationByUuid(java.lang.String)
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#getCalculationRegistrationByUuid(java.lang.String)
 	 */
 	@Override
 	@Transactional(readOnly = true)
@@ -68,7 +68,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationRegistrationDAO#getCalculationRegistrationByName(java.lang.String)
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#getCalculationRegistrationByName(java.lang.String)
 	 */
 	@Override
 	@Transactional(readOnly = true)
@@ -79,7 +79,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationRegistrationDAO#getAllCalculationRegistrations()
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#getAllCalculationRegistrations()
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -89,7 +89,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationRegistrationDAO#findCalculationRegistrations(java.lang.String)
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#findCalculationRegistrations(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -101,7 +101,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationRegistrationDAO#saveCalculationRegistration(org.openmrs.calculation.CalculationRegistration)
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#saveCalculationRegistration(org.openmrs.calculation.CalculationRegistration)
 	 */
 	@Override
 	@Transactional
@@ -111,7 +111,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.db.CalculationRegistrationDAO#deleteCalculationRegistration(org.openmrs.calculation.CalculationRegistration)
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#deleteCalculationRegistration(org.openmrs.calculation.CalculationRegistration)
 	 */
 	@Override
 	@Transactional

@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.CalculationRegistrationSuggestion;
-import org.openmrs.calculation.api.CalculationRegistrationService;
+import org.openmrs.calculation.registration.CalculationRegistrationService;
 import org.openmrs.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

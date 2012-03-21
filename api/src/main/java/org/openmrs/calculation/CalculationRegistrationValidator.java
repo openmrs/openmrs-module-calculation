@@ -16,7 +16,7 @@ package org.openmrs.calculation;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.api.CalculationRegistrationService;
+import org.openmrs.calculation.registration.CalculationRegistrationService;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

@@ -21,7 +21,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.calculation.CalculationProvider;
 import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.CalculationRegistrationValidator;
-import org.openmrs.calculation.api.CalculationRegistrationService;
+import org.openmrs.calculation.registration.CalculationRegistrationService;
 import org.openmrs.web.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

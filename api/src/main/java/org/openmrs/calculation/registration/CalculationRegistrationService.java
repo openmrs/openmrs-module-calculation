@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api;
+package org.openmrs.calculation.registration;
 
 import java.util.List;
 

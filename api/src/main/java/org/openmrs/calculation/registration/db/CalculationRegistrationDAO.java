@@ -11,12 +11,12 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api.db;
+package org.openmrs.calculation.registration.db;
 
 import java.util.List;
 
 import org.openmrs.calculation.CalculationRegistration;
-import org.openmrs.calculation.api.CalculationRegistrationService;
+import org.openmrs.calculation.registration.CalculationRegistrationService;
 
 /**
  * Database access methods for {@link CalculationRegistrationService}.
