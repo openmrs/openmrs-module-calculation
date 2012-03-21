@@ -34,7 +34,6 @@ import org.openmrs.calculation.MostRecentEncounterCalculation;
 import org.openmrs.calculation.MostRecentObsCalculation;
 import org.openmrs.calculation.OuterCalculation;
 import org.openmrs.calculation.RecentEncounterCalculation;
-import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.result.CohortResult;

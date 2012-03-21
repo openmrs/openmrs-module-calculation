@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api.patient;
+package org.openmrs.calculation.patient;
 
 import java.util.Date;
 import java.util.Map;
@@ -30,9 +30,6 @@ import org.openmrs.calculation.InvalidParameterValueException;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
-import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyCalculationResult;
@@ -46,7 +43,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
 	/**
-	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#createCalculationContext()
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#createCalculationContext()
 	 */
 	@Override
 	public PatientCalculationContext createCalculationContext() {
@@ -54,7 +51,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(java.lang.Integer,
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.lang.Integer,
 	 *      org.openmrs.calculation.patient.PatientCalculation)
 	 */
 	@Override
@@ -63,7 +60,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(java.lang.Integer,
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.lang.Integer,
 	 *      org.openmrs.calculation.patient.PatientCalculation,
 	 *      org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
@@ -74,7 +71,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(java.lang.Integer,
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.lang.Integer,
 	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
@@ -92,7 +89,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.patient.PatientCalculation)
 	 */
 	@Override
@@ -101,7 +98,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.patient.PatientCalculation,
 	 *      org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
@@ -112,7 +109,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.api.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
 	 *      org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
