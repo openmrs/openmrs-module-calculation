@@ -27,7 +27,7 @@
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.patient.impl.PatientCalculationServiceImpl" />
+						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.patient.PatientCalculationServiceImpl" />
 					</property>
 					<property name="preInterceptors">
 						<ref bean="serviceInterceptors" />
@@ -49,7 +49,7 @@
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.impl.CalculationRegistrationServiceImpl">
+						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.CalculationRegistrationServiceImpl">
 							<property name="dao" ref="calculationRegistrationDao" /> 
 						</bean>
 					</property>
@@ -64,7 +64,7 @@
 		</property>
 	</bean>
 	
-	<bean id="calculationRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.api.db.hibernate.HibernateCalculationRegistrationDAO">
+	<bean id="calculationRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.api.db.HibernateCalculationRegistrationDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
