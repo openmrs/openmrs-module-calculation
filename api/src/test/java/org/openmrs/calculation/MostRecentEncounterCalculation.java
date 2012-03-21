@@ -23,8 +23,8 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
+import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyCalculationResult;
@@ -43,7 +43,7 @@ public class MostRecentEncounterCalculation extends BaseCalculation implements P
 	/**
 	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
 	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.api.patient.PatientCalculationContext)
+	 *      org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,

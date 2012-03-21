@@ -17,7 +17,6 @@ import java.util.Map;
 
 import org.openmrs.Cohort;
 import org.openmrs.calculation.EvaluationInstanceData;
-import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.CalculationResult;
 

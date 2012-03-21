@@ -16,8 +16,8 @@ package org.openmrs.calculation.result;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
+import org.openmrs.calculation.patient.PatientCalculationContext;
 
 /**
  * A {@link CalculationResult} backed by a {@link List} of results with convenience methods

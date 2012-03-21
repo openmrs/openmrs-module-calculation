@@ -16,8 +16,8 @@ package org.openmrs.calculation.result;
 import java.util.Date;
 
 import org.openmrs.Obs;
-import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculation;
+import org.openmrs.calculation.patient.PatientCalculationContext;
 
 /**
  * Represents a {@link CalculationResult} for an Observation

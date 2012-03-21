@@ -13,7 +13,7 @@
  */
 package org.openmrs.calculation.definition;
 
-import org.openmrs.calculation.api.patient.PatientCalculationContext;
+import org.openmrs.calculation.patient.PatientCalculationContext;
 
 /**
  * This is the base interface for all parameter definitions, a class that implements this interface
