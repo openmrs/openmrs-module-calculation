@@ -17,6 +17,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.ClasspathCalculationProvider;
 import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.MostRecentObsCalculation;
 import org.openmrs.test.BaseModuleContextSensitiveTest;

@@ -11,14 +11,11 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.provider;
+package org.openmrs.calculation;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.ConfigurableCalculation;
-import org.openmrs.calculation.InvalidCalculationException;
 
 /**
  * Implementation of {@link CalculationProvider} which retrieves a {@link Calculation}

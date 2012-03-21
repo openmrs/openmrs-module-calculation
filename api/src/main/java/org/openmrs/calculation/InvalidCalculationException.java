@@ -13,7 +13,6 @@
  */
 package org.openmrs.calculation;
 
-import org.openmrs.calculation.provider.CalculationProvider;
 
 /**
  * Represents an error that is thrown when an invalid {@link Calculation} is requested.

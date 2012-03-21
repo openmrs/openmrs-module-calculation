@@ -20,13 +20,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
+import org.openmrs.calculation.ClasspathCalculationProvider;
 import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.InvalidParameterValueException;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.SimpleParameterDefinition;
 import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.provider.ClasspathCalculationProvider;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
 

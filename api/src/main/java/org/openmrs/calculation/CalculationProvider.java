@@ -11,10 +11,8 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.provider;
+package org.openmrs.calculation;
 
-import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.InvalidCalculationException;
 
 /**
  * Base interface for classes responsible for retrieving a {@link Calculation} instance given a
