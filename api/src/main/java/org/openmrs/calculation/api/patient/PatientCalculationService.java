@@ -18,7 +18,6 @@ import java.util.Map;
 import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.result.CohortResult;
@@ -36,12 +35,14 @@ public interface PatientCalculationService extends OpenmrsService {
 	public PatientCalculationContext createCalculationContext();
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, PatientCalculationContext)
+	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation,
+	 *      PatientCalculationContext)
 	 */
 	public Result evaluate(Integer patientId, PatientCalculation calculation);
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, Map, PatientCalculationContext)
+	 * @see PatientCalculationService#evaluate(Integer, PatientCalculation, Map,
+	 *      PatientCalculationContext)
 	 */
 	public Result evaluate(Integer patientId, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException;
@@ -61,12 +62,14 @@ public interface PatientCalculationService extends OpenmrsService {
 	                       PatientCalculationContext context) throws APIException;
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation, PatientCalculationContext)
+	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation,
+	 *      PatientCalculationContext)
 	 */
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation) throws APIException;
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation, Map, PatientCalculationContext)
+	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation, Map,
+	 *      PatientCalculationContext)
 	 */
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException;
@@ -84,6 +87,7 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @should fail if any required parameter is not set
 	 * @should fail for a blank value for a required parameter if datatype is a primitive wrapper
 	 * @should fail for a blank value for a required parameter if datatype is a String
+	 * @should fail if the a parameter value doesnt match the allowed datatype
 	 */
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException;

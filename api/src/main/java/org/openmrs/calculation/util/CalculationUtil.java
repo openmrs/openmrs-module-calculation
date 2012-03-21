@@ -13,11 +13,14 @@
  */
 package org.openmrs.calculation.util;
 
+import java.lang.reflect.Method;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.CalculationRegistration;
+import org.openmrs.calculation.ConversionException;
+import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.provider.CalculationProvider;
 
 /**
@@ -59,19 +62,21 @@ public class CalculationUtil {
 	}
 	
 	/**
-	 * Utility method that constructs a Calculation instance from 
-	 * a provider Name, calculation name, and configuration string
+	 * Utility method that constructs a Calculation instance from a provider Name, calculation name,
+	 * and configuration string
+	 * 
 	 * @return the Calculation represented by the passed parameters
 	 * @throws InvalidCalculationException if there is no valid Calculation matching the parameters
 	 */
-	public static Calculation getCalculation(String providerClassName, String calculationName, String configuration) throws InvalidCalculationException {
+	public static Calculation getCalculation(String providerClassName, String calculationName, String configuration)
+	    throws InvalidCalculationException {
 		CalculationProvider calculationProvider = null;
 		try {
 			Class<?> providerClass = Context.loadClass(providerClassName);
 			calculationProvider = (CalculationProvider) providerClass.newInstance();
 		}
 		catch (Exception e) {
-			String msg = "Unable to instantiate CalculationProvider:" +  providerClassName;
+			String msg = "Unable to instantiate CalculationProvider:" + providerClassName;
 			throw new InvalidCalculationException(msg, e);
 		}
 		return calculationProvider.getCalculation(calculationName, configuration);
@@ -79,15 +84,85 @@ public class CalculationUtil {
 	
 	/**
 	 * Utility method that constructs a Calculation instance from a CalculationRegistration instance
+	 * 
 	 * @param calculationRegistration
 	 * @return the Calculation represented by the passed CalculationRegistration
 	 * @throws InvalidCalculationException if the CalculationRegistration is invalid
 	 */
-	public static Calculation getCalculationForCalculationRegistration(CalculationRegistration r) throws InvalidCalculationException {
+	public static Calculation getCalculationForCalculationRegistration(CalculationRegistration r)
+	    throws InvalidCalculationException {
 		Calculation c = null;
 		if (r != null) {
 			return getCalculation(r.getProviderClassName(), r.getCalculationName(), r.getConfiguration());
 		}
 		return c;
+	}
+	
+	/**
+	 * Utility method that casts the specified value to the specified Type and handles conversions
+	 * to primitive wrapper classes in a better/more lenient way than java's type casting. Note that
+	 * the method will throw a {@link ConversionException} at runtime if it fails to convert the
+	 * specified value
+	 * 
+	 * @see ConversionException
+	 * @param valueToCast the value to be cast
+	 * @param clazz the class to cast to
+	 * @return a value of the specified type
+	 * @should fail if the value to convert is not of a compatible type
+	 * @should convert the value to the specified type if it is compatible
+	 * @should return null if the passed in value is null
+	 * @should convert a valid string value to Boolean
+	 * @should convert a character value to Character
+	 * @should convert a valid string value to Short
+	 * @should convert a valid string value to Integer
+	 * @should convert a valid string value to Long
+	 * @should convert a valid string value to Float
+	 * @should convert a valid string value to Double
+	 * @should convert a valid string value to Byte
+	 * @should convert a single character value to Short
+	 * @should convert a valid single character value to Integer
+	 * @should convert a valid single character value to Long
+	 * @should convert a result with an number value in the valid range to byte
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T cast(Object value, Class<T> clazz) {
+		if (value == null)
+			return null;
+		
+		if (clazz == null)
+			throw new IllegalArgumentException("The class to cast to cannot be null");
+		
+		T castValue = null;
+		// We should be able to convert any value to a String		
+		if (String.class.isAssignableFrom(clazz)) {
+			castValue = (T) value.toString();
+		} else {
+			//we should be able to convert objects that are of primitive types like String "2" to integer 2, 
+			//java types casting doesn't allow this so we need to convert the value first to
+			//a string
+			if (CalculationUtil.isPrimitiveWrapperType(clazz)) {
+				try {
+					String stringValue = value.toString();
+					if (Character.class.equals(clazz) && stringValue.length() == 1) {
+						value = stringValue.charAt(0);
+					} else {
+						Method method = clazz.getMethod("valueOf", new Class<?>[] { String.class });
+						value = method.invoke(null, stringValue);
+					}
+				}
+				catch (Exception e) {
+					throw new ConversionException(value, clazz);
+				}
+			}
+			
+			try {
+				castValue = clazz.cast(value);
+			}
+			catch (ClassCastException e) {
+				throw new ConversionException(value, clazz);
+			}
+		}
+		
+		return castValue;
 	}
 }

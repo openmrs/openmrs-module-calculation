@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.InvalidCalculationException;
+import org.openmrs.calculation.InvalidParameterValueException;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.SimpleParameterDefinition;
@@ -100,5 +101,21 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	private PatientCalculation getAgeCalculation() throws InvalidCalculationException {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		return (PatientCalculation) p.getCalculation(AgeCalculation.class.getName(), null);
+	}
+	
+	/**
+	 * @see {@link PatientCalculationService#evaluate(Cohort,PatientCalculation,Map<String,Object>,
+	 *      PatientCalculationContext)}
+	 */
+	@Test(expected = InvalidParameterValueException.class)
+	@Verifies(value = "should fail if the a parameter value doesnt match the allowed datatype", method = "evaluate(Cohort,PatientCalculation,Map<String,Object>,PatientCalculationContext)")
+	public void evaluate_shouldFailIfTheAParameterValueDoesntMatchTheAllowedDatatype() throws Exception {
+		PatientCalculation ageCalculation = getAgeCalculation();
+		ParameterDefinition param = new SimpleParameterDefinition("testParam", "java.lang.Integer", null, false);
+		ageCalculation.getParameterDefinitionSet().add(param);
+		
+		Map<String, Object> values = new HashMap<String, Object>();
+		values.put(param.getKey(), "2s");
+		service.evaluate(2, ageCalculation, values, null);
 	}
 }

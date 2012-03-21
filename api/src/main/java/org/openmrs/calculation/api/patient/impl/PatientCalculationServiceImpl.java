@@ -22,7 +22,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.calculation.ConversionException;
+import org.openmrs.calculation.InvalidParameterValueException;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.api.patient.PatientCalculationContext;
 import org.openmrs.calculation.api.patient.PatientCalculationService;
@@ -119,28 +122,40 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		if (calculation == null)
 			throw new IllegalArgumentException("Calculation cannot be null");
 		ParameterDefinitionSet defs = calculation.getParameterDefinitionSet();
-		//Check for missing of values for required parameters
+		//Check for missing values for required parameters
 		if (defs != null) {
-			for (ParameterDefinition parameter : calculation.getParameterDefinitionSet()) {
+			for (ParameterDefinition parameter : defs) {
+				String datatype = parameter.getDatatype();
+				Object value = null;
+				if (parameterValues != null)
+					value = parameterValues.get(parameter.getKey());
+				
 				if (parameter.isRequired()) {
 					boolean foundMissingValue = false;
-					if (parameterValues == null) {
+					if (value == null) {
 						foundMissingValue = true;
 					} else {
-						Object value = parameterValues.get(parameter.getKey());
-						String datatype = parameter.getDatatype();
 						//the shouldn't be blank if the datatype is String or a primitive wrapper class
-						if (value == null) {
-							foundMissingValue = true;
-						} else if ((CalculationUtil.isPrimitiveWrapperClassName(datatype) || String.class.getName().equals(
-						    datatype))
-						        && StringUtils.isBlank(value.toString())) {
+						if ((CalculationUtil.isPrimitiveWrapperClassName(datatype) || String.class.getName()
+						        .equals(datatype)) && StringUtils.isBlank(value.toString())) {
 							foundMissingValue = true;
 						}
 					}
 					
 					if (foundMissingValue)
 						throw new MissingParameterException(parameter);
+				}
+				
+				if (StringUtils.isNotBlank(datatype) && value != null) {
+					try {
+						CalculationUtil.cast(value, Context.loadClass(datatype));
+					}
+					catch (ConversionException e) {
+						throw new InvalidParameterValueException(parameter, value);
+					}
+					catch (ClassNotFoundException e) {
+						// ignore, we've done our best, may be they know how to find their class
+					}
 				}
 			}
 		}

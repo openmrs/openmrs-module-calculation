@@ -13,7 +13,6 @@
  */
 package org.openmrs.calculation.result;
 
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -55,28 +54,13 @@ public class ResultUtil {
 	 * @param result the result to convert
 	 * @param clazz the class to convert to
 	 * @return a value of the specified type
-	 * @should convert a result with a string value to Boolean
-	 * @should convert a result with a character value to Character
-	 * @should convert a result with a string value to Short
-	 * @should convert a result with an string value to Integer
-	 * @should convert a result with a string value to Long
-	 * @should convert a result with a string value to Float
-	 * @should convert a result with a string value to Double
-	 * @should convert a result with a string value to Byte
-	 * @should convert a result with a single character value to Short
-	 * @should convert a result with a single character value to Integer
-	 * @should convert a result with a single character value to Long
-	 * @should convert a result with an number value in the allowed range to byte
 	 * @should return null if the passed in result is null
-	 * @should return null if the passed in result has a null value
 	 * @should return an empty map if the result is null and class is a map
 	 * @should return an empty map if the result has a null value and class is a map
 	 * @should return an empty collection if the result is null and class is a list
 	 * @should return an empty collection if the result has a null value and class is a list
 	 * @should return an empty collection if the result is null and class is a set
 	 * @should return an empty collection if the result has a null value and class is a set
-	 * @should convert the value of a result to the specified type if it is compatible
-	 * @should fail if the value of a result is not of a compatible type
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T convert(Result result, Class<T> clazz) {
@@ -98,42 +82,12 @@ public class ResultUtil {
 			
 			return null;
 		}
+		
 		Object valueToConvert = result.getValue();
 		if (log.isDebugEnabled())
 			log.debug("Attempting to type cast the value '" + valueToConvert + "' of type '" + valueToConvert.getClass()
 			        + "' to '" + clazz + "'");
 		
-		T castValue = null;
-		// We should be able to convert any value to a String		
-		if (String.class.isAssignableFrom(clazz)) {
-			castValue = (T) valueToConvert.toString();
-		} else {
-			//we should be able to convert objects that are of primitive types like String "2" to integer 2, 
-			//java types casting doesn't allow this so we need to convert the value first to
-			//a string
-			if (CalculationUtil.isPrimitiveWrapperType(clazz)) {
-				try {
-					String stringValue = valueToConvert.toString();
-					if (Character.class.equals(clazz) && stringValue.length() == 1) {
-						valueToConvert = stringValue.charAt(0);
-					} else {
-						Method method = clazz.getMethod("valueOf", new Class<?>[] { String.class });
-						valueToConvert = method.invoke(null, stringValue);
-					}
-				}
-				catch (Exception e) {
-					throw new ConversionException(result.getValue(), clazz);
-				}
-			}
-			
-			try {
-				castValue = clazz.cast(valueToConvert);
-			}
-			catch (ClassCastException e) {
-				throw new ConversionException(result.getValue(), clazz);
-			}
-		}
-		
-		return castValue;
+		return CalculationUtil.cast(valueToConvert, clazz);
 	}
 }

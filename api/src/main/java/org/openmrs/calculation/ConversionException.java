@@ -16,7 +16,7 @@ package org.openmrs.calculation;
 import org.openmrs.api.APIException;
 
 /**
- * Represents an error that is encountered while attempting to convert a result to a specified type
+ * Represents an error that is encountered while attempting to convert a value to a specified type
  */
 public class ConversionException extends APIException {
 	
