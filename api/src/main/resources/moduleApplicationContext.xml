@@ -16,18 +16,20 @@
   		    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
   		    http://www.springframework.org/schema/util
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+  		    
+	<context:component-scan base-package="@MODULE_PACKAGE@" />
 
 	<!-- Services accessible via Context.getService() -->
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>${project.parent.groupId}.${project.parent.artifactId}.api.patient.PatientCalculationService</value>
+				<value>${project.parent.groupId}.${project.parent.artifactId}.patient.PatientCalculationService</value>
 				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.patient.PatientCalculationServiceImpl" />
+						<bean class="${project.parent.groupId}.${project.parent.artifactId}.patient.PatientCalculationServiceImpl" />
 					</property>
 					<property name="preInterceptors">
 						<ref bean="serviceInterceptors" />
@@ -43,13 +45,13 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>${project.parent.groupId}.${project.parent.artifactId}.api.CalculationRegistrationService</value>
+				<value>${project.parent.groupId}.${project.parent.artifactId}.registration.CalculationRegistrationService</value>
 				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.CalculationRegistrationServiceImpl">
+						<bean class="${project.parent.groupId}.${project.parent.artifactId}.registration.CalculationRegistrationServiceImpl">
 							<property name="dao" ref="calculationRegistrationDao" /> 
 						</bean>
 					</property>
@@ -64,10 +66,8 @@
 		</property>
 	</bean>
 	
-	<bean id="calculationRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.api.db.HibernateCalculationRegistrationDAO">
+	<bean id="calculationRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.registration.db.HibernateCalculationRegistrationDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-	<bean id="classPathCalculationProvider" class="${project.parent.groupId}.${project.parent.artifactId}.provider.ClasspathCalculationProvider" />
 	
 </beans>

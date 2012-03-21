@@ -51,7 +51,7 @@ public class ObsResult extends SimpleResult implements DateBasedResult {
 	 */
 	@Override
 	public Obs getValue() {
-		return (Obs)getValue();
+		return (Obs)super.getValue();
 	}
 	
 	/**

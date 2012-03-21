@@ -51,7 +51,7 @@ public class EncounterResult extends SimpleResult implements DateBasedResult {
 	 */
 	@Override
 	public Encounter getValue() {
-		return (Encounter)getValue();
+		return (Encounter)super.getValue();
 	}
 	
 	/**
