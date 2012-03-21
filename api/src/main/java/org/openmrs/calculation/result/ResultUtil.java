@@ -21,8 +21,8 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.calculation.CalculationUtil;
 import org.openmrs.calculation.ConversionException;
-import org.openmrs.calculation.util.CalculationUtil;
 
 /**
  * Contains utility methods to handle {@link CalculationResult}s

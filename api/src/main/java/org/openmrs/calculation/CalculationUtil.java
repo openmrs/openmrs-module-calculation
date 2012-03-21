@@ -11,16 +11,12 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.util;
+package org.openmrs.calculation;
 
 import java.lang.reflect.Method;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.CalculationRegistration;
-import org.openmrs.calculation.ConversionException;
-import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.provider.CalculationProvider;
 
 /**

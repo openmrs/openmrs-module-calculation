@@ -18,6 +18,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.Person;
+import org.openmrs.calculation.CalculationUtil;
 import org.openmrs.calculation.ConversionException;
 import org.openmrs.test.Verifies;
 

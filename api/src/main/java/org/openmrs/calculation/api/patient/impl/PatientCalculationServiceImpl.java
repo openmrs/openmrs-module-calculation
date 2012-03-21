@@ -24,6 +24,7 @@ import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.calculation.CalculationUtil;
 import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.InvalidParameterValueException;
 import org.openmrs.calculation.MissingParameterException;
@@ -36,7 +37,6 @@ import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EmptyCalculationResult;
-import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.util.HandlerUtil;
 
 /**

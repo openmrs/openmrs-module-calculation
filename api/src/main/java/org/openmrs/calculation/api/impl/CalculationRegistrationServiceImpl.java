@@ -19,11 +19,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.CalculationUtil;
 import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.api.CalculationRegistrationService;
 import org.openmrs.calculation.api.db.CalculationRegistrationDAO;
-import org.openmrs.calculation.util.CalculationUtil;
 import org.openmrs.validator.ValidateUtil;
 
 /**
