@@ -47,12 +47,20 @@ public class ObsResult extends SimpleResult implements DateBasedResult {
 	}
 	
 	/**
+	 * @see SimpleResult#getValue()
+	 */
+	@Override
+	public Obs getValue() {
+		return (Obs)getValue();
+	}
+	
+	/**
 	 * @see org.openmrs.calculation.result.DateBasedResult#getDateOfResult()
 	 */
 	@Override
 	public Date getDateOfResult() {
 		if (getValue() != null)
-			return ((Obs) getValue()).getObsDatetime();
+			return getValue().getObsDatetime();
 		return null;
 	}
 }

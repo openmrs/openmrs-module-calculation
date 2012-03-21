@@ -25,8 +25,6 @@ import org.openmrs.calculation.patient.PatientCalculationContext;
  */
 public class ListResult implements CalculationResult {
 
-	private static final long serialVersionUID = 1L;
-
 	private PatientCalculationContext calculationContext;
 
 	private PatientCalculation calculation;
@@ -61,8 +59,7 @@ public class ListResult implements CalculationResult {
 	 * @param calculationContext
 	 *            the calculationContext to set
 	 */
-	public void setCalculationContext(
-			PatientCalculationContext calculationContext) {
+	public void setCalculationContext(PatientCalculationContext calculationContext) {
 		this.calculationContext = calculationContext;
 	}
 

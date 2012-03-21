@@ -47,12 +47,20 @@ public class EncounterResult extends SimpleResult implements DateBasedResult {
 	}
 	
 	/**
+	 * @see SimpleResult#getValue()
+	 */
+	@Override
+	public Encounter getValue() {
+		return (Encounter)getValue();
+	}
+	
+	/**
 	 * @see org.openmrs.calculation.result.DateBasedResult#getDateOfResult()
 	 */
 	@Override
 	public Date getDateOfResult() {
 		if (getValue() != null)
-			return ((Encounter) getValue()).getEncounterDatetime();
+			return getValue().getEncounterDatetime();
 		return null;
 	}
 	
