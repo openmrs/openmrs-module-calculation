@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.MostRecentObsCalculation;
-import org.openmrs.calculation.CalculationRegistration;
+import org.openmrs.calculation.registration.CalculationRegistration;
 import org.openmrs.calculation.registration.CalculationRegistrationService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;

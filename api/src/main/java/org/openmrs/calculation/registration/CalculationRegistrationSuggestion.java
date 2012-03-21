@@ -11,11 +11,10 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation;
+package org.openmrs.calculation.registration;
 
 import java.util.List;
 
-import org.openmrs.calculation.CalculationRegistration;
 
 /**
  * This interface provides a mechanism for implementations to provide one or more pre-configured

@@ -13,7 +13,7 @@
  */
 package org.openmrs.calculation;
 
-import org.openmrs.calculation.definition.SimpleParameterDefinition;
+import org.openmrs.calculation.parameter.SimpleParameterDefinition;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**

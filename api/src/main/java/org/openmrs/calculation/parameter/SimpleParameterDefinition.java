@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.definition;
+package org.openmrs.calculation.parameter;
 
 import org.openmrs.util.OpenmrsUtil;
 
@@ -82,7 +82,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#getKey()
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#getKey()
 	 */
 	@Override
 	public String getKey() {
@@ -90,7 +90,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#setKey(java.lang.String)
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#setKey(java.lang.String)
 	 */
 	@Override
 	public void setKey(String key) {
@@ -98,7 +98,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#getName()
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#getName()
 	 */
 	@Override
 	public String getName() {
@@ -106,7 +106,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#setName(java.lang.String)
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#setName(java.lang.String)
 	 */
 	@Override
 	public void setName(String name) {
@@ -114,7 +114,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#getDescription()
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#getDescription()
 	 */
 	@Override
 	public String getDescription() {
@@ -122,7 +122,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#setDescription(java.lang.String)
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#setDescription(java.lang.String)
 	 */
 	@Override
 	public void setDescription(String description) {
@@ -130,7 +130,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#getDatatype()
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#getDatatype()
 	 */
 	@Override
 	public String getDatatype() {
@@ -138,7 +138,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#setDatatype(java.lang.String)
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#setDatatype(java.lang.String)
 	 */
 	@Override
 	public void setDatatype(String datatype) {
@@ -146,7 +146,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#isRequired()
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#isRequired()
 	 */
 	@Override
 	public boolean isRequired() {
@@ -154,7 +154,7 @@ public class SimpleParameterDefinition implements ParameterDefinition {
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.definition.ParameterDefinition#setRequired(boolean)
+	 * @see org.openmrs.calculation.parameter.ParameterDefinition#setRequired(boolean)
 	 */
 	@Override
 	public void setRequired(boolean required) {

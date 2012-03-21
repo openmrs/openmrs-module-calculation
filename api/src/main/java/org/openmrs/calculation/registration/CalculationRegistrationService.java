@@ -20,7 +20,6 @@ import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.CalculationConstants;
 import org.openmrs.calculation.InvalidCalculationException;
-import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**

@@ -13,8 +13,8 @@
  */
 package org.openmrs.calculation;
 
-import org.openmrs.calculation.definition.ParameterDefinition;
-import org.openmrs.calculation.definition.ParameterDefinitionSet;
+import org.openmrs.calculation.parameter.ParameterDefinition;
+import org.openmrs.calculation.parameter.ParameterDefinitionSet;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**

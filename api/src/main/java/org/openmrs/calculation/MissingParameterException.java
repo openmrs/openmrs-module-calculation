@@ -15,7 +15,7 @@ package org.openmrs.calculation;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.api.APIException;
-import org.openmrs.calculation.definition.ParameterDefinition;
+import org.openmrs.calculation.parameter.ParameterDefinition;
 
 /**
  * Represents an error that is thrown when a required parameter value is not found or is blank when

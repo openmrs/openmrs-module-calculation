@@ -11,9 +11,10 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.definition;
+package org.openmrs.calculation.parameter;
 
 import java.util.HashSet;
+
 
 /**
  * Represents a set of {@link ParameterDefinition}s, it's technically a wrapper of a {@link HashSet}

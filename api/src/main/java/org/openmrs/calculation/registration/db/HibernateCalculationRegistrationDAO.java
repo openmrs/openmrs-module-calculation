@@ -22,7 +22,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.openmrs.calculation.CalculationRegistration;
+import org.openmrs.calculation.registration.CalculationRegistration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -101,7 +101,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#saveCalculationRegistration(org.openmrs.calculation.CalculationRegistration)
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#saveCalculationRegistration(org.openmrs.calculation.registration.CalculationRegistration)
 	 */
 	@Override
 	@Transactional
@@ -111,7 +111,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#deleteCalculationRegistration(org.openmrs.calculation.CalculationRegistration)
+	 * @see org.openmrs.calculation.registration.db.CalculationRegistrationDAO#deleteCalculationRegistration(org.openmrs.calculation.registration.CalculationRegistration)
 	 */
 	@Override
 	@Transactional

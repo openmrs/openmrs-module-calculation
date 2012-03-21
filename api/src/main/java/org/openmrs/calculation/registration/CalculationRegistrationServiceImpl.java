@@ -21,7 +21,6 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.CalculationUtil;
 import org.openmrs.calculation.InvalidCalculationException;
-import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.registration.db.CalculationRegistrationDAO;
 import org.openmrs.validator.ValidateUtil;
 
@@ -82,7 +81,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#saveCalculationRegistration(org.openmrs.calculation.CalculationRegistration)
+	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#saveCalculationRegistration(org.openmrs.calculation.registration.CalculationRegistration)
 	 */
 	@Override
 	public CalculationRegistration saveCalculationRegistration(CalculationRegistration calculationRegistration) {

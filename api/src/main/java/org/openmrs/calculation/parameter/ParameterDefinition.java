@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.definition;
+package org.openmrs.calculation.parameter;
 
 import org.openmrs.calculation.patient.PatientCalculationContext;
 

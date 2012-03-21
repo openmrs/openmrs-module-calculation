@@ -15,7 +15,7 @@ package org.openmrs.calculation.registration.db;
 
 import java.util.List;
 
-import org.openmrs.calculation.CalculationRegistration;
+import org.openmrs.calculation.registration.CalculationRegistration;
 import org.openmrs.calculation.registration.CalculationRegistrationService;
 
 /**
