@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api.patient.impl;
+package org.openmrs.calculation.api.patient;
 
 import java.util.Date;
 import java.util.Map;
@@ -28,7 +28,6 @@ import org.openmrs.calculation.CalculationUtil;
 import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.InvalidParameterValueException;
 import org.openmrs.calculation.MissingParameterException;
-import org.openmrs.calculation.api.patient.PatientCalculationService;
 import org.openmrs.calculation.definition.ParameterDefinition;
 import org.openmrs.calculation.definition.ParameterDefinitionSet;
 import org.openmrs.calculation.patient.PatientCalculation;

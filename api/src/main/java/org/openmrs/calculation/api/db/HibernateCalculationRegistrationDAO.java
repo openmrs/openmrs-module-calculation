@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api.db.hibernate;
+package org.openmrs.calculation.api.db;
 
 import java.util.List;
 
@@ -23,7 +23,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.calculation.CalculationRegistration;
-import org.openmrs.calculation.api.db.CalculationRegistrationDAO;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
