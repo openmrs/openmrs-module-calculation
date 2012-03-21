@@ -16,11 +16,13 @@ package org.openmrs.calculation;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
+import org.springframework.stereotype.Component;
 
 /**
  * Implementation of {@link CalculationProvider} which retrieves a {@link Calculation}
  * given a fully qualified class name of the {@link Calculation} to instantiate
  */
+@Component
 public class ClasspathCalculationProvider implements CalculationProvider {
 	
 	/**
