@@ -13,7 +13,7 @@
 
 	<developers>
 		<developer>
-			<name>OpenMRS Developers</name>
+			<name>OpenMRS Com</name>
 		</developer>
 	</developers>
 
@@ -161,6 +161,7 @@
 			<id>openmrs-repo-snapshots</id>
 			<name>OpenMRS Nexus Snapshots</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
+			<uniqueVersion>false</uniqueVersion>
 		</snapshotRepository>
 	</distributionManagement>
 
