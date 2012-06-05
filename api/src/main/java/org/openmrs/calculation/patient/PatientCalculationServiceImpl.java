@@ -81,7 +81,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		Cohort cohort = new Cohort(patientId);
 		cohort.addMember(patientId);
 		CohortResult cr = evaluate(cohort, calculation, parameterValues, context);
-		if (cr == null || cr.size() == 0)
+		if (cr.size() == 0)
 			return null;
 		
 		return cr.get(patientId);
@@ -162,6 +162,9 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		
 		CohortResult cr = HandlerUtil.getPreferredHandler(PatientCalculationEvaluator.class, calculation.getClass())
 		        .evaluate(cohort, calculation, parameterValues, context);
+		
+		if (cr == null)
+			cr = new CohortResult();
 		
 		return cr;
 	}
