@@ -52,15 +52,6 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	}
 	
 	/**
-	 * @see {@link CalculationRegistrationService#getCalculationRegistrationByToken(String)}
-	 */
-	@Test
-	@Verifies(value = "should fetch a token with a matching name", method = "getCalculationRegistrationByName(String)")
-	public void getCalculationRegistrationByName_shouldFetchATokenWithAMatchingName() throws Exception {
-		Assert.assertEquals(TOKEN_UUID, service.getCalculationRegistrationByToken("age").getUuid());
-	}
-	
-	/**
 	 * @see {@link CalculationRegistrationService#getCalculationRegistrationByUuid(Integer)}
 	 */
 	@Test
@@ -108,15 +99,6 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	}
 	
 	/**
-	 * @see {@link CalculationRegistrationService#findCalculationRegistrations(String)}
-	 */
-	@Test
-	@Verifies(value = "should get all calculationRegistrations with a matching name", method = "findCalculationRegistrations(String)")
-	public void findTokens_shouldGetAllCalculationRegistrationsWithAMatchingName() throws Exception {
-		Assert.assertEquals(2, service.findCalculationRegistrations("mostRecent").size());
-	}
-	
-	/**
 	 * @see {@link CalculationRegistrationService#saveCalculationRegistration(CalculationRegistration)}
 	 */
 	@Test
@@ -142,5 +124,23 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 		MostRecentObsCalculation calculation = service.getCalculation("mostRecentCD4", MostRecentObsCalculation.class);
 		Assert.assertNotNull(calculation);
 		Assert.assertEquals(5497, calculation.getWhichConcept().getConceptId().intValue());
+	}
+	
+	/**
+	 * @see {@link CalculationRegistrationService#findCalculationRegistrations(String)}
+	 */
+	@Test
+	@Verifies(value = "should get all calculationRegistrations with a matching name", method = "findCalculationRegistrations(String)")
+	public void findCalculationRegistrations_shouldGetAllCalculationRegistrationsWithAMatchingName() throws Exception {
+		Assert.assertEquals(2, service.findCalculationRegistrations("mostRecent").size());
+	}
+	
+	/**
+	 * @see {@link CalculationRegistrationService#getCalculationRegistrationByToken(String)}
+	 */
+	@Test
+	@Verifies(value = "should fetch a token with a matching name", method = "getCalculationRegistrationByToken(String)")
+	public void getCalculationRegistrationByToken_shouldFetchATokenWithAMatchingName() throws Exception {
+		Assert.assertEquals(TOKEN_UUID, service.getCalculationRegistrationByToken("age").getUuid());
 	}
 }

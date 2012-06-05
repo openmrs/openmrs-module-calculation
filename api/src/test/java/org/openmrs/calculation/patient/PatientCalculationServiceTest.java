@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.api.patient;
+package org.openmrs.calculation.patient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +29,6 @@ import org.openmrs.calculation.InvalidParameterValueException;
 import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.parameter.ParameterDefinition;
 import org.openmrs.calculation.parameter.SimpleParameterDefinition;
-import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
 
@@ -76,7 +74,7 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 		PatientCalculation ageCalculation = getAgeCalculation();
 		ParameterDefinition requiredDefinition = new SimpleParameterDefinition("testParam", "java.lang.Integer", null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
-		
+
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put(requiredDefinition.getKey(), "");
 		service.evaluate(2, ageCalculation, values, null);
