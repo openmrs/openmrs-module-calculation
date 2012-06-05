@@ -17,7 +17,6 @@ import java.lang.reflect.Method;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.registration.CalculationRegistration;
 
 /**
  * Contains utility methods for the module

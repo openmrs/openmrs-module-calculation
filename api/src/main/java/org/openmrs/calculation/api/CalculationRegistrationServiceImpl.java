@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.registration;
+package org.openmrs.calculation.api;
 
 import java.util.List;
 
@@ -19,9 +19,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.CalculationUtil;
 import org.openmrs.calculation.InvalidCalculationException;
-import org.openmrs.calculation.registration.db.CalculationRegistrationDAO;
+import org.openmrs.calculation.db.CalculationRegistrationDAO;
 import org.openmrs.validator.ValidateUtil;
 
 /**
@@ -41,7 +42,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#getCalculationRegistration(java.lang.Integer)
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#getCalculationRegistration(java.lang.Integer)
 	 */
 	@Override
 	public CalculationRegistration getCalculationRegistration(Integer calculationRegistrationId) {
@@ -49,7 +50,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#getCalculationRegistrationByUuid(String)
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#getCalculationRegistrationByUuid(String)
 	 */
 	@Override
 	public CalculationRegistration getCalculationRegistrationByUuid(String uuid) {
@@ -57,7 +58,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#getCalculationRegistrationByToken(java.lang.String)
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#getCalculationRegistrationByToken(java.lang.String)
 	 */
 	@Override
 	public CalculationRegistration getCalculationRegistrationByToken(String token) {
@@ -65,7 +66,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#getAllCalculationRegistrations()
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#getAllCalculationRegistrations()
 	 */
 	@Override
 	public List<CalculationRegistration> getAllCalculationRegistrations() {
@@ -73,7 +74,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#findCalculationRegistrations(java.lang.String)
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#findCalculationRegistrations(java.lang.String)
 	 */
 	@Override
 	public List<CalculationRegistration> findCalculationRegistrations(String partialToken) {
@@ -81,7 +82,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#saveCalculationRegistration(org.openmrs.calculation.registration.CalculationRegistration)
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#saveCalculationRegistration(org.openmrs.calculation.CalculationRegistration)
 	 */
 	@Override
 	public CalculationRegistration saveCalculationRegistration(CalculationRegistration calculationRegistration) {
@@ -90,7 +91,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#purgeCalculationRegistration(CalculationRegistration)
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#purgeCalculationRegistration(CalculationRegistration)
 	 */
 	@Override
 	public void purgeCalculationRegistration(CalculationRegistration calculationRegistration) {
@@ -98,7 +99,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.registration.CalculationRegistrationService#getCalculation(java.lang.String)
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#getCalculation(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override

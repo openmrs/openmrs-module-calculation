@@ -18,9 +18,8 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.MostRecentObsCalculation;
-import org.openmrs.calculation.registration.CalculationRegistration;
-import org.openmrs.calculation.registration.CalculationRegistrationService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
 
@@ -100,7 +99,8 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	 */
 	@Test
 	@Verifies(value = "should purge the specified calculationRegistration from the database", method = "purgeCalculationRegistration(CalculationRegistration)")
-	public void purgeCalculationRegistration_shouldPurgeTheSpecifiedCalculationRegistrationFromTheDatabase() throws Exception {
+	public void purgeCalculationRegistration_shouldPurgeTheSpecifiedCalculationRegistrationFromTheDatabase()
+	    throws Exception {
 		CalculationRegistration token = service.getCalculationRegistrationByUuid(TOKEN_UUID);
 		Assert.assertNotNull(service.getCalculationRegistrationByUuid(TOKEN_UUID));//control check
 		service.purgeCalculationRegistration(token);
@@ -137,7 +137,8 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	 */
 	@Test
 	@Verifies(value = "should return the calculation associated to the calculationRegistration with the given name", method = "getCalculation(java.lang.String)")
-	public void getCalculation_shouldReturnTheCalculationAssociatedToTheCalculationRegistrationWithTheGivenName() throws Exception {
+	public void getCalculation_shouldReturnTheCalculationAssociatedToTheCalculationRegistrationWithTheGivenName()
+	    throws Exception {
 		MostRecentObsCalculation calculation = service.getCalculation("mostRecentCD4", MostRecentObsCalculation.class);
 		Assert.assertNotNull(calculation);
 		Assert.assertEquals(5497, calculation.getWhichConcept().getConceptId().intValue());

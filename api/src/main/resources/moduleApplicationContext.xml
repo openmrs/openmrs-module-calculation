@@ -45,13 +45,13 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>${project.parent.groupId}.${project.parent.artifactId}.registration.CalculationRegistrationService</value>
+				<value>${project.parent.groupId}.${project.parent.artifactId}.api.CalculationRegistrationService</value>
 				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.registration.CalculationRegistrationServiceImpl">
+						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.CalculationRegistrationServiceImpl">
 							<property name="dao" ref="calculationRegistrationDao" /> 
 						</bean>
 					</property>
@@ -66,7 +66,7 @@
 		</property>
 	</bean>
 	
-	<bean id="calculationRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.registration.db.HibernateCalculationRegistrationDAO">
+	<bean id="calculationRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.db.HibernateCalculationRegistrationDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
