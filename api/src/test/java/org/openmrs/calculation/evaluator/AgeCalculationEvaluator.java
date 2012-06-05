@@ -31,7 +31,6 @@ import org.openmrs.calculation.EvaluationInstanceData;
 import org.openmrs.calculation.patient.PatientAtATimeCalculationEvaluator;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.result.EmptyCalculationResult;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.SimpleResult;
 
@@ -45,18 +44,18 @@ public class AgeCalculationEvaluator extends PatientAtATimeCalculationEvaluator 
 	 * Stores pre-processed birth date data for the input cohort
 	 */
 	public class BirthdateData extends HashMap<Integer, Date> implements EvaluationInstanceData {
+		
 		private static final long serialVersionUID = 1L;
 	}
-
+	
 	/**
-	 * @see PatientAtATimeCalculationEvaluator#preprocess(Cohort, PatientCalculation, Map, PatientCalculationContext)
+	 * @see PatientAtATimeCalculationEvaluator#preprocess(Cohort, PatientCalculation, Map,
+	 *      PatientCalculationContext)
 	 */
 	@Override
-	public EvaluationInstanceData preprocess(Cohort cohort,
-			PatientCalculation calculation,
-			Map<String, Object> parameterValues,
-			PatientCalculationContext context) {
-
+	public EvaluationInstanceData preprocess(Cohort cohort, PatientCalculation calculation,
+	                                         Map<String, Object> parameterValues, PatientCalculationContext context) {
+		
 		BirthdateData data = new BirthdateData();
 		if (cohort != null && !cohort.isEmpty()) {
 			StringBuilder q = new StringBuilder();
@@ -67,25 +66,25 @@ public class AgeCalculationEvaluator extends PatientAtATimeCalculationEvaluator 
 			q.append("and p.patient_id in (" + cohort.getCommaSeparatedPatientIds() + ")");
 			List<List<Object>> queryData = Context.getAdministrationService().executeSQL(q.toString(), true);
 			for (List<Object> row : queryData) {
-				Integer pId = (Integer)row.get(0);
-				Date birthdate = (Date)row.get(1);
+				Integer pId = (Integer) row.get(0);
+				Date birthdate = (Date) row.get(1);
 				data.put(pId, birthdate);
 			}
 		}
 		return data;
 	}
-
+	
 	/**
-	 * @see PatientAtATimeCalculationEvaluator#evaluateForPatient(EvaluationInstanceData, Integer, PatientCalculation, Map, PatientCalculationContext)
+	 * @see PatientAtATimeCalculationEvaluator#evaluateForPatient(EvaluationInstanceData, Integer,
+	 *      PatientCalculation, Map, PatientCalculationContext)
 	 */
 	@Override
-	public CalculationResult evaluateForPatient(EvaluationInstanceData instanceData,
-			Integer patientId, PatientCalculation calculation,
-			Map<String, Object> parameterValues,
-			PatientCalculationContext context) {
-
-		BirthdateData data = (BirthdateData)instanceData;
-		CalculationResult r = new EmptyCalculationResult();
+	public CalculationResult evaluateForPatient(EvaluationInstanceData instanceData, Integer patientId,
+	                                            PatientCalculation calculation, Map<String, Object> parameterValues,
+	                                            PatientCalculationContext context) {
+		
+		BirthdateData data = (BirthdateData) instanceData;
+		CalculationResult r = null;
 		Date birthdate = data.get(patientId);
 		if (birthdate != null) {
 			Chronology isoChronology = ISOChronology.getInstance();
@@ -94,8 +93,7 @@ public class AgeCalculationEvaluator extends PatientAtATimeCalculationEvaluator 
 			if (parameterValues != null && "months".equals(parameterValues.get("units"))) {
 				int months = Months.monthsBetween(birthDate, asOfDate).getMonths();
 				r = new SimpleResult(months, calculation, context);
-			}
-			else {
+			} else {
 				int years = Years.yearsBetween(birthDate, asOfDate).getYears();
 				r = new SimpleResult(years, calculation, context);
 			}

@@ -31,7 +31,6 @@ import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.EmptyCalculationResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ListResult;
 import org.openmrs.util.OpenmrsUtil;
@@ -79,7 +78,8 @@ public class RecentEncounterCalculation extends BaseCalculation implements Confi
 						
 						@Override
 						public int compare(Encounter o1, Encounter o2) {
-							return OpenmrsUtil.compareWithNullAsEarliest(o1.getEncounterDatetime(), o2.getEncounterDatetime());
+							return OpenmrsUtil.compareWithNullAsEarliest(o1.getEncounterDatetime(),
+							    o2.getEncounterDatetime());
 						}
 						
 					});
@@ -97,7 +97,7 @@ public class RecentEncounterCalculation extends BaseCalculation implements Confi
 						}
 						results.put(patientId, list);
 					} else {
-						results.put(patientId, new EmptyCalculationResult());
+						results.put(patientId, null);
 					}
 				}
 			}

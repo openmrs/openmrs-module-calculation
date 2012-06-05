@@ -32,7 +32,6 @@ import org.openmrs.calculation.parameter.ParameterDefinition;
 import org.openmrs.calculation.parameter.ParameterDefinitionSet;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.EmptyCalculationResult;
 import org.openmrs.util.HandlerUtil;
 
 /**
@@ -83,7 +82,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		cohort.addMember(patientId);
 		CohortResult cr = evaluate(cohort, calculation, parameterValues, context);
 		if (cr == null || cr.size() == 0)
-			return new EmptyCalculationResult();
+			return null;
 		
 		return cr.get(patientId);
 	}
@@ -118,6 +117,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	                             PatientCalculationContext context) throws APIException {
 		if (calculation == null)
 			throw new IllegalArgumentException("Calculation cannot be null");
+		
 		ParameterDefinitionSet defs = calculation.getParameterDefinitionSet();
 		//Check for missing values for required parameters
 		if (defs != null) {

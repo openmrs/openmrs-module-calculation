@@ -27,7 +27,6 @@ import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.calculation.result.EmptyCalculationResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -36,7 +35,7 @@ import org.openmrs.util.OpenmrsUtil;
  */
 @Handler(supports = { MostRecentEncounterCalculation.class }, order = 50)
 public class MostRecentEncounterCalculation extends BaseCalculation implements PatientCalculation, PatientCalculationEvaluator {
-
+	
 	//Prefix for keys used to map each patient to their most recent encounter in the current context
 	public static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";
 	
@@ -71,7 +70,7 @@ public class MostRecentEncounterCalculation extends BaseCalculation implements P
 						context.addToCache(MOST_RECENT_ENCOUNTER_KEY_PREFIX + patientId, mostRecentEncounterFound);
 						results.put(patientId, new EncounterResult(mostRecentEncounterFound, calculation, context));
 					} else {
-						results.put(patientId, new EmptyCalculationResult());
+						results.put(patientId, null);
 					}
 				}
 			}

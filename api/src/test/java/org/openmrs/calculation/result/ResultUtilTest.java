@@ -115,7 +115,7 @@ public class ResultUtilTest {
 	@Test
 	@Verifies(value = "should return an empty collection if the result has a null value and class is a set", method = "convert(CalculationResult,Class<T>)")
 	public void convert_shouldReturnAnEmptyCollectionIfTheResultHasANullValueAndClassIsASet() throws Exception {
-		Set set = ResultUtil.convert(new EmptyCalculationResult(), Set.class);
+		Set set = ResultUtil.convert(new SimpleResult(null, null), Set.class);
 		Assert.assertNotNull(set);
 		Assert.assertTrue(set.isEmpty());
 	}
