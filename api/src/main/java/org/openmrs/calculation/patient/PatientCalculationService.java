@@ -79,7 +79,9 @@ public interface PatientCalculationService extends OpenmrsService {
 	
 	/**
 	 * Evaluates the specified {@link PatientCalculation} for the specified cohort of patients based
-	 * on the provided contextual data and parameter values.
+	 * on the provided contextual data and parameter values. <br/>
+	 * <b>NOTE:</b> For purposes of saving memory, it is highly recommended to call this method with
+	 * a cohort of not more than 1000 members to be evaluated at a time.
 	 * 
 	 * @param cohort a cohort of patients
 	 * @param calculation the calculation to evaluate

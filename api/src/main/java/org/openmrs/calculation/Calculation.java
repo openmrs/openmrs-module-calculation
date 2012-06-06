@@ -36,7 +36,9 @@ public interface Calculation {
 	
 	/**
 	 * Evaluates a calculation for a cohort of patients taking into consideration any specified
-	 * parameter values and contextual information
+	 * parameter values and contextual information. <br/>
+	 * <b>NOTE:</b> For purposes of saving memory, it is highly recommended to call this method with
+	 * a cohort of not more than 1000 members to be evaluated at a time.
 	 * 
 	 * @param cohort a {@link Cohort} of patients for whom to evaluation the calculation
 	 * @param parameterValues a map of parameter values, takes the form
