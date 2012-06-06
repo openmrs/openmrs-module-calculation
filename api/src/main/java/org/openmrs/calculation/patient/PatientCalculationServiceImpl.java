@@ -32,7 +32,6 @@ import org.openmrs.calculation.parameter.ParameterDefinition;
 import org.openmrs.calculation.parameter.ParameterDefinitionSet;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
-import org.openmrs.util.HandlerUtil;
 
 /**
  * It is a default implementation of {@link PatientCalculationService}.
@@ -160,8 +159,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		if (context == null)
 			context = createCalculationContext();
 		
-		CohortResult cr = HandlerUtil.getPreferredHandler(PatientCalculationEvaluator.class, calculation.getClass())
-		        .evaluate(cohort, calculation, parameterValues, context);
+		CohortResult cr = calculation.evaluate(cohort, parameterValues, context);
 		
 		if (cr == null)
 			cr = new CohortResult();

@@ -36,11 +36,11 @@ import org.openmrs.calculation.OuterCalculation;
 import org.openmrs.calculation.RecentEncounterCalculation;
 import org.openmrs.calculation.parameter.ParameterDefinition;
 import org.openmrs.calculation.parameter.ParameterDefinitionSet;
+import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ListResult;
 import org.openmrs.calculation.result.ObsResult;
-import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
@@ -249,7 +249,6 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	public void shouldNotFailWhenInnerCalculationMakesDBChangesForOuterCalculation() throws Exception {
 		PatientCalculation calc = (PatientCalculation) new ClasspathCalculationProvider().getCalculation(
 		    OuterCalculation.class.getName(), null);
-		
 		getService().evaluate(1, calc);
 	}
 	

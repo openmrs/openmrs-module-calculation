@@ -19,34 +19,28 @@ import java.util.Map;
 import org.openmrs.Cohort;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
-import org.openmrs.annotation.Handler;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.util.OpenmrsUtil;
 
 /**
- * This is an example of the 'short-hand' way of writing a calculation where it evaluates itself
+ * Calculates the latest encounters of the patient(s)
  */
-@Handler(supports = { MostRecentEncounterCalculation.class }, order = 50)
-public class MostRecentEncounterCalculation extends BaseCalculation implements PatientCalculation, PatientCalculationEvaluator {
+public class MostRecentEncounterCalculation extends BaseCalculation implements PatientCalculation {
 	
 	//Prefix for keys used to map each patient to their most recent encounter in the current context
 	public static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";
 	
 	/**
-	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.patient.PatientCalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             PatientCalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {
 			PatientService ps = Context.getPatientService();
@@ -68,7 +62,8 @@ public class MostRecentEncounterCalculation extends BaseCalculation implements P
 						// (As a test usecase) cache the most recent encounter for later use incase the 
 						//caller's next call is for its most recent obs and they share contextual data
 						context.addToCache(MOST_RECENT_ENCOUNTER_KEY_PREFIX + patientId, mostRecentEncounterFound);
-						results.put(patientId, new EncounterResult(mostRecentEncounterFound, calculation, context));
+						results.put(patientId, new EncounterResult(mostRecentEncounterFound, this,
+						        (PatientCalculationContext) context));
 					} else {
 						results.put(patientId, null);
 					}

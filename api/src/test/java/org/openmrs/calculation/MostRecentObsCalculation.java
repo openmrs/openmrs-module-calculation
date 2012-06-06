@@ -19,20 +19,16 @@ import java.util.Map;
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.Obs;
-import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.patient.PatientCalculationEvaluator;
+import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.ObsResult;
-import org.openmrs.calculation.result.CalculationResult;
 
 /**
  * Calculation for most recent obs, this calculation also evaluates itself
  */
-@Handler(supports = { MostRecentObsCalculation.class }, order = 50)
-public class MostRecentObsCalculation extends BaseCalculation implements ConfigurableCalculation, PatientCalculation, PatientCalculationEvaluator {
+public class MostRecentObsCalculation extends BaseCalculation implements ConfigurableCalculation, PatientCalculation {
 	
 	private Concept whichConcept;
 	
@@ -51,27 +47,25 @@ public class MostRecentObsCalculation extends BaseCalculation implements Configu
 	}
 	
 	/**
-	 * @see PatientCalculationEvaluator#evaluate(Cohort, PatientCalculation, Map, PatientCalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             PatientCalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
 		
 		CohortResult results = new CohortResult();
-		MostRecentObsCalculation calc = (MostRecentObsCalculation) calculation;
-		Map<Integer, List<Obs>> patientObs = Context.getPatientSetService().getObservations(cohort, calc.whichConcept);
+		Map<Integer, List<Obs>> patientObs = Context.getPatientSetService().getObservations(cohort, whichConcept);
 		for (Integer pId : patientObs.keySet()) {
-			String cacheKey = calc.getClass().getName() + "." + calc.whichConcept + "." + pId;
-			CalculationResult r = (CalculationResult)context.getFromCache(cacheKey);
+			String cacheKey = this.getClass().getName() + "." + whichConcept + "." + pId;
+			CalculationResult r = (CalculationResult) context.getFromCache(cacheKey);
 			if (r == null) {
-				r = new ObsResult(patientObs.get(pId).get(0), calculation);
+				r = new ObsResult(patientObs.get(pId).get(0), this);
 				context.addToCache(cacheKey, r);
 			}
 			results.put(pId, r);
 		}
 		return results;
 	}
-
+	
 	/**
 	 * @return the whichConcept
 	 */

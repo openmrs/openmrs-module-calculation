@@ -17,27 +17,20 @@ import java.util.Map;
 
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
-import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 
 /**
  * Calculation used by {@link OuterCalculation}.
  */
-@Handler(supports = { InnerCalculation.class }, order = 50)
-public class InnerCalculation extends BaseCalculation implements PatientCalculation, PatientCalculationEvaluator {
+public class InnerCalculation extends BaseCalculation implements PatientCalculation {
 	
 	/**
-	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.patient.PatientCalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             PatientCalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
 		Concept concept = Context.getConceptService().getConcept(3);
 		if (concept.isRetired()) {
 			throw new RuntimeException("Concept must not be retired");

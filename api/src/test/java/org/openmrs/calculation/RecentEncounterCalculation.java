@@ -23,13 +23,11 @@ import java.util.TreeSet;
 import org.openmrs.Cohort;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
-import org.openmrs.annotation.Handler;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.patient.PatientCalculationEvaluator;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ListResult;
@@ -38,8 +36,7 @@ import org.openmrs.util.OpenmrsUtil;
 /**
  * Evaluates encounters since a given date.
  */
-@Handler(supports = { RecentEncounterCalculation.class }, order = 50)
-public class RecentEncounterCalculation extends BaseCalculation implements ConfigurableCalculation, PatientCalculation, PatientCalculationEvaluator {
+public class RecentEncounterCalculation extends BaseCalculation implements ConfigurableCalculation, PatientCalculation {
 	
 	private Date since;
 	
@@ -58,13 +55,10 @@ public class RecentEncounterCalculation extends BaseCalculation implements Confi
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.patient.PatientCalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             PatientCalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {
 			PatientService ps = Context.getPatientService();
@@ -93,7 +87,7 @@ public class RecentEncounterCalculation extends BaseCalculation implements Confi
 					
 					if (!sortedEncounters.isEmpty()) {
 						for (Encounter encounter : sortedEncounters) {
-							list.add(new EncounterResult(encounter, calculation, context));
+							list.add(new EncounterResult(encounter, this, (PatientCalculationContext) context));
 						}
 						results.put(patientId, list);
 					} else {

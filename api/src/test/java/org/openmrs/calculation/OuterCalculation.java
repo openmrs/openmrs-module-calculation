@@ -17,33 +17,24 @@ import java.util.Map;
 
 import org.openmrs.Cohort;
 import org.openmrs.Concept;
-import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.patient.PatientCalculationEvaluator;
-import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.calculation.result.CohortResult;
 
 /**
  * Calculation using results of {@link InnerCalculation}.
  */
-@Handler(supports = { OuterCalculation.class }, order = 50)
-public class OuterCalculation extends BaseCalculation implements PatientCalculation, PatientCalculationEvaluator {
+public class OuterCalculation extends BaseCalculation implements PatientCalculation {
 	
 	/**
-	 * @see org.openmrs.calculation.evaluator.patient.PatientCalculationEvaluator#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.patient.PatientCalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
-	                             PatientCalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
 		try {
-			PatientCalculation calc = (PatientCalculation) new ClasspathCalculationProvider().getCalculation(
+			Calculation calc = (PatientCalculation) new ClasspathCalculationProvider().getCalculation(
 			    InnerCalculation.class.getName(), null);
-			
-			Context.getService(PatientCalculationService.class).evaluate(1, calc);
+			calc.evaluate(cohort, parameterValues, context);
 		}
 		catch (InvalidCalculationException e) {
 			throw new RuntimeException(e);
@@ -51,7 +42,7 @@ public class OuterCalculation extends BaseCalculation implements PatientCalculat
 		
 		Concept concept = Context.getConceptService().getConcept(3);
 		if (!concept.isRetired()) {
-			throw new RuntimeException("Concept should have been retired by innter calculation");
+			throw new RuntimeException("Concept should have been retired by inner calculation");
 		}
 		
 		return new CohortResult();

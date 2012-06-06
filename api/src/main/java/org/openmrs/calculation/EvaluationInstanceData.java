@@ -15,10 +15,9 @@ package org.openmrs.calculation;
 
 /**
  * This interface is meant to encapsulate any data that needs to exist during the course of the
- * evaluation of a single Calculation.  It's primary purpose is to allow for evaluators to
- * store instance data without using instance variables, since they are singletons 
- * that are shared for evaluations occurring in multiple threads
+ * evaluation of a single Calculation. It's primary purpose is to allow for calculation to store
+ * instance data without using instance variables.
  */
 public interface EvaluationInstanceData {
-	
+
 }

@@ -16,28 +16,28 @@ package org.openmrs.calculation.patient;
 import java.util.Map;
 
 import org.openmrs.Cohort;
-import org.openmrs.annotation.Handler;
 import org.openmrs.calculation.BaseCalculation;
+import org.openmrs.calculation.CalculationContext;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.SimpleResult;
 
 /**
  * A very simple Patient Calculation, mainly to use as an example and for testing purposes
+ * 
  * @should return a result containing the patient id for each member of the input cohort
  */
-@Handler(supports=PatientIdCalculation.class)
-public class PatientIdCalculation extends BaseCalculation implements PatientCalculation, PatientCalculationEvaluator {
-
+public class PatientIdCalculation extends BaseCalculation implements PatientCalculation {
+	
 	/**
-	 * @see PatientCalculationEvaluator#evaluate(Cohort, PatientCalculation, Map, PatientCalculationContext)
+	 * @see org.openmrs.calculation.Calculation#evaluate(org.openmrs.Cohort,
+	 *      org.openmrs.calculation.CalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, 
-								 Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
 		CohortResult r = new CohortResult();
 		if (cohort != null) {
 			for (Integer pId : cohort.getMemberIds()) {
-				r.put(pId, new SimpleResult(pId, calculation, context));
+				r.put(pId, new SimpleResult(pId, this, context));
 			}
 		}
 		return r;

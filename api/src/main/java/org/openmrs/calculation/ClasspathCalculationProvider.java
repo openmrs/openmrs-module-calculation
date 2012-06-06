@@ -19,15 +19,14 @@ import org.openmrs.api.context.Context;
 import org.springframework.stereotype.Component;
 
 /**
- * Implementation of {@link CalculationProvider} which retrieves a {@link Calculation}
- * given a fully qualified class name of the {@link Calculation} to instantiate
+ * Implementation of {@link CalculationProvider} which retrieves a {@link Calculation} given a fully
+ * qualified class name of the {@link Calculation} to instantiate
  */
 @Component
 public class ClasspathCalculationProvider implements CalculationProvider {
 	
 	/**
 	 * @see CalculationProvider#getCalculation(String, String)
-	 * 
 	 * @should retrieve a configured configurable calculation with a valid configuration string
 	 * @should retrieve a non configurable calculation with a null configuration string
 	 * @should throw an exception if a configurable calculation is passed an illegal configuration
@@ -37,14 +36,14 @@ public class ClasspathCalculationProvider implements CalculationProvider {
 		Calculation calculation = null;
 		try {
 			Class<?> c = Context.loadClass(calculationName);
-			calculation = (Calculation)c.newInstance();
+			calculation = (Calculation) c.newInstance();
 		}
 		catch (Exception e) {
 			throw new APIException("Unable to load Calculation class with name '" + calculationName + "'");
 		}
 		// If this is a ConfigurableCalculation, try to configure it
 		if (calculation instanceof ConfigurableCalculation) {
-			((ConfigurableCalculation)calculation).setConfiguration(configuration);
+			((ConfigurableCalculation) calculation).setConfiguration(configuration);
 		}
 		// If this is not a ConfigurableCalculation, but a configuration was passed in, throw an Exception
 		else {
