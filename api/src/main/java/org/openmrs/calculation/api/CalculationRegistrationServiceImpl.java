@@ -13,7 +13,9 @@
  */
 package org.openmrs.calculation.api;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,6 +35,8 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
 	private CalculationRegistrationDAO dao;
+	
+	private static Map<String, CalculationRegistration> tokenCalculationRegistrationCache = new HashMap<String, CalculationRegistration>();
 	
 	/**
 	 * @param dao the dao to set
@@ -87,7 +91,17 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	@Override
 	public CalculationRegistration saveCalculationRegistration(CalculationRegistration calculationRegistration) {
 		ValidateUtil.validate(calculationRegistration);
-		return dao.saveCalculationRegistration(calculationRegistration);
+		boolean updateCachedCalculationRegistration = false;
+		if (calculationRegistration.getId() != null
+		        && tokenCalculationRegistrationCache.containsKey(calculationRegistration.getToken())) {
+			updateCachedCalculationRegistration = true;
+		}
+		
+		CalculationRegistration savedToken = dao.saveCalculationRegistration(calculationRegistration);
+		if (updateCachedCalculationRegistration)
+			tokenCalculationRegistrationCache.put(calculationRegistration.getToken(), calculationRegistration);
+		
+		return savedToken;
 	}
 	
 	/**
@@ -104,7 +118,16 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws InvalidCalculationException {
-		CalculationRegistration calculationRegistration = getCalculationRegistrationByToken(tokenName);
+		if (tokenName == null || clazz == null)
+			throw new IllegalArgumentException("tokenName and clazz cannot be null");
+		
+		CalculationRegistration calculationRegistration = tokenCalculationRegistrationCache.get(tokenName);
+		if (calculationRegistration == null) {
+			calculationRegistration = getCalculationRegistrationByToken(tokenName);
+			if (calculationRegistration != null)
+				tokenCalculationRegistrationCache.put(tokenName, calculationRegistration);
+		}
+		
 		return (T) CalculationUtil.getCalculationForCalculationRegistration(calculationRegistration);
 	}
 }

@@ -65,9 +65,11 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * @return
 	 * @should save the specified calculationRegistration to the database
 	 * @should update an existing token
+	 * @should update the cached token registration
 	 */
 	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
-	public CalculationRegistration saveCalculationRegistration(CalculationRegistration calculationRegistration) throws InvalidCalculationException;
+	public CalculationRegistration saveCalculationRegistration(CalculationRegistration calculationRegistration)
+	    throws InvalidCalculationException;
 	
 	/**
 	 * Gets all tokens in the database
@@ -98,8 +100,8 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	public void purgeCalculationRegistration(CalculationRegistration calculationRegistration);
 	
 	/**
-	 * Gets a {@link PatientCalculation} with given name associated to a {@link CalculationRegistration} with a name that
-	 * matches the specified tokenName
+	 * Gets a {@link PatientCalculation} with given name associated to a
+	 * {@link CalculationRegistration} with a name that matches the specified tokenName
 	 * 
 	 * @param tokenName
 	 * @return {@link PatientCalculation}

@@ -17,7 +17,9 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
+import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.MostRecentObsCalculation;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -142,5 +144,39 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	@Verifies(value = "should fetch a token with a matching name", method = "getCalculationRegistrationByToken(String)")
 	public void getCalculationRegistrationByToken_shouldFetchATokenWithAMatchingName() throws Exception {
 		Assert.assertEquals(TOKEN_UUID, service.getCalculationRegistrationByToken("age").getUuid());
+	}
+	
+	/**
+	 * @see {@link CalculationRegistrationService#saveCalculationRegistration(CalculationRegistration)}
+	 */
+	@Test(expected = APIException.class)
+	@Verifies(value = "should update the cached token registration", method = "saveCalculationRegistration(CalculationRegistration)")
+	public void saveCalculationRegistration_shouldUpdateTheCachedTokenRegistration() throws Exception {
+		final String tokenName = "age";
+		
+		//This effectively loads the object into the session, so that on the line after it is 
+		//what gets cached in our registration cache when fetching the calculation from the service
+		//since we will still be in the same hibernate session
+		CalculationRegistration originalTokenReg = service.getCalculationRegistrationByToken(tokenName);
+		try {
+			//This should lead to the token registration getting cached
+			Assert.assertNotNull(service.getCalculation(tokenName, AgeCalculation.class));
+			
+			//now we need to remove it from the session so that we effectively 
+			//mimic our cache and DB being out of sync when changes are made
+			Context.evictFromSession(originalTokenReg);
+		}
+		catch (APIException e) {
+			Assert.fail(e.getMessage());
+		}
+		
+		CalculationRegistration newTokenRegInstance = service.getCalculationRegistrationByToken(tokenName);
+		newTokenRegInstance.setCalculationName("some.unknown.Classname");
+		
+		//this should synchronize our cache with the DB
+		service.saveCalculationRegistration(newTokenRegInstance);
+		
+		//should fail this time because of the new unknown class
+		service.getCalculation(tokenName, AgeCalculation.class);
 	}
 }
