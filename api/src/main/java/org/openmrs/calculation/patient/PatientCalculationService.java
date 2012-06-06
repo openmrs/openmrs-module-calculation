@@ -23,8 +23,11 @@ import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
 
 /**
- * The PatientCalculationService is the primary mechanism for evaluating {@link PatientCalculation}s
- * and for associating Calculation instances with saved tokens.
+ * The PatientCalculationService provides a mechanism for evaluating {@link PatientCalculation}s in
+ * a more flexible and robust way and for associating Calculation instances with saved tokens. The
+ * benefits of evaluating a {@link PatientCalculation} through this service is that parameter
+ * datatypes and required parameters get enforced before the evaluation is done. It also provides
+ * convenience methods to process evaluations for a single patient.
  */
 public interface PatientCalculationService extends OpenmrsService {
 	
