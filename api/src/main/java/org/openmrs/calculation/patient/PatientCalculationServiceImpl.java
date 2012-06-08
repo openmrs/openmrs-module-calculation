@@ -171,22 +171,23 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		} else {
 			cr = new CohortResult();
 			int expectedResultSize = cohort.size();
-			
-			//Transform the set to a LinkedList so that we can remove elements as we get them using FIFO
-			LinkedList<Integer> list = new LinkedList<Integer>(cohort.getMemberIds());
-			
-			//evaluate the cohort members in batches until they are all done
-			while (cr.size() < expectedResultSize) {
-				Set<Integer> batchMembers = new TreeSet<Integer>();
-				int memberCount = 0;
-				
-				while (memberCount < CalculationConstants.EVALUATION_BATCH_SIZE && !list.isEmpty()) {
-					batchMembers.add(list.pop());
-					memberCount++;
+			Set<Integer> originalSet = cohort.getMemberIds();
+			try {
+				//Transform the set to a LinkedList so that we can remove elements they get fetched
+				LinkedList<Integer> list = new LinkedList<Integer>(cohort.getMemberIds());
+				//evaluate the cohort members in batches until they are all done
+				while (cr.size() < expectedResultSize) {
+					Set<Integer> batchMembers = new TreeSet<Integer>();
+					while (batchMembers.size() < CalculationConstants.EVALUATION_BATCH_SIZE && !list.isEmpty()) {
+						batchMembers.add(list.pop());
+					}
+					cohort.setMemberIds(batchMembers);
+					cr.putAll(calculation.evaluate(cohort, parameterValues, context));
 				}
-				
-				cohort.setMemberIds(batchMembers);
-				cr.putAll(calculation.evaluate(cohort, parameterValues, context));
+			}
+			finally {
+				//so that we don't mess up code using the cohort when this method returns
+				cohort.setMemberIds(originalSet);
 			}
 		}
 		

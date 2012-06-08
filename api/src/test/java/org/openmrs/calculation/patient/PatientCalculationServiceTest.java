@@ -152,7 +152,7 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	@Test
 	@Verifies(value = "should return the expected result size for cohort with a large number of patient", method = "evaluate(Cohort,PatientCalculation,Map<String,Object>,PatientCalculationContext)")
 	public void evaluate_shouldReturnTheExpectedResultSizeForCohortWithALargeNumberOfPatient() throws Exception {
-		final int patientCount = 101012;
+		final int patientCount = 1001012;
 		Assert.assertTrue(patientCount > CalculationConstants.EVALUATION_BATCH_SIZE);
 		Cohort cohort = new Cohort();
 		//create a large cohort for testing purposes
@@ -160,5 +160,7 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 			cohort.addMember(cohort.size());
 		
 		Assert.assertEquals(patientCount, service.evaluate(cohort, new CountingCalculation()).size());
+		//the cohort members should remain unchanged
+		Assert.assertEquals(patientCount, cohort.size());
 	}
 }
