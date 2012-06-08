@@ -11,15 +11,10 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.provider;
+package org.openmrs.calculation;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openmrs.calculation.AgeCalculation;
-import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.ClasspathCalculationProvider;
-import org.openmrs.calculation.InvalidCalculationException;
-import org.openmrs.calculation.MostRecentObsCalculation;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.test.annotation.ExpectedException;
 
@@ -33,12 +28,13 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 	 * @verifies retrieve a configured configurable calculation with a valid configuration string
 	 */
 	@Test
-	public void getCalculation_shouldRetrieveAConfiguredConfigurableCalculationWithAValidConfigurationString() throws Exception {
+	public void getCalculation_shouldRetrieveAConfiguredConfigurableCalculationWithAValidConfigurationString()
+	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		Calculation c = p.getCalculation(MostRecentObsCalculation.class.getName(), "5089");
 		Assert.assertNotNull(c);
 	}
-
+	
 	/**
 	 * @see ClasspathCalculationProvider#getCalculation(String,String)
 	 * @verifies retrieve a non configurable calculation with a null configuration string
@@ -49,25 +45,28 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 		Calculation c = p.getCalculation(AgeCalculation.class.getName(), null);
 		Assert.assertNotNull(c);
 	}
-
+	
 	/**
 	 * @see ClasspathCalculationProvider#getCalculation(String,String)
 	 * @verifies throw an exception if a configurable calculation is passed an illegal configuration
 	 */
 	@Test
 	@ExpectedException(InvalidCalculationException.class)
-	public void getCalculation_shouldThrowAnExceptionIfAConfigurableCalculationIsPassedAnIllegalConfiguration() throws Exception {
+	public void getCalculation_shouldThrowAnExceptionIfAConfigurableCalculationIsPassedAnIllegalConfiguration()
+	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		p.getCalculation(MostRecentObsCalculation.class.getName(), "5o89");
 	}
-
+	
 	/**
 	 * @see ClasspathCalculationProvider#getCalculation(String,String)
-	 * @verifies throw an exception if a non configurable calculation is passed a configuration string
+	 * @verifies throw an exception if a non configurable calculation is passed a configuration
+	 *           string
 	 */
 	@Test
 	@ExpectedException(InvalidCalculationException.class)
-	public void getCalculation_shouldThrowAnExceptionIfANonConfigurableCalculationIsPassedAConfigurationString() throws Exception {
+	public void getCalculation_shouldThrowAnExceptionIfANonConfigurableCalculationIsPassedAConfigurationString()
+	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		p.getCalculation(AgeCalculation.class.getName(), "something");
 	}
