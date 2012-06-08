@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.util;
+package org.openmrs.calculation;
 
 import junit.framework.Assert;
 
@@ -32,7 +32,7 @@ public class CalculationUtilTest {
 	 */
 	@Test
 	@Verifies(value = "should return true for primitive type wrappers classes", method = "isPrimitiveWrapperType(Class)")
-	public void isPrimitiveWrapperType_shouldReturnTrueForPrimitiveTypeWrapperClasses() throws Exception {
+	public void isPrimitiveWrapperType_shouldReturnTrueForPrimitiveTypeWrappersClasses() throws Exception {
 		Assert.assertTrue(CalculationUtil.isPrimitiveWrapperType(Boolean.class));
 		Assert.assertTrue(CalculationUtil.isPrimitiveWrapperType(Character.class));
 		Assert.assertTrue(CalculationUtil.isPrimitiveWrapperType(Byte.class));
