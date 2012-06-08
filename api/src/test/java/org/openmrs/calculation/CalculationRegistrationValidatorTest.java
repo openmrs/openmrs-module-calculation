@@ -11,17 +11,13 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.calculation.validator;
+package org.openmrs.calculation;
 
+import junit.framework.Assert;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
-import org.openmrs.calculation.AgeCalculation;
-import org.openmrs.calculation.CalculationRegistration;
-import org.openmrs.calculation.CalculationRegistrationValidator;
-import org.openmrs.calculation.ClasspathCalculationProvider;
 import org.openmrs.calculation.api.CalculationRegistrationService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
@@ -47,87 +43,101 @@ public class CalculationRegistrationValidatorTest extends BaseModuleContextSensi
 	
 	/**
 	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
-	 * 
 	 */
 	@Test
-	@Verifies(value = "pass valid token registration", method = "validate(Object,Errors)")
-	public void validate_shouldPassValidCalculationRegistration() throws Exception {
-		CalculationRegistration calculationRegistration = new CalculationRegistration();
-		calculationRegistration.setToken("ageCalc");
-		calculationRegistration.setProviderClassName(ClasspathCalculationProvider.class.getName());
-		calculationRegistration.setCalculationName(AgeCalculation.class.getName());
-		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
-		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
-		Assert.assertEquals(Boolean.FALSE, errors.hasErrors());
-	}
-	
-	/**
-	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
-	 */
-	@Test
-	@Verifies(value = "fail if token registration name is empty or whitespace", method = "validate(Object,Errors)")
-	public void validate_shouldFailIfCalculationRegistrationNameIsEmptyOrWhitespace() throws Exception {
-		CalculationRegistration calculationRegistration = new CalculationRegistration();
-		calculationRegistration.setToken(null);
-		calculationRegistration.setProviderClassName("test");
-		calculationRegistration.setCalculationName("A1");
-		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
-		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
-		Assert.assertEquals(Boolean.TRUE, errors.hasFieldErrors("token"));
-	}
-	
-	/**
-	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
-	 */
-	@Test
-	@Verifies(value = "fail if token registration provider class name is empty or whitespace", method = "validate(Object,Errors)")
-	public void validate_shouldFailIfCalculationRegistrationProviderClassNameIsEmptyOrWhitespace() throws Exception {
-		CalculationRegistration calculationRegistration = new CalculationRegistration();
-		calculationRegistration.setToken("test");
-		calculationRegistration.setProviderClassName("");
-		calculationRegistration.setCalculationName("A1");
-		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
-		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
-		Assert.assertEquals(Boolean.TRUE, errors.hasFieldErrors("providerClassName"));
-	}
-	
-	/**
-	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
-	 */
-	@Test
-	@Verifies(value = "fail if token registration calculation name is empty or whitespace", method = "validate(Object,Errors)")
-	public void validate_shouldFailIfCalculationRegistrationCalculationNameIsEmptyOrWhitespace() throws Exception {
+	@Verifies(value = "should fail if token registration calculation name is empty or whitespace", method = "validate(Object,Errors)")
+	public void validate_shouldFailIfTokenRegistrationCalculationNameIsEmptyOrWhitespace() throws Exception {
 		CalculationRegistration calculationRegistration = new CalculationRegistration();
 		calculationRegistration.setToken("test");
 		calculationRegistration.setProviderClassName("test");
 		calculationRegistration.setCalculationName(" ");
 		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
 		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
-		Assert.assertEquals(Boolean.TRUE, errors.hasFieldErrors("calculationName"));
+		Assert.assertEquals(true, errors.hasFieldErrors("calculationName"));
 	}
 	
 	/**
 	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
 	 */
 	@Test
-	@Verifies(value = "fail if token registration name is not unique amongst all tokens", method = "validate(Object,Errors)")
-	public void validate_shouldFailIfCalculationRegistrationNameIsNotUniqueAmongstAllTokens() throws Exception {
+	@Verifies(value = "should fail if token registration name is empty or whitespace", method = "validate(Object,Errors)")
+	public void validate_shouldFailIfTokenRegistrationNameIsEmptyOrWhitespace() throws Exception {
+		CalculationRegistration calculationRegistration = new CalculationRegistration();
+		calculationRegistration.setToken(null);
+		calculationRegistration.setProviderClassName("test");
+		calculationRegistration.setCalculationName("A1");
+		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
+		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
+		Assert.assertEquals(true, errors.hasFieldErrors("token"));
+	}
+	
+	/**
+	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
+	 */
+	@Test
+	@Verifies(value = "should fail if token registration name is not unique amongst all tokens", method = "validate(Object,Errors)")
+	public void validate_shouldFailIfTokenRegistrationNameIsNotUniqueAmongstAllTokens() throws Exception {
 		CalculationRegistration calculationRegistration = new CalculationRegistration();
 		calculationRegistration.setToken("age");
 		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
 		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
-		Assert.assertEquals(Boolean.TRUE, errors.hasFieldErrors("token"));
+		Assert.assertEquals(true, errors.hasFieldErrors("token"));
 	}
 	
 	/**
 	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
 	 */
 	@Test
-	@Verifies(value = "pass existing token registration", method = "validate(Object,Errors)")
-	public void validate_shouldPassExistingCalculationRegistration() throws Exception {
+	@Verifies(value = "should fail if token registration provider class name is empty or whitespace", method = "validate(Object,Errors)")
+	public void validate_shouldFailIfTokenRegistrationProviderClassNameIsEmptyOrWhitespace() throws Exception {
+		CalculationRegistration calculationRegistration = new CalculationRegistration();
+		calculationRegistration.setToken("test");
+		calculationRegistration.setProviderClassName("");
+		calculationRegistration.setCalculationName("A1");
+		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
+		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
+		Assert.assertEquals(true, errors.hasFieldErrors("providerClassName"));
+	}
+	
+	/**
+	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
+	 */
+	@Test
+	@Verifies(value = "should pass existing token registration", method = "validate(Object,Errors)")
+	public void validate_shouldPassExistingTokenRegistration() throws Exception {
 		CalculationRegistration calculationRegistration = calculationRegistrationService.getCalculationRegistration(1);
 		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
 		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
-		Assert.assertEquals(Boolean.FALSE, errors.hasFieldErrors("token"));
+		Assert.assertEquals(false, errors.hasFieldErrors("token"));
+	}
+	
+	/**
+	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
+	 */
+	@Test
+	@Verifies(value = "should pass valid token registration", method = "validate(Object,Errors)")
+	public void validate_shouldPassValidTokenRegistration() throws Exception {
+		CalculationRegistration calculationRegistration = new CalculationRegistration();
+		calculationRegistration.setToken("ageCalc");
+		calculationRegistration.setProviderClassName(ClasspathCalculationProvider.class.getName());
+		calculationRegistration.setCalculationName(AgeCalculation.class.getName());
+		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
+		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
+		Assert.assertEquals(false, errors.hasErrors());
+	}
+	
+	/**
+	 * @see {@link CalculationRegistrationValidator#validate(Object,Errors)}
+	 */
+	@Test
+	@Verifies(value = "should fail if token registration does not represent a valid calculation", method = "validate(Object,Errors)")
+	public void validate_shouldFailIfTokenRegistrationDoesNotRepresentAValidCalculation() throws Exception {
+		CalculationRegistration calculationRegistration = new CalculationRegistration();
+		calculationRegistration.setToken("ageCalc");
+		calculationRegistration.setProviderClassName(ClasspathCalculationProvider.class.getName());
+		calculationRegistration.setCalculationName("org.invalid.calculationClassName");
+		Errors errors = new BindException(calculationRegistration, "calculationRegistration");
+		new CalculationRegistrationValidator().validate(calculationRegistration, errors);
+		Assert.assertEquals(true, errors.hasErrors());
 	}
 }
