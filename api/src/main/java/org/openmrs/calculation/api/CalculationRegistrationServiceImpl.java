@@ -13,9 +13,9 @@
  */
 package org.openmrs.calculation.api;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,7 +36,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	
 	private CalculationRegistrationDAO dao;
 	
-	private static Map<String, CalculationRegistration> tokenCalculationRegistrationCache = new HashMap<String, CalculationRegistration>();
+	private static Map<String, CalculationRegistration> tokenCalculationRegistrationCache = new ConcurrentHashMap<String, CalculationRegistration>();
 	
 	/**
 	 * @param dao the dao to set
