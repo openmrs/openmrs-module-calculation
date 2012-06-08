@@ -16,6 +16,7 @@ package org.openmrs.calculation;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.Verifies;
 import org.springframework.test.annotation.ExpectedException;
 
 /**
@@ -69,5 +70,16 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		p.getCalculation(AgeCalculation.class.getName(), "something");
+	}
+	
+	/**
+	 * @see {@link ClasspathCalculationProvider#getCalculation(String,String)}
+	 */
+	@Test
+	@Verifies(value = "should always return a different instance of a calculation", method = "getCalculation(String,String)")
+	public void getCalculation_shouldAlwaysReturnADifferentInstanceOfACalculation() throws Exception {
+		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
+		String calculationName = InnerCalculation.class.getName();
+		Assert.assertTrue(p.getCalculation(calculationName, null) != p.getCalculation(calculationName, null));
 	}
 }

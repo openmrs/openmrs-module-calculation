@@ -31,6 +31,7 @@ public class ClasspathCalculationProvider implements CalculationProvider {
 	 * @should retrieve a non configurable calculation with a null configuration string
 	 * @should throw an exception if a configurable calculation is passed an illegal configuration
 	 * @should throw an exception if a non configurable calculation is passed a configuration string
+	 * @should always return a different instance of a calculation
 	 */
 	public Calculation getCalculation(String calculationName, String configuration) throws InvalidCalculationException {
 		Calculation calculation = null;
