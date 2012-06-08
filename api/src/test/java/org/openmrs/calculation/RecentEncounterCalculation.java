@@ -55,10 +55,10 @@ public class RecentEncounterCalculation extends BaseCalculation implements Confi
 	}
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {
 			PatientService ps = Context.getPatientService();
@@ -87,7 +87,7 @@ public class RecentEncounterCalculation extends BaseCalculation implements Confi
 					
 					if (!sortedEncounters.isEmpty()) {
 						for (Encounter encounter : sortedEncounters) {
-							list.add(new EncounterResult(encounter, this, (PatientCalculationContext) context));
+							list.add(new EncounterResult(encounter, this, context));
 						}
 						results.put(patientId, list);
 					} else {

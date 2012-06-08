@@ -19,6 +19,7 @@ import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
+import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CohortResult;
 
 /**
@@ -27,10 +28,10 @@ import org.openmrs.calculation.result.CohortResult;
 public class InnerCalculation extends BaseCalculation implements PatientCalculation {
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		Concept concept = Context.getConceptService().getConcept(3);
 		if (concept.isRetired()) {
 			throw new RuntimeException("Concept must not be retired");

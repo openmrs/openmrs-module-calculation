@@ -18,7 +18,6 @@ import java.util.Map;
 import org.openmrs.Cohort;
 import org.openmrs.calculation.BaseCalculation;
 import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.CalculationContext;
 import org.openmrs.calculation.EvaluationInstanceData;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
@@ -62,10 +61,10 @@ public abstract class PatientAtATimeCalculation extends BaseCalculation implemen
 	}
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, org.openmrs.calculation.CalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
 	 */
 	@Override
-	public final CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
+	public final CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		CohortResult result = new CohortResult();
 		EvaluationInstanceData instanceData = preprocess(cohort, parameterValues, (PatientCalculationContext) context);
 		try {

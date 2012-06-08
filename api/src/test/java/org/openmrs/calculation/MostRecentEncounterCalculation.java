@@ -37,10 +37,10 @@ public class MostRecentEncounterCalculation extends BaseCalculation implements P
 	public static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {
 			PatientService ps = Context.getPatientService();
@@ -62,8 +62,7 @@ public class MostRecentEncounterCalculation extends BaseCalculation implements P
 						// (As a test usecase) cache the most recent encounter for later use incase the 
 						//caller's next call is for its most recent obs and they share contextual data
 						context.addToCache(MOST_RECENT_ENCOUNTER_KEY_PREFIX + patientId, mostRecentEncounterFound);
-						results.put(patientId, new EncounterResult(mostRecentEncounterFound, this,
-						        (PatientCalculationContext) context));
+						results.put(patientId, new EncounterResult(mostRecentEncounterFound, this, context));
 					} else {
 						results.put(patientId, null);
 					}

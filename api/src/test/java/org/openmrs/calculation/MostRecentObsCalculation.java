@@ -21,6 +21,7 @@ import org.openmrs.Concept;
 import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
+import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CohortResult;
 import org.openmrs.calculation.result.ObsResult;
@@ -47,10 +48,10 @@ public class MostRecentObsCalculation extends BaseCalculation implements Configu
 	}
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, CalculationContext)
+	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, CalculationContext context) {
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		
 		CohortResult results = new CohortResult();
 		Map<Integer, List<Obs>> patientObs = Context.getPatientSetService().getObservations(cohort, whichConcept);

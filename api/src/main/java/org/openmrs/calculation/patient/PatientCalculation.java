@@ -13,12 +13,29 @@
  */
 package org.openmrs.calculation.patient;
 
+import java.util.Map;
+
+import org.openmrs.Cohort;
 import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.result.CohortResult;
 
 /**
  * A PatientCalculation represents a definition that can be evaluated to produce data, this is the
  * base interface for all Patient calculations.
  */
 public interface PatientCalculation extends Calculation {
-
+	
+	/**
+	 * Evaluates a calculation for a cohort of patients taking into consideration any specified
+	 * parameter values and contextual information. <br/>
+	 * <b>NOTE:</b> For purposes of saving memory, it is highly recommended to call this method with
+	 * a cohort of not more than 1000 members to be evaluated at a time.
+	 * 
+	 * @param cohort a {@link Cohort} of patients for whom to evaluation the calculation
+	 * @param parameterValues a map of parameter values, takes the form
+	 *            Map&lt;ParameterDefinition.key, Object Value&gt;
+	 * @param context the {@link PatientCalculationContext} to use while performing the evaluation
+	 * @return a {@link CohortResult}
+	 */
+	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context);
 }
