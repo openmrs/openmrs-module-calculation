@@ -14,7 +14,10 @@
 package org.openmrs.calculation.patient;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +27,7 @@ import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.calculation.CalculationConstants;
 import org.openmrs.calculation.CalculationUtil;
 import org.openmrs.calculation.ConversionException;
 import org.openmrs.calculation.InvalidParameterValueException;
@@ -114,8 +118,10 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	@Override
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException {
-		if (calculation == null)
-			throw new IllegalArgumentException("Calculation cannot be null");
+		if (calculation == null || cohort == null)
+			throw new IllegalArgumentException("Calculation and cohort cannot be null");
+		if (cohort.isEmpty())
+			return new CohortResult();
 		
 		ParameterDefinitionSet defs = calculation.getParameterDefinitionSet();
 		//Check for missing values for required parameters
@@ -159,7 +165,30 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		if (context == null)
 			context = createCalculationContext();
 		
-		CohortResult cr = calculation.evaluate(cohort, parameterValues, context);
+		CohortResult cr = null;
+		if (cohort.size() <= CalculationConstants.EVALUATION_BATCH_SIZE) {
+			cr = calculation.evaluate(cohort, parameterValues, context);
+		} else {
+			cr = new CohortResult();
+			int expectedResultSize = cohort.size();
+			
+			//Transform the set to a LinkedList so that we can remove elements as we get them using FIFO
+			LinkedList<Integer> list = new LinkedList<Integer>(cohort.getMemberIds());
+			
+			//evaluate the cohort members in batches until they are all done
+			while (cr.size() < expectedResultSize) {
+				Set<Integer> batchMembers = new TreeSet<Integer>();
+				int memberCount = 0;
+				
+				while (memberCount < CalculationConstants.EVALUATION_BATCH_SIZE && !list.isEmpty()) {
+					batchMembers.add(list.pop());
+					memberCount++;
+				}
+				
+				cohort.setMemberIds(batchMembers);
+				cr.putAll(calculation.evaluate(cohort, parameterValues, context));
+			}
+		}
 		
 		if (cr == null)
 			cr = new CohortResult();

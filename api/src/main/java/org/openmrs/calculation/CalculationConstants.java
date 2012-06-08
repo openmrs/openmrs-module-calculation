@@ -25,4 +25,7 @@ public final class CalculationConstants {
 	public static final String PRIV_VIEW_TOKEN_REGISTRATIONS = "View Token Registrations";
 	
 	public static final String PRIV_VIEW_CALCULATIONS = "View Calculations";
+	
+	//the maximum number of cohorts members to evaluate at a time, probably this should be configurable
+	public static final int EVALUATION_BATCH_SIZE = 1000;
 }

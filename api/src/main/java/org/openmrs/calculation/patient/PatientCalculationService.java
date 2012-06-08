@@ -94,6 +94,7 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @should fail for a blank value for a required parameter if datatype is a String
 	 * @should fail if the a parameter value doesnt match the allowed datatype
 	 * @should pass if the passed in datatype cannot be loaded
+	 * @should return the expected result size for cohort with a large number of patient
 	 */
 	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException;

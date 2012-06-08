@@ -18,12 +18,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.Cohort;
 import org.openmrs.ConceptNumeric;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
+import org.openmrs.calculation.CalculationConstants;
 import org.openmrs.calculation.ClasspathCalculationProvider;
+import org.openmrs.calculation.CountingCalculation;
 import org.openmrs.calculation.InvalidCalculationException;
 import org.openmrs.calculation.InvalidParameterValueException;
 import org.openmrs.calculation.MissingParameterException;
@@ -74,7 +79,7 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 		PatientCalculation ageCalculation = getAgeCalculation();
 		ParameterDefinition requiredDefinition = new SimpleParameterDefinition("testParam", "java.lang.Integer", null, true);
 		ageCalculation.getParameterDefinitionSet().add(requiredDefinition);
-
+		
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put(requiredDefinition.getKey(), "");
 		service.evaluate(2, ageCalculation, values, null);
@@ -136,5 +141,24 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 		List<ConceptNumeric> numericConcepts = new ArrayList<ConceptNumeric>();
 		values.put(conceptDefinition.getKey(), numericConcepts);
 		service.evaluate(2, ageCalculation, values, null);
+	}
+	
+	/**
+	 * This test is aimed to make sure our batching mechanism is semantically correct
+	 * 
+	 * @see {@link PatientCalculationService#evaluate(Cohort,PatientCalculation,Map<String,Object>,
+	 *      PatientCalculationContext)}
+	 */
+	@Test
+	@Verifies(value = "should return the expected result size for cohort with a large number of patient", method = "evaluate(Cohort,PatientCalculation,Map<String,Object>,PatientCalculationContext)")
+	public void evaluate_shouldReturnTheExpectedResultSizeForCohortWithALargeNumberOfPatient() throws Exception {
+		final int patientCount = 101012;
+		Assert.assertTrue(patientCount > CalculationConstants.EVALUATION_BATCH_SIZE);
+		Cohort cohort = new Cohort();
+		//create a large cohort for testing purposes
+		while (cohort.size() < patientCount)
+			cohort.addMember(cohort.size());
+		
+		Assert.assertEquals(patientCount, service.evaluate(cohort, new CountingCalculation()).size());
 	}
 }
