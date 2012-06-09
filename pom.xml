@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs</groupId>
 	<artifactId>calculation</artifactId>
-	<version>0.9-SNAPSHOT</version>
+	<version>0.9</version>
 	<packaging>pom</packaging>
 	<name>Calculation</name>
 	<description>Provides a framework for OpenMRS developers to author from simple to complex calculations to produce a particular piece of data for a single patient or a cohort of patients</description>
@@ -22,9 +22,9 @@
 	</organization>
 
 	<scm>
-		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/branches/1.0.x</connection>
-		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/branches/1.0.x</developerConnection>
-		<url>http://svn.openmrs.org/openmrs-modules/calculation/branches/1.0.x</url>
+		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/tags/calculation-0.9</connection>
+		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/tags/calculation-0.9</developerConnection>
+		<url>http://svn.openmrs.org/openmrs-modules/calculation/tags/calculation-0.9</url>
 	</scm>
 
 	<modules>
