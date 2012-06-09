@@ -35,6 +35,7 @@ public abstract class BaseCalculation implements Calculation {
 		if (parameterDefinitionSet == null) {
 			parameterDefinitionSet = new ParameterDefinitionSet();
 		}
+		
 		return parameterDefinitionSet;
 	}
 
