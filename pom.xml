@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs</groupId>
 	<artifactId>calculation</artifactId>
-	<version>0.9</version>
+	<version>0.9-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Calculation</name>
 	<description>Provides a framework for OpenMRS developers to author from simple to complex calculations to produce a particular piece of data for a single patient or a cohort of patients</description>
