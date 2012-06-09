@@ -14,9 +14,12 @@
 package org.openmrs.calculation;
 
 import java.lang.reflect.Method;
+import java.util.Date;
+import java.util.Locale;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.openmrs.api.context.Context;
+import org.openmrs.util.LocaleUtility;
+import org.springframework.beans.BeanUtils;
 
 /**
  * Contains utility methods for the module
@@ -24,20 +27,6 @@ import org.openmrs.api.context.Context;
 public class CalculationUtil {
 	
 	//private static final Log log = LogFactory.getLog(CalculationUtil.class);
-	
-	private static final Class<?>[] PRIMITIVE_TYPES = { Boolean.class, Character.class, Byte.class, Short.class,
-	        Integer.class, Float.class, Double.class, Long.class };
-	
-	/**
-	 * Checks if the specified type is a wrapper class for a primitive type
-	 * 
-	 * @param clazz the class to check
-	 * @return true if the class is a wrapper class for a primitive type otherwise false
-	 * @should return true for primitive type wrappers classes
-	 */
-	public static boolean isPrimitiveWrapperType(Class<?> clazz) {
-		return ArrayUtils.contains(PRIMITIVE_TYPES, clazz);
-	}
 	
 	/**
 	 * Checks if the specified class name is for a wrapper class for a primitive type
@@ -47,9 +36,11 @@ public class CalculationUtil {
 	 * @should return true for primitive type wrapper class names
 	 */
 	public static boolean isPrimitiveWrapperClassName(String className) {
+		final Class<?>[] primitiveWrappers = { Boolean.class, Character.class, Byte.class, Short.class, Integer.class,
+		        Float.class, Double.class, Long.class };
 		if (className != null) {
-			for (Class<?> type : PRIMITIVE_TYPES) {
-				if (className.equals(type.getName()))
+			for (Class<?> wrapper : primitiveWrappers) {
+				if (className.equals(wrapper.getName()))
 					return true;
 			}
 		}
@@ -118,6 +109,10 @@ public class CalculationUtil {
 	 * @should convert a valid single character value to Integer
 	 * @should convert a valid single character value to Long
 	 * @should convert a result with an number value in the valid range to byte
+	 * @should convert a valid string to an enum constant
+	 * @should convert a valid string to a class object
+	 * @should convert a valid string to a Locale
+	 * @should format a date object to a string using the default date format
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T cast(Object value, Class<T> clazz) {
@@ -130,23 +125,36 @@ public class CalculationUtil {
 		T castValue = null;
 		// We should be able to convert any value to a String		
 		if (String.class.isAssignableFrom(clazz)) {
-			castValue = (T) value.toString();
+			if (Date.class.isAssignableFrom(value.getClass()))
+				castValue = (T) Context.getDateFormat().format((Date) value);
+			else
+				castValue = (T) value.toString();
 		} else {
-			//we should be able to convert objects that are of primitive types like String "2" to integer 2, 
-			//java types casting doesn't allow this so we need to convert the value first to
-			//a string
-			if (CalculationUtil.isPrimitiveWrapperType(clazz)) {
+			//we should be able to convert strings to simple types like String "2" to integer 2, 
+			//enums, dates, etc. Java types casting doesn't allow this so we need to transform the value first to
+			//a string. BeanUtils from old spring versions doesn't consider enums as simple types
+			if (BeanUtils.isSimpleValueType(clazz) || clazz.isEnum()) {
 				try {
-					String stringValue = value.toString();
+					String stringValue = null;
+					//objects of types like date and Class whose toString methods are not reliable
+					if (String.class.isAssignableFrom(value.getClass()))
+						stringValue = (String) value;
+					else
+						stringValue = value.toString();
+					
 					if (Character.class.equals(clazz) && stringValue.length() == 1) {
 						value = stringValue.charAt(0);
+					} else if (Locale.class.isAssignableFrom(clazz)) {
+						return (T) LocaleUtility.fromSpecification(stringValue);
+					} else if (Class.class.isAssignableFrom(clazz)) {
+						return (T) Context.loadClass(stringValue);
 					} else {
 						Method method = clazz.getMethod("valueOf", new Class<?>[] { String.class });
 						value = method.invoke(null, stringValue);
 					}
 				}
 				catch (Exception e) {
-					throw new ConversionException(value, clazz);
+					//ignore and default to clazz.cast below
 				}
 			}
 			
