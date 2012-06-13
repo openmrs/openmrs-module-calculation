@@ -167,7 +167,6 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 
 			// we take cohort members one by one until we run out or hit the batch size, and evaluate the calculation on those batches
 			// We could achieve some negligible performance speedup by special-casing the case where cohort instanceof List and using subList, but this doesn't seem worth it.
-			// QUESTION FOR CODE REVIEWERS: is it okay to reuse the calculation here? Do they expect to be "new" every time they're used? Or just not to be called concurrently? 
 			Iterator<Integer> iter = cohort.iterator();
 			List<Integer> batch = new ArrayList<Integer>();
 			while (iter.hasNext()) {
