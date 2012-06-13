@@ -154,10 +154,11 @@ public class PatientCalculationServiceTest extends BaseModuleContextSensitiveTes
 	public void evaluate_shouldReturnTheExpectedResultSizeForCohortWithALargeNumberOfPatient() throws Exception {
 		final int patientCount = 1001012;
 		Assert.assertTrue(patientCount > CalculationConstants.EVALUATION_BATCH_SIZE);
-		Cohort cohort = new Cohort();
+		List<Integer> cohort = new ArrayList<Integer>();
 		//create a large cohort for testing purposes
-		while (cohort.size() < patientCount)
-			cohort.addMember(cohort.size());
+		for (int i = 1; i <= patientCount; ++i) {
+			cohort.add(i);
+		}
 		
 		Assert.assertEquals(patientCount, service.evaluate(cohort, new CountingCalculation()).size());
 		//the cohort members should remain unchanged

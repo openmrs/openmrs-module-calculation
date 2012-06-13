@@ -13,10 +13,10 @@
  */
 package org.openmrs.calculation;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.openmrs.Cohort;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.api.EncounterService;
@@ -37,15 +37,15 @@ public class MostRecentEncounterCalculation extends BaseCalculation implements P
 	public static final String MOST_RECENT_ENCOUNTER_KEY_PREFIX = "mostRecentEncounter";
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		CohortResult results = new CohortResult();
 		if (cohort != null) {
 			PatientService ps = Context.getPatientService();
 			EncounterService es = Context.getEncounterService();
-			for (Integer patientId : cohort.getMemberIds()) {
+			for (Integer patientId : cohort) {
 				Patient patient = ps.getPatient(patientId);
 				if (patient != null) {
 					Encounter mostRecentEncounterFound = null;

@@ -13,9 +13,9 @@
  */
 package org.openmrs.calculation;
 
+import java.util.Collection;
 import java.util.Map;
 
-import org.openmrs.Cohort;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CohortResult;
@@ -29,12 +29,12 @@ import org.openmrs.calculation.result.SimpleResult;
 public class CountingCalculation extends BaseCalculation implements PatientCalculation {
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		CohortResult results = new CohortResult();
-		for (Integer patientId : cohort.getMemberIds())
+		for (Integer patientId : cohort)
 			results.put(patientId, new SimpleResult(patientId, this));
 		
 		return results;

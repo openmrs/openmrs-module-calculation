@@ -14,6 +14,7 @@
 package org.openmrs.calculation;
 
 import java.lang.reflect.Constructor;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import org.openmrs.calculation.patient.PatientAtATimeCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.SimpleResult;
+import org.openmrs.util.OpenmrsUtil;
 
 /**
  * A simple implementation of a calculation for calculating patient ages and is purely for testing
@@ -54,10 +56,10 @@ public class AgeCalculation extends PatientAtATimeCalculation {
 	}
 	
 	/**
-	 * @see PatientAtATimeCalculation#preprocess(Cohort, Map, PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientAtATimeCalculation#preprocess(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public EvaluationInstanceData preprocess(Cohort cohort, Map<String, Object> parameterValues,
+	public EvaluationInstanceData preprocess(Collection<Integer> cohort, Map<String, Object> parameterValues,
 	                                         PatientCalculationContext context) {
 		
 		BirthdateData data = new BirthdateData();
@@ -67,7 +69,7 @@ public class AgeCalculation extends PatientAtATimeCalculation {
 			q.append("from patient p, person n ");
 			q.append("where p.patient_id = n.person_id ");
 			q.append("and p.voided = 0 and n.voided = 0 ");
-			q.append("and p.patient_id in (" + cohort.getCommaSeparatedPatientIds() + ")");
+			q.append("and p.patient_id in (" + OpenmrsUtil.join(cohort, ",") + ")");
 			List<List<Object>> queryData = Context.getAdministrationService().executeSQL(q.toString(), true);
 			for (List<Object> row : queryData) {
 				Integer pId = (Integer) row.get(0);

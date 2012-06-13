@@ -14,8 +14,10 @@
 package org.openmrs.calculation.patient;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import junit.framework.Assert;
@@ -123,9 +125,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		PatientCalculation ageCalculation = getAgeCalculation();
 		int patientId1 = 2;
 		int patientId2 = 7;
-		Cohort cohort = new Cohort();
-		cohort.addMember(patientId1);
-		cohort.addMember(patientId2);
+		List<Integer> cohort = Arrays.asList(patientId1, patientId2);
 		
 		PatientService ps = Context.getPatientService();
 		int expected1 = ps.getPatient(patientId1).getAge();
@@ -140,9 +140,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		PatientCalculation ageCalculation = getAgeCalculation();
 		int patientId1 = 2;
 		int patientId2 = 7;
-		Cohort cohort = new Cohort();
-		cohort.addMember(patientId1);
-		cohort.addMember(patientId2);
+		List<Integer> cohort = Arrays.asList(patientId1, patientId2);
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
 		PatientCalculationContext ctxt = getService().createCalculationContext();
@@ -162,9 +160,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		PatientCalculation ageCalculation = getAgeCalculation();
 		int patientId1 = 2;
 		int patientId2 = 7;
-		Cohort cohort = new Cohort();
-		cohort.addMember(patientId1);
-		cohort.addMember(patientId2);
+		List<Integer> cohort = Arrays.asList(patientId1, patientId2);
 		
 		Date date = new SimpleDateFormat(TEST_DATE_FORMAT).parse("2000-01-01");
 		PatientCalculationContext ctxt = getService().createCalculationContext();

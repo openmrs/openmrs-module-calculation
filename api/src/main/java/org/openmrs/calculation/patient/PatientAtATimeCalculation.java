@@ -13,9 +13,9 @@
  */
 package org.openmrs.calculation.patient;
 
+import java.util.Collection;
 import java.util.Map;
 
-import org.openmrs.Cohort;
 import org.openmrs.calculation.BaseCalculation;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.EvaluationInstanceData;
@@ -24,7 +24,7 @@ import org.openmrs.calculation.result.CohortResult;
 
 /**
  * Abstract implementation of a {@link PatientCalculation} that makes it easier to support
- * Cohort-based calculations by defining the calculation for a single patient Also provides
+ * Cohort-based calculations by defining the calculation for a single patient. Also provides
  * mechanisms to enable pre-processing and cleanup steps which might be particularly useful for
  * maximizing performance. Any instance data that this Calculation needs to store during the course
  * of it's evaluation should be done within an EvaluationInstanceData object, as these
@@ -39,7 +39,7 @@ public abstract class PatientAtATimeCalculation extends BaseCalculation implemen
 	 * Optional method that allows for the Evaluator to perform some pre-processing activities prior
 	 * to running the evaluate method for each individual patient.
 	 */
-	public EvaluationInstanceData preprocess(Cohort cohort, Map<String, Object> parameterValues,
+	public EvaluationInstanceData preprocess(Collection<Integer> cohort, Map<String, Object> parameterValues,
 	                                         PatientCalculationContext context) {
 		return null;
 	}
@@ -56,19 +56,19 @@ public abstract class PatientAtATimeCalculation extends BaseCalculation implemen
 	 * Optional method that allows for any necessary cleanup activities to be performed This method
 	 * will be called whether or not the evaluation succeeds,
 	 */
-	public void cleanup(EvaluationInstanceData instanceData, Cohort cohort, Map<String, Object> parameterValues,
+	public void cleanup(EvaluationInstanceData instanceData, Collection<Integer> cohort, Map<String, Object> parameterValues,
 	                    PatientCalculationContext context) {
 	}
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public final CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public final CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		CohortResult result = new CohortResult();
 		EvaluationInstanceData instanceData = preprocess(cohort, parameterValues, (PatientCalculationContext) context);
 		try {
-			for (Integer patientId : cohort.getMemberIds()) {
+			for (Integer patientId : cohort) {
 				result.put(patientId,
 				    evaluateForPatient(instanceData, patientId, parameterValues, (PatientCalculationContext) context));
 			}

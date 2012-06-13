@@ -13,9 +13,9 @@
  */
 package org.openmrs.calculation;
 
+import java.util.Collection;
 import java.util.Map;
 
-import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
@@ -28,10 +28,10 @@ import org.openmrs.calculation.result.CohortResult;
 public class OuterCalculation extends BaseCalculation implements PatientCalculation {
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		try {
 			PatientCalculation calc = (PatientCalculation) new ClasspathCalculationProvider().getCalculation(
 			    InnerCalculation.class.getName(), null);

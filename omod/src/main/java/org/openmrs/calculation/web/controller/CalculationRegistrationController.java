@@ -83,7 +83,7 @@ public class CalculationRegistrationController {
 				model.addAttribute("cohort", cohort);
 				
 				long startTime = System.currentTimeMillis();
-				CohortResult result = Context.getService(PatientCalculationService.class).evaluate(cohort, calculation);
+				CohortResult result = Context.getService(PatientCalculationService.class).evaluate(cohort.getMemberIds(), calculation);
 				long endTime = System.currentTimeMillis();
 				
 				model.addAttribute("result", result);

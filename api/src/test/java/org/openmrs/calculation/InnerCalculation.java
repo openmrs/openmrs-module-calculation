@@ -13,9 +13,9 @@
  */
 package org.openmrs.calculation;
 
+import java.util.Collection;
 import java.util.Map;
 
-import org.openmrs.Cohort;
 import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
@@ -23,15 +23,15 @@ import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CohortResult;
 
 /**
- * Calculation used by {@link OuterCalculation}.
+ * Calculation used by {@link OuterCalculation}. This has a side-effect, of retiring a concept.
  */
 public class InnerCalculation extends BaseCalculation implements PatientCalculation {
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		Concept concept = Context.getConceptService().getConcept(3);
 		if (concept.isRetired()) {
 			throw new RuntimeException("Concept must not be retired");

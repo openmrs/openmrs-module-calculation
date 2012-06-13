@@ -13,17 +13,18 @@
  */
 package org.openmrs.calculation.patient;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -81,9 +82,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation,
 	                                  Map<String, Object> parameterValues, PatientCalculationContext context)
 	    throws APIException {
-		Cohort cohort = new Cohort(patientId);
-		cohort.addMember(patientId);
-		CohortResult cr = evaluate(cohort, calculation, parameterValues, context);
+		CohortResult cr = evaluate(Arrays.asList(patientId), calculation, parameterValues, context);
 		if (cr.size() == 0)
 			return null;
 		
@@ -91,35 +90,30 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.patient.PatientCalculation)
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.util.Collection, org.openmrs.calculation.patient.PatientCalculation)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation) throws APIException {
+	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation) throws APIException {
 		return evaluate(cohort, calculation, null);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.patient.PatientCalculation,
-	 *      org.openmrs.calculation.patient.PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.util.Collection, org.openmrs.calculation.patient.PatientCalculation, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, PatientCalculationContext context)
+	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException {
 		return evaluate(cohort, calculation, null, context);
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(org.openmrs.Cohort,
-	 *      org.openmrs.calculation.patient.PatientCalculation, java.util.Map,
-	 *      org.openmrs.calculation.patient.PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.util.Collection, org.openmrs.calculation.patient.PatientCalculation, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
+	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException {
 		if (calculation == null || cohort == null)
-			throw new IllegalArgumentException("Calculation and cohort cannot be null");
+			throw new IllegalArgumentException("Calculation and cohort are both required");
 		if (cohort.isEmpty())
 			return new CohortResult();
 		
@@ -170,24 +164,18 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 			cr = calculation.evaluate(cohort, parameterValues, context);
 		} else {
 			cr = new CohortResult();
-			int expectedResultSize = cohort.size();
-			Set<Integer> originalSet = cohort.getMemberIds();
-			try {
-				//Transform the set to a LinkedList so that we can remove elements they get fetched
-				LinkedList<Integer> list = new LinkedList<Integer>(cohort.getMemberIds());
-				//evaluate the cohort members in batches until they are all done
-				while (cr.size() < expectedResultSize) {
-					Set<Integer> batchMembers = new TreeSet<Integer>();
-					while (batchMembers.size() < CalculationConstants.EVALUATION_BATCH_SIZE && !list.isEmpty()) {
-						batchMembers.add(list.pop());
-					}
-					cohort.setMemberIds(batchMembers);
-					cr.putAll(calculation.evaluate(cohort, parameterValues, context));
+
+			// we take cohort members one by one until we run out or hit the batch size, and evaluate the calculation on those batches
+			// We could achieve some negligible performance speedup by special-casing the case where cohort instanceof List and using subList, but this doesn't seem worth it.
+			// QUESTION FOR CODE REVIEWERS: is it okay to reuse the calculation here? Do they expect to be "new" every time they're used? Or just not to be called concurrently? 
+			Iterator<Integer> iter = cohort.iterator();
+			List<Integer> batch = new ArrayList<Integer>();
+			while (iter.hasNext()) {
+				batch.add(iter.next());
+				if (batch.size() == CalculationConstants.EVALUATION_BATCH_SIZE || !iter.hasNext()) {
+					cr.putAll(calculation.evaluate(batch, parameterValues, context));
+					batch = new ArrayList<Integer>();
 				}
-			}
-			finally {
-				//so that we don't mess up code using the cohort when this method returns
-				cohort.setMemberIds(originalSet);
 			}
 		}
 		

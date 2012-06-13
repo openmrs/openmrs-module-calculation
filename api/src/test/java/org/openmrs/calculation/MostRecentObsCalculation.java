@@ -13,6 +13,7 @@
  */
 package org.openmrs.calculation;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -48,13 +49,13 @@ public class MostRecentObsCalculation extends BaseCalculation implements Configu
 	}
 	
 	/**
-	 * @see Calculation#evaluate(Cohort, Map, PatientCalculationContext)
+	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Cohort cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		
 		CohortResult results = new CohortResult();
-		Map<Integer, List<Obs>> patientObs = Context.getPatientSetService().getObservations(cohort, whichConcept);
+		Map<Integer, List<Obs>> patientObs = Context.getPatientSetService().getObservations(new Cohort(cohort), whichConcept);
 		for (Integer pId : patientObs.keySet()) {
 			String cacheKey = this.getClass().getName() + "." + whichConcept + "." + pId;
 			CalculationResult r = (CalculationResult) context.getFromCache(cacheKey);

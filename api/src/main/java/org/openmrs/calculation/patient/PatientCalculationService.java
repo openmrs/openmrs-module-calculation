@@ -13,9 +13,9 @@
  */
 package org.openmrs.calculation.patient;
 
+import java.util.Collection;
 import java.util.Map;
 
-import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.parameter.ParameterDefinition;
@@ -65,30 +65,30 @@ public interface PatientCalculationService extends OpenmrsService {
 	    throws APIException;
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation,
+	 * @see PatientCalculationService#evaluate(Collection<Integer>, PatientCalculation,
 	 *      PatientCalculationContext)
 	 */
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation) throws APIException;
+	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation) throws APIException;
 	
 	/**
-	 * @see PatientCalculationService#evaluate(Cohort, PatientCalculation, Map,
+	 * @see PatientCalculationService#evaluate(Collection<Integer>, PatientCalculation, Map,
 	 *      PatientCalculationContext)
 	 */
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, PatientCalculationContext context)
+	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException;
 	
 	/**
 	 * Evaluates the specified {@link PatientCalculation} for the specified cohort of patients based
 	 * on the provided contextual data and parameter values. <br/>
-	 * <b>NOTE:</b> For purposes of saving memory, it is highly recommended to call this method with
-	 * a cohort of not more than 1000 members to be evaluated at a time.
+	 * <b>NOTE:</b> For memory and performance reasons, this method may call the calculation's evaluate method
+	 * multiple times with smaller batches than the whole input cohort
 	 * 
-	 * @param cohort a cohort of patients
+	 * @param cohort patientIds of the patients to evaluate the rule on
 	 * @param calculation the calculation to evaluate
 	 * @param parameterValues a map of {@link ParameterDefinition} keys and actual values to be used
 	 *            by the calculation
 	 * @param context the {@link PatientCalculationContext} to be used by this evaluation
-	 * @return A {@link CalculationResult}
+	 * @return A {@link CohortResult}, with results for all all patients in cohort. Note that if cohort contains duplicate patient ids, this result's size will differ from cohort.size()
 	 * @should fail if any required parameter is not set
 	 * @should fail for a blank value for a required parameter if datatype is a primitive wrapper
 	 * @should fail for a blank value for a required parameter if datatype is a String
@@ -96,7 +96,7 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @should pass if the passed in datatype cannot be loaded
 	 * @should return the expected result size for cohort with a large number of patient
 	 */
-	public CohortResult evaluate(Cohort cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
+	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException;
 	
 }
