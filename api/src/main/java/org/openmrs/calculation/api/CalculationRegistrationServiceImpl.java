@@ -36,7 +36,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	
 	private CalculationRegistrationDAO dao;
 	
-	private static Map<String, CalculationRegistration> tokenCalculationRegistrationCache = new ConcurrentHashMap<String, CalculationRegistration>();
+	private Map<String, CalculationRegistration> tokenCalculationRegistrationCache = new ConcurrentHashMap<String, CalculationRegistration>();
 	
 	/**
 	 * @param dao the dao to set
@@ -91,15 +91,9 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	@Override
 	public CalculationRegistration saveCalculationRegistration(CalculationRegistration calculationRegistration) {
 		ValidateUtil.validate(calculationRegistration);
-		boolean updateCachedCalculationRegistration = false;
-		if (calculationRegistration.getId() != null
-		        && tokenCalculationRegistrationCache.containsKey(calculationRegistration.getToken())) {
-			updateCachedCalculationRegistration = true;
-		}
-		
 		CalculationRegistration savedToken = dao.saveCalculationRegistration(calculationRegistration);
-		if (updateCachedCalculationRegistration)
-			tokenCalculationRegistrationCache.put(calculationRegistration.getToken(), calculationRegistration);
+		
+		tokenCalculationRegistrationCache.clear();
 		
 		return savedToken;
 	}
@@ -110,6 +104,7 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	@Override
 	public void purgeCalculationRegistration(CalculationRegistration calculationRegistration) {
 		dao.deleteCalculationRegistration(calculationRegistration);
+		tokenCalculationRegistrationCache.clear();
 	}
 	
 	/**
