@@ -20,7 +20,7 @@ import org.openmrs.calculation.BaseCalculation;
 import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.EvaluationInstanceData;
 import org.openmrs.calculation.result.CalculationResult;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 
 /**
  * Abstract implementation of a {@link PatientCalculation} that makes it easier to support
@@ -64,8 +64,8 @@ public abstract class PatientAtATimeCalculation extends BaseCalculation implemen
 	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public final CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
-		CohortResult result = new CohortResult();
+	public final CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+		CalculationResultMap result = new CalculationResultMap();
 		EvaluationInstanceData instanceData = preprocess(cohort, parameterValues, (PatientCalculationContext) context);
 		try {
 			for (Integer patientId : cohort) {

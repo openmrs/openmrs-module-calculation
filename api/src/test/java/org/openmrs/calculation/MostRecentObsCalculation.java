@@ -24,7 +24,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CalculationResult;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.calculation.result.ObsResult;
 
 /**
@@ -52,9 +52,9 @@ public class MostRecentObsCalculation extends BaseCalculation implements Configu
 	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		
-		CohortResult results = new CohortResult();
+		CalculationResultMap results = new CalculationResultMap();
 		Map<Integer, List<Obs>> patientObs = Context.getPatientSetService().getObservations(new Cohort(cohort), whichConcept);
 		for (Integer pId : patientObs.keySet()) {
 			String cacheKey = this.getClass().getName() + "." + whichConcept + "." + pId;

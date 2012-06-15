@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.openmrs.calculation.Calculation;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 
 /**
  * A PatientCalculation represents a definition that can be evaluated to produce data, this is the
@@ -37,8 +37,8 @@ public interface PatientCalculation extends Calculation {
 	 * @param parameterValues a map of parameter values, takes the form
 	 *            Map&lt;ParameterDefinition.key, Object Value&gt;
 	 * @param context the {@link PatientCalculationContext} to use while performing the evaluation
-	 * @return a {@link CohortResult}
+	 * @return a {@link CalculationResultMap}
 	 */
-	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context);
+	public CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context);
 	
 }

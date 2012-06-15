@@ -36,7 +36,7 @@ import org.openmrs.calculation.MissingParameterException;
 import org.openmrs.calculation.parameter.ParameterDefinition;
 import org.openmrs.calculation.parameter.ParameterDefinitionSet;
 import org.openmrs.calculation.result.CalculationResult;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 
 /**
  * It is a default implementation of {@link PatientCalculationService}.
@@ -82,7 +82,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	public CalculationResult evaluate(Integer patientId, PatientCalculation calculation,
 	                                  Map<String, Object> parameterValues, PatientCalculationContext context)
 	    throws APIException {
-		CohortResult cr = evaluate(Arrays.asList(patientId), calculation, parameterValues, context);
+		CalculationResultMap cr = evaluate(Arrays.asList(patientId), calculation, parameterValues, context);
 		if (cr.size() == 0)
 			return null;
 		
@@ -93,7 +93,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.util.Collection, org.openmrs.calculation.patient.PatientCalculation)
 	 */
 	@Override
-	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation) throws APIException {
+	public CalculationResultMap evaluate(Collection<Integer> cohort, PatientCalculation calculation) throws APIException {
 		return evaluate(cohort, calculation, null);
 	}
 	
@@ -101,7 +101,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.util.Collection, org.openmrs.calculation.patient.PatientCalculation, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation, PatientCalculationContext context)
+	public CalculationResultMap evaluate(Collection<Integer> cohort, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException {
 		return evaluate(cohort, calculation, null, context);
 	}
@@ -110,12 +110,12 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 	 * @see org.openmrs.calculation.patient.PatientCalculationService#evaluate(java.util.Collection, org.openmrs.calculation.patient.PatientCalculation, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
+	public CalculationResultMap evaluate(Collection<Integer> cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException {
 		if (calculation == null || cohort == null)
 			throw new IllegalArgumentException("Calculation and cohort are both required");
 		if (cohort.isEmpty())
-			return new CohortResult();
+			return new CalculationResultMap();
 		
 		ParameterDefinitionSet defs = calculation.getParameterDefinitionSet();
 		//Check for missing values for required parameters
@@ -159,11 +159,11 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		if (context == null)
 			context = createCalculationContext();
 		
-		CohortResult cr = null;
+		CalculationResultMap cr = null;
 		if (cohort.size() <= CalculationConstants.EVALUATION_BATCH_SIZE) {
 			cr = calculation.evaluate(cohort, parameterValues, context);
 		} else {
-			cr = new CohortResult();
+			cr = new CalculationResultMap();
 
 			// we take cohort members one by one until we run out or hit the batch size, and evaluate the calculation on those batches
 			// We could achieve some negligible performance speedup by special-casing the case where cohort instanceof List and using subList, but this doesn't seem worth it.
@@ -179,7 +179,7 @@ public class PatientCalculationServiceImpl extends BaseOpenmrsService implements
 		}
 		
 		if (cr == null)
-			cr = new CohortResult();
+			cr = new CalculationResultMap();
 		
 		return cr;
 	}

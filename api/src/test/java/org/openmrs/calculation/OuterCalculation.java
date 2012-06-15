@@ -20,7 +20,7 @@ import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 
 /**
  * Calculation using results of {@link InnerCalculation}.
@@ -31,7 +31,7 @@ public class OuterCalculation extends BaseCalculation implements PatientCalculat
 	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		try {
 			PatientCalculation calc = (PatientCalculation) new ClasspathCalculationProvider().getCalculation(
 			    InnerCalculation.class.getName(), null);
@@ -46,7 +46,7 @@ public class OuterCalculation extends BaseCalculation implements PatientCalculat
 			throw new RuntimeException("Concept should have been retired by inner calculation");
 		}
 		
-		return new CohortResult();
+		return new CalculationResultMap();
 	}
 	
 }

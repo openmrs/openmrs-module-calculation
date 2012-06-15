@@ -20,7 +20,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.calculation.parameter.ParameterDefinition;
 import org.openmrs.calculation.result.CalculationResult;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 
 /**
  * The PatientCalculationService provides a mechanism for evaluating {@link PatientCalculation}s in
@@ -68,13 +68,13 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @see PatientCalculationService#evaluate(Collection<Integer>, PatientCalculation,
 	 *      PatientCalculationContext)
 	 */
-	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation) throws APIException;
+	public CalculationResultMap evaluate(Collection<Integer> cohort, PatientCalculation calculation) throws APIException;
 	
 	/**
 	 * @see PatientCalculationService#evaluate(Collection<Integer>, PatientCalculation, Map,
 	 *      PatientCalculationContext)
 	 */
-	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation, PatientCalculationContext context)
+	public CalculationResultMap evaluate(Collection<Integer> cohort, PatientCalculation calculation, PatientCalculationContext context)
 	    throws APIException;
 	
 	/**
@@ -88,7 +88,7 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @param parameterValues a map of {@link ParameterDefinition} keys and actual values to be used
 	 *            by the calculation
 	 * @param context the {@link PatientCalculationContext} to be used by this evaluation
-	 * @return A {@link CohortResult}, with results for all all patients in cohort. Note that if cohort contains duplicate patient ids, this result's size will differ from cohort.size()
+	 * @return A {@link CalculationResultMap}, with results for all all patients in cohort. Note that if cohort contains duplicate patient ids, this result's size will differ from cohort.size()
 	 * @should fail if any required parameter is not set
 	 * @should fail for a blank value for a required parameter if datatype is a primitive wrapper
 	 * @should fail for a blank value for a required parameter if datatype is a String
@@ -96,7 +96,7 @@ public interface PatientCalculationService extends OpenmrsService {
 	 * @should pass if the passed in datatype cannot be loaded
 	 * @should return the expected result size for cohort with a large number of patient
 	 */
-	public CohortResult evaluate(Collection<Integer> cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
+	public CalculationResultMap evaluate(Collection<Integer> cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException;
 	
 }

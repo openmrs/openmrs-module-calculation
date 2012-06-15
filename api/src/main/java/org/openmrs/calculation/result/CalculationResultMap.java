@@ -23,7 +23,8 @@ import org.openmrs.calculation.patient.PatientCalculation;
  * A CohortResult is the data that is produced from evaluating a {@link PatientCalculation} for a
  * {@link Cohort} of {@link Patient}s.
  */
-public class CohortResult extends LinkedHashMap<Integer, CalculationResult> {
+public class CalculationResultMap extends LinkedHashMap<Integer, CalculationResult> {
 	
 	private static final long serialVersionUID = 1L;
+	
 }

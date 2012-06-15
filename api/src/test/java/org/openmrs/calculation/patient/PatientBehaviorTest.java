@@ -39,7 +39,7 @@ import org.openmrs.calculation.RecentEncounterCalculation;
 import org.openmrs.calculation.parameter.ParameterDefinition;
 import org.openmrs.calculation.parameter.ParameterDefinitionSet;
 import org.openmrs.calculation.result.CalculationResult;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ListResult;
 import org.openmrs.calculation.result.ObsResult;
@@ -130,7 +130,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		PatientService ps = Context.getPatientService();
 		int expected1 = ps.getPatient(patientId1).getAge();
 		int expected2 = ps.getPatient(patientId2).getAge();
-		CohortResult cr = getService().evaluate(cohort, ageCalculation);
+		CalculationResultMap cr = getService().evaluate(cohort, ageCalculation);
 		Assert.assertEquals(expected1, cr.get(patientId1).asType(Integer.class).intValue());
 		Assert.assertEquals(expected2, cr.get(patientId2).asType(Integer.class).intValue());
 	}
@@ -150,7 +150,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		int expected1 = ps.getPatient(patientId1).getAge(date);
 		int expected2 = ps.getPatient(patientId2).getAge(date);
 		
-		CohortResult cr = getService().evaluate(cohort, ageCalculation, ctxt);
+		CalculationResultMap cr = getService().evaluate(cohort, ageCalculation, ctxt);
 		Assert.assertEquals(expected1, cr.get(patientId1).asType(Integer.class).intValue());
 		Assert.assertEquals(expected2, cr.get(patientId2).asType(Integer.class).intValue());
 	}
@@ -170,7 +170,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put(pd.getKey(), "months");
 		
-		CohortResult cr = getService().evaluate(cohort, ageCalculation, values, ctxt);
+		CalculationResultMap cr = getService().evaluate(cohort, ageCalculation, values, ctxt);
 		Assert.assertEquals(296, cr.get(patientId1).asType(Integer.class).intValue());
 		Assert.assertEquals(280, cr.get(patientId2).asType(Integer.class).intValue());
 	}

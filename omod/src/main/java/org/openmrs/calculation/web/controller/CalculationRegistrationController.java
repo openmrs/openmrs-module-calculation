@@ -24,7 +24,7 @@ import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.api.CalculationRegistrationService;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationService;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,7 +83,7 @@ public class CalculationRegistrationController {
 				model.addAttribute("cohort", cohort);
 				
 				long startTime = System.currentTimeMillis();
-				CohortResult result = Context.getService(PatientCalculationService.class).evaluate(cohort.getMemberIds(), calculation);
+				CalculationResultMap result = Context.getService(PatientCalculationService.class).evaluate(cohort.getMemberIds(), calculation);
 				long endTime = System.currentTimeMillis();
 				
 				model.addAttribute("result", result);

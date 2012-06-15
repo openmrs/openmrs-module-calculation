@@ -20,7 +20,7 @@ import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationContext;
-import org.openmrs.calculation.result.CohortResult;
+import org.openmrs.calculation.result.CalculationResultMap;
 
 /**
  * Calculation used by {@link OuterCalculation}. This has a side-effect, of retiring a concept.
@@ -31,7 +31,7 @@ public class InnerCalculation extends BaseCalculation implements PatientCalculat
 	 * @see org.openmrs.calculation.patient.PatientCalculation#evaluate(java.util.Collection, java.util.Map, org.openmrs.calculation.patient.PatientCalculationContext)
 	 */
 	@Override
-	public CohortResult evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
+	public CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		Concept concept = Context.getConceptService().getConcept(3);
 		if (concept.isRetired()) {
 			throw new RuntimeException("Concept must not be retired");
@@ -39,7 +39,7 @@ public class InnerCalculation extends BaseCalculation implements PatientCalculat
 		
 		Context.getConceptService().retireConcept(concept, "Retiring for test purposes");
 		
-		return new CohortResult();
+		return new CalculationResultMap();
 	}
 	
 }
