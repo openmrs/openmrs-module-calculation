@@ -15,13 +15,11 @@ package org.openmrs.calculation.result;
 
 import java.util.LinkedHashMap;
 
-import org.openmrs.Cohort;
-import org.openmrs.Patient;
 import org.openmrs.calculation.patient.PatientCalculation;
 
 /**
- * A CohortResult is the data that is produced from evaluating a {@link PatientCalculation} for a
- * {@link Cohort} of {@link Patient}s.
+ * This class represents the data that is produced from evaluating a calculation on a collection of input IDs,
+ * for example evaluating a {@link PatientCalculation} on a Collection of patientIds.
  */
 public class CalculationResultMap extends LinkedHashMap<Integer, CalculationResult> {
 	
