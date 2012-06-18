@@ -22,9 +22,9 @@
 	</organization>
 
 	<scm>
-		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/tags/calculation-0.9</connection>
-		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/tags/calculation-0.9</developerConnection>
-		<url>http://svn.openmrs.org/openmrs-modules/calculation/tags/calculation-0.9</url>
+		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/trunk</connection>
+		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/trunk</developerConnection>
+		<url>http://svn.openmrs.org/openmrs-modules/calculation/trunk</url>
 	</scm>
 
 	<modules>
