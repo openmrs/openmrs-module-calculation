@@ -23,13 +23,13 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>${project.parent.groupId}.${project.parent.artifactId}.patient.PatientCalculationService</value>
+				<value>org.openmrs.${project.parent.artifactId}.patient.PatientCalculationService</value>
 				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.patient.PatientCalculationServiceImpl" />
+						<bean class="org.openmrs.${project.parent.artifactId}.patient.PatientCalculationServiceImpl" />
 					</property>
 					<property name="preInterceptors">
 						<ref bean="serviceInterceptors" />
@@ -45,13 +45,13 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>${project.parent.groupId}.${project.parent.artifactId}.api.CalculationRegistrationService</value>
+				<value>org.openmrs.${project.parent.artifactId}.api.CalculationRegistrationService</value>
 				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.CalculationRegistrationServiceImpl">
+						<bean class="org.openmrs.${project.parent.artifactId}.api.CalculationRegistrationServiceImpl">
 							<property name="dao" ref="calculationRegistrationDao" /> 
 						</bean>
 					</property>
@@ -66,7 +66,7 @@
 		</property>
 	</bean>
 	
-	<bean id="calculationRegistrationDao" class="${project.parent.groupId}.${project.parent.artifactId}.db.HibernateCalculationRegistrationDAO">
+	<bean id="calculationRegistrationDao" class="org.openmrs.${project.parent.artifactId}.db.HibernateCalculationRegistrationDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
