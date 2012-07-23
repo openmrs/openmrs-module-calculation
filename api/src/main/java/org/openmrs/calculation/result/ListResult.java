@@ -14,6 +14,7 @@
 package org.openmrs.calculation.result;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.openmrs.calculation.patient.PatientCalculation;
@@ -155,4 +156,29 @@ public class ListResult implements CalculationResult {
 		
 		return results.remove(index);
 	}
+	
+	/**
+	 * Equivalent to: this.results.collect { it.value }
+	 * 
+	 * @return a list equal in length to this list, but whose elements are the values of this list's elements
+	 * @should return list of underlying values
+	 */
+	public List<Object> getValues() {
+        List<Object> ret = new ArrayList<Object>();
+        if (results != null) {
+            for (CalculationResult r : results) {
+                ret.add(r.getValue());
+            }
+        }
+        return ret;
+    }
+
+	/**
+	 * @see Collection#size()
+     * 
+     * @return the number of results in this list
+     */
+    public Object size() {
+	    return results == null ? 0 : results.size();
+    }
 }
