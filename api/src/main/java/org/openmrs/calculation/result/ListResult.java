@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.openmrs.calculation.patient.PatientCalculation;
-import org.openmrs.calculation.patient.PatientCalculationContext;
+import org.openmrs.calculation.Calculation;
+import org.openmrs.calculation.CalculationContext;
 
 /**
  * A {@link CalculationResult} backed by a {@link List} of results with convenience methods that get
@@ -26,9 +26,9 @@ import org.openmrs.calculation.patient.PatientCalculationContext;
  */
 public class ListResult implements CalculationResult {
 	
-	private PatientCalculationContext calculationContext;
+	private CalculationContext calculationContext;
 	
-	private PatientCalculation calculation;
+	private Calculation calculation;
 	
 	private List<CalculationResult> results;
 	
@@ -36,14 +36,14 @@ public class ListResult implements CalculationResult {
 	 * @see org.openmrs.calculation.result.CalculationResult#getCalculation()
 	 */
 	@Override
-	public PatientCalculation getCalculation() {
+	public Calculation getCalculation() {
 		return calculation;
 	}
 	
 	/**
 	 * @param calculation the calculation to set
 	 */
-	public void setCalculation(PatientCalculation calculation) {
+	public void setCalculation(Calculation calculation) {
 		this.calculation = calculation;
 	}
 	
@@ -51,14 +51,14 @@ public class ListResult implements CalculationResult {
 	 * @see org.openmrs.calculation.result.CalculationResult#getCalculationContext()
 	 */
 	@Override
-	public PatientCalculationContext getCalculationContext() {
+	public CalculationContext getCalculationContext() {
 		return calculationContext;
 	}
 	
 	/**
 	 * @param calculationContext the calculationContext to set
 	 */
-	public void setCalculationContext(PatientCalculationContext calculationContext) {
+	public void setCalculationContext(CalculationContext calculationContext) {
 		this.calculationContext = calculationContext;
 	}
 	
@@ -160,25 +160,25 @@ public class ListResult implements CalculationResult {
 	/**
 	 * Equivalent to: this.results.collect { it.value }
 	 * 
-	 * @return a list equal in length to this list, but whose elements are the values of this list's elements
+	 * @return a list equal in length to this list, but whose elements are the values of this list's
+	 *         elements
 	 * @should return list of underlying values
 	 */
 	public List<Object> getValues() {
-        List<Object> ret = new ArrayList<Object>();
-        if (results != null) {
-            for (CalculationResult r : results) {
-                ret.add(r.getValue());
-            }
-        }
-        return ret;
-    }
-
+		List<Object> ret = new ArrayList<Object>();
+		if (results != null) {
+			for (CalculationResult r : results) {
+				ret.add(r.getValue());
+			}
+		}
+		return ret;
+	}
+	
 	/**
 	 * @see Collection#size()
-     * 
-     * @return the number of results in this list
-     */
-    public Object size() {
-	    return results == null ? 0 : results.size();
-    }
+	 * @return the number of results in this list
+	 */
+	public Object size() {
+		return results == null ? 0 : results.size();
+	}
 }
