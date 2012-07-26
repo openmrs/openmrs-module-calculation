@@ -17,7 +17,8 @@ import org.openmrs.calculation.Calculation;
 import org.openmrs.calculation.CalculationContext;
 
 /**
- * A CalculationResult is the data that is produced from evaluating a {@link Calculation} for a single patient.
+ * A CalculationResult is the data that is produced from evaluating a {@link Calculation} for a
+ * single patient.
  */
 public interface CalculationResult {
 	
@@ -37,8 +38,8 @@ public interface CalculationResult {
 	public Object getValue();
 	
 	/**
-	 * @return true if the object value is null, an empty list, or an empty string etc. otherwise
-	 *         false
+	 * @return true if the object value is null, an empty list otherwise false
+	 * @see ResultUtil#isEmpty(Object)
 	 */
 	public boolean isEmpty();
 	
