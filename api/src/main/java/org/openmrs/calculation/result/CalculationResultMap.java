@@ -25,4 +25,32 @@ public class CalculationResultMap extends LinkedHashMap<Integer, CalculationResu
 	
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Convenience method that does a null-safe equivalent of "get(key).asType(Boolean.class)" where null is treated as false
+	 * 
+	 * @param key
+	 * @return
+	 * @should return false if key is not mapped
+	 * @should return false if key is mapped to a falsey value
+	 * @should return true if key is mapped to a truthy value
+	 */
+	public boolean getAsBoolean(Integer key) {
+		CalculationResult r = get(key);
+		return r != null && r.asType(Boolean.class);
+	}
+	
+	/**
+	 * Convenience method that does a null-safe equivalent of "get(key).isEmpty()" where null is treated as empty
+	 * 
+	 * @param key
+	 * @return
+	 * @should return true if key is not mapped
+	 * @should return true if key is mapped to an empty value
+	 * @should return false if key is mapped to a non-empty value
+	 */
+	public boolean isEmpty(Integer key) {
+		CalculationResult r = get(key);
+		return r == null || r.isEmpty();
+	}
+	
 }
