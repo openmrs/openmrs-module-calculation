@@ -7,8 +7,8 @@
 	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Calculation</name>
-	<description>Provides a framework for OpenMRS developers to author from simple to complex calculations to produce a particular piece of data for a single patient or a cohort of patients</description>
-	<url>https://wiki.openmrs.org/display/docs/Logic+2.0+Design</url>
+	<description>Provides a framework for OpenMRS developers to author simple or complex calculations to produce a particular piece of data for a single patient or a cohort of patients</description>
+	<url>https://wiki.openmrs.org/x/p4DmAQ</url>
 
 	<developers>
 		<developer>
@@ -22,9 +22,9 @@
 	</organization>
 
 	<scm>
-		<connection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/trunk</connection>
-		<developerConnection>scm:svn:http://svn.openmrs.org/openmrs-modules/calculation/trunk</developerConnection>
-		<url>http://svn.openmrs.org/openmrs-modules/calculation/trunk</url>
+		<connection>scm:git:https://github.com/openmrs/openmrs-module-calculation.git/calculation/</connection>
+		<developerConnection>scm:git:https://github.com/openmrs/openmrs-module-calculation/</developerConnection>
+		<url>https://github.com/openmrs/openmrs-module-calculation/</url>
 	</scm>
 
 	<modules>
