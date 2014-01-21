@@ -11,3 +11,6 @@ target/
 *.ipr
 *.iws
 .idea/
+
+# OSX ignores
+*.DS_Store
