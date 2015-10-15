@@ -19,9 +19,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.calculation.CalculationRegistration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +32,12 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
-	private SessionFactory sessionFactory;
+	private DbSessionFactory sessionFactory;
 	
 	/**
 	 * @param sessionFactory the sessionFactory to set
 	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(DbSessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 	
@@ -45,7 +45,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	 * @return the sessionFactory
 	 */
 	private Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
+		return sessionFactory.getHibernateSessionFactory().getCurrentSession();
 	}
 	
 	/**
