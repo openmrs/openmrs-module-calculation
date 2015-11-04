@@ -18,9 +18,9 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.calculation.CalculationRegistration;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,8 +44,8 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	/**
 	 * @return the sessionFactory
 	 */
-	private Session getCurrentSession() {
-		return sessionFactory.getHibernateSessionFactory().getCurrentSession();
+	private DbSession getCurrentSession() {
+		return sessionFactory.getCurrentSession();
 	}
 	
 	/**
