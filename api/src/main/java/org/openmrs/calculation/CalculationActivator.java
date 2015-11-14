@@ -15,30 +15,24 @@ package org.openmrs.calculation;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.module.Activator;
+import org.openmrs.module.BaseModuleActivator;
 
 /**
  * The activator for the module
  */
-public class CalculationActivator implements Activator {
+public class CalculationActivator extends BaseModuleActivator {
 	
 	protected Log log = LogFactory.getLog(getClass());
-	
-	/**
-	 * @see org.openmrs.module.Activator#startup()
-	 */
+
 	@Override
-	public void startup() {
+	public void started() {
 		if (log.isDebugEnabled())
-			log.debug("Starting Calculation Module...");
+			log.debug("Started Calculation Module...");
 	}
-	
-	/**
-	 * @see org.openmrs.module.Activator#shutdown()
-	 */
+
 	@Override
-	public void shutdown() {
+	public void stopped() {
 		if (log.isDebugEnabled())
-			log.debug("Stopping Calculation Module...");
+			log.debug("Stopped Calculation Module...");
 	}
 }

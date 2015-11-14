@@ -297,7 +297,7 @@ public class ResultUtilTest {
     	Obs obs = Mockito.mock(Obs.class);
     	Mockito.when(obs.getValueCoded()).thenReturn(new Concept());
     	// in 1.7 the test should do this instead on mocking getValueCoded
-    	// Mockito.when(obs.getValueAsBoolean()).thenReturn(null);
+    	Mockito.when(obs.getValueAsBoolean()).thenReturn(null);
     	Mockito.when(obs.getConcept()).thenReturn(mockConcept(ConceptDatatype.CODED_UUID));
     	Assert.assertFalse(ResultUtil.isFalse(obs));
     }
