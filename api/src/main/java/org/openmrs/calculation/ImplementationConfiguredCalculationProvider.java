@@ -64,6 +64,8 @@ public class ImplementationConfiguredCalculationProvider implements CalculationP
 			catch (Exception e) {
 				log.error("Error loading implementation-configured groovy calculation from " + file.getName(), e);
 			}
+		} else {
+			log.warn("Trying to load calculation from " + file.getPath() + " but the file doesn't exist");
 		}
 		return null;
 	}

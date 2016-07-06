@@ -37,7 +37,12 @@ public interface CalculationRegistrationDAO {
 	 * @see CalculationRegistrationService#getCalculationRegistrationByToken(String)
 	 */
 	public CalculationRegistration getCalculationRegistrationByToken(String token);
-	
+
+	/**
+	 * @see CalculationRegistrationService#getCalculationRegistrationsByProviderClassname(String)
+	 */
+	public List<CalculationRegistration> getCalculationRegistrationsByProviderClassname(String providerClassname);
+
 	/**
 	 * @see CalculationRegistrationService#getAllCalculationRegistrations()
 	 */

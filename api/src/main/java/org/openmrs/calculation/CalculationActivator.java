@@ -14,6 +14,7 @@
 package org.openmrs.calculation;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,6 +57,15 @@ public class CalculationActivator extends BaseModuleActivator {
 				log.error("Error registering implementation-configured calculation for " + e.getKey(), ex);
 			}
 		}
+
+		Set<String> tokensForExistingCalculations = provider.getCalculations().keySet();
+		for (CalculationRegistration registered : service.getCalculationRegistrationsByProviderClassname(
+				ImplementationConfiguredCalculationProvider.class.getName())) {
+			if (!tokensForExistingCalculations.contains(registered.getToken())) {
+				service.purgeCalculationRegistration(registered);
+			}
+		}
+
 	}
 
 	@Override

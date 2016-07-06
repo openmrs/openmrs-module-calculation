@@ -50,4 +50,14 @@ public class CalculationActivatorTest extends BaseModuleContextSensitiveTest {
 		assertThat(registration.getProviderClassName(), is(ImplementationConfiguredCalculationProvider.class.getName()));
 		assertThat(registration.getCalculationName(), is("weight"));
 	}
+
+	@Test
+	public void testDeletingStaleRegistration() throws Exception {
+		service.saveCalculationRegistration(new CalculationRegistration("height",
+				ImplementationConfiguredCalculationProvider.class.getName(), "nonexistent", null));
+
+		new CalculationActivator().registerCalculations(provider, service);
+
+		assertNull(service.getCalculationRegistrationByToken("height"));
+	}
 }
