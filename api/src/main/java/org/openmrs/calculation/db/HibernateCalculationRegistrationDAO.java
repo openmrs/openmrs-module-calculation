@@ -68,7 +68,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.db.CalculationRegistrationDAO#getCalculationRegistrationByName(java.lang.String)
+	 * @see org.openmrs.calculation.db.CalculationRegistrationDAO#getCalculationRegistrationByToken(java.lang.String)
 	 */
 	@Override
 	@Transactional(readOnly = true)
@@ -87,7 +87,18 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	public List<CalculationRegistration> getAllCalculationRegistrations() {
 		return getCurrentSession().createCriteria(CalculationRegistration.class).list();
 	}
-	
+
+	/**
+	 * @see CalculationRegistrationDAO#getCalculationRegistrationsByProviderClassname(String)
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<CalculationRegistration> getCalculationRegistrationsByProviderClassname(String providerClassname) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(CalculationRegistration.class);
+		criteria.add(Restrictions.eq("providerClassName", providerClassname));
+		return criteria.list();
+	}
+
 	/**
 	 * @see org.openmrs.calculation.db.CalculationRegistrationDAO#findCalculationRegistrations(java.lang.String)
 	 */
