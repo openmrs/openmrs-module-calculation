@@ -58,6 +58,8 @@ public class CalculationActivator extends BaseModuleActivator {
 			}
 		}
 
+		// remove any previously-registered calculations that no longer exist (e.g. if a file was deleted from the
+		// implementation config
 		Set<String> tokensForExistingCalculations = provider.getCalculations().keySet();
 		for (CalculationRegistration registered : service.getCalculationRegistrationsByProviderClassname(
 				ImplementationConfiguredCalculationProvider.class.getName())) {
