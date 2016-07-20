@@ -92,8 +92,11 @@ public class ImplementationConfiguredCalculationProvider implements CalculationP
 	}
 
 	public void loadCalculationsFromDirectory() {
-		for (File file : directory.listFiles()) {
-			loadCalculation(file);
+		File[] files = directory.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				loadCalculation(file);
+			}
 		}
 	}
 
