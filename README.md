@@ -18,7 +18,9 @@ Give examples
 
 A step by step series of examples that tell you have to get a development env running
 
-Say what the step will be
+Follow instructions on OpenMRS web site to download and install OpenMRS, found at https://wiki.openmrs.org/display/docs/Installing+OpenMRS+2.x 
+
+Install the module
 
 ```
 Give the example
