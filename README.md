@@ -8,55 +8,39 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
-### Installing
-
 A step by step series of examples that tell you have to get a development env running
 
 Follow instructions on OpenMRS web site to download and install OpenMRS, found at https://wiki.openmrs.org/display/docs/Installing+OpenMRS+2.x 
 
-Install the module
+### Installing
+
+Install the module through SSH Key:
 
 ```
-Give the example
+git@github.com:yourname/openmrs-module-calculation.git
 ```
 
-And repeat
+Once this is cloned, change your directory to the folder and input the command
 
 ```
-until finished
+mvn clean install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Change your directory to 'target' in the Calculation Module folder. You will see a .omod file. Copy the file.
+
+Find the /openmrs/modules folder, and paste the .omod file if there isn't one there already.
+
+When you run OpenMRS, it will not have the Calcuation Module integrated.
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Change your directory into the module folder, and type
 
 ```
-Give an example
+mvn clean install
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+This command will install the program, which also runs the tests.
 
 ## Built With
 
