@@ -26,7 +26,7 @@ Once this is cloned, change your directory to the folder and input the command
 mvn clean install
 ```
 
-Change your directory to 'target' in the Calculation Module folder. You will see a .omod file. Copy the file.
+Change your directory to /omod/target/ folder. You will see a .omod file. Copy the file.
 
 Find the /openmrs/modules folder, and paste the .omod file if there isn't one there already.
 
