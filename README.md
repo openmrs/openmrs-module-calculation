@@ -14,7 +14,7 @@ Follow instructions on OpenMRS web site to download and install OpenMRS, found a
 
 ### Installing
 
-Install the module through SSH Key:
+Clone the module through SSH:
 
 ```
 git@github.com:yourname/openmrs-module-calculation.git
