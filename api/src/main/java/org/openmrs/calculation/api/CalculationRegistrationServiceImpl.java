@@ -76,7 +76,15 @@ public class CalculationRegistrationServiceImpl extends BaseOpenmrsService imple
 	public List<CalculationRegistration> getAllCalculationRegistrations() {
 		return dao.getAllCalculationRegistrations();
 	}
-	
+
+	/**
+	 * @see org.openmrs.calculation.api.CalculationRegistrationService#getCalculationRegistrationsByProviderClassname(String)
+	 */
+	@Override
+	public List<CalculationRegistration> getCalculationRegistrationsByProviderClassname(String providerClassname) {
+		return dao.getCalculationRegistrationsByProviderClassname(providerClassname);
+	}
+
 	/**
 	 * @see org.openmrs.calculation.api.CalculationRegistrationService#findCalculationRegistrations(java.lang.String)
 	 */

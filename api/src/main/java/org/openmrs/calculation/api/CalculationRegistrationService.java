@@ -51,13 +51,20 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	/**
 	 * Gets a token from the database with a matching name
 	 * 
-	 * @param name
+	 * @param token
 	 * @return
 	 * @should fetch a token with a matching name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public CalculationRegistration getCalculationRegistrationByToken(String token);
-	
+
+	/**
+	 * Gets all token registrations for the given provider
+	 * @param providerClassname
+	 * @return
+	 */
+	public List<CalculationRegistration> getCalculationRegistrationsByProviderClassname(String providerClassname);
+
 	/**
 	 * Saves or updates the specified token in the database
 	 * 

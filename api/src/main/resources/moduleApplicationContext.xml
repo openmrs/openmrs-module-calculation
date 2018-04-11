@@ -1,35 +1,52 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:util="http://www.springframework.org/schema/util"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
            http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context-2.5.xsd
-           http://www.springframework.org/schema/util
-           http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
   		    
 	<context:component-scan base-package="@MODULE_PACKAGE@" />
+
+	<bean id="patientCalculationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<bean class="org.openmrs.${project.parent.artifactId}.patient.PatientCalculationServiceImpl" />
+		</property>
+		<property name="preInterceptors">
+			<ref bean="serviceInterceptors" />
+		</property>
+		<property name="transactionAttributeSource">
+			<ref bean="transactionAttributeSource" />
+		</property>
+	</bean>
+
+	<bean id="calculationRegistrationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<bean class="org.openmrs.${project.parent.artifactId}.api.CalculationRegistrationServiceImpl">
+				<property name="dao" ref="calculationRegistrationDao" />
+			</bean>
+		</property>
+		<property name="preInterceptors">
+			<ref bean="serviceInterceptors" />
+		</property>
+		<property name="transactionAttributeSource">
+			<ref bean="transactionAttributeSource" />
+		</property>
+	</bean>
+
 
 	<!-- Services accessible via Context.getService() -->
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
 				<value>org.openmrs.${project.parent.artifactId}.patient.PatientCalculationService</value>
-				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-					<property name="transactionManager">
-						<ref bean="transactionManager" />
-					</property>
-					<property name="target">
-						<bean class="org.openmrs.${project.parent.artifactId}.patient.PatientCalculationServiceImpl" />
-					</property>
-					<property name="preInterceptors">
-						<ref bean="serviceInterceptors" />
-					</property>
-					<property name="transactionAttributeSource">
-						<ref bean="transactionAttributeSource" />
-					</property>
-				</bean>
+				<ref bean="patientCalculationService" />
 			</list>
 		</property>
 	</bean>
@@ -38,28 +55,13 @@
 		<property name="moduleService">
 			<list>
 				<value>org.openmrs.${project.parent.artifactId}.api.CalculationRegistrationService</value>
-				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-					<property name="transactionManager">
-						<ref bean="transactionManager" />
-					</property>
-					<property name="target">
-						<bean class="org.openmrs.${project.parent.artifactId}.api.CalculationRegistrationServiceImpl">
-							<property name="dao" ref="calculationRegistrationDao" /> 
-						</bean>
-					</property>
-					<property name="preInterceptors">
-						<ref bean="serviceInterceptors" />
-					</property>
-					<property name="transactionAttributeSource">
-						<ref bean="transactionAttributeSource" />
-					</property>
-				</bean>
+				<ref bean="calculationRegistrationService" />
 			</list>
 		</property>
 	</bean>
 	
 	<bean id="calculationRegistrationDao" class="org.openmrs.${project.parent.artifactId}.db.HibernateCalculationRegistrationDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sessionFactory" ref="dbSessionFactory" />
 	</bean>
 	
 </beans>

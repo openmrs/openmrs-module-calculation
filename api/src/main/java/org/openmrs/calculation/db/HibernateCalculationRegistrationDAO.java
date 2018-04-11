@@ -18,10 +18,10 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.api.db.hibernate.DbSession;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.calculation.CalculationRegistration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,19 +32,19 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
-	private SessionFactory sessionFactory;
+	private DbSessionFactory sessionFactory;
 	
 	/**
 	 * @param sessionFactory the sessionFactory to set
 	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(DbSessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 	
 	/**
-	 * @return the sessionFactory
+	 * @return the session
 	 */
-	private Session getCurrentSession() {
+	private DbSession getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
 	
@@ -68,7 +68,7 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	}
 	
 	/**
-	 * @see org.openmrs.calculation.db.CalculationRegistrationDAO#getCalculationRegistrationByName(java.lang.String)
+	 * @see org.openmrs.calculation.db.CalculationRegistrationDAO#getCalculationRegistrationByToken(java.lang.String)
 	 */
 	@Override
 	@Transactional(readOnly = true)
@@ -87,7 +87,18 @@ public class HibernateCalculationRegistrationDAO implements CalculationRegistrat
 	public List<CalculationRegistration> getAllCalculationRegistrations() {
 		return getCurrentSession().createCriteria(CalculationRegistration.class).list();
 	}
-	
+
+	/**
+	 * @see CalculationRegistrationDAO#getCalculationRegistrationsByProviderClassname(String)
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<CalculationRegistration> getCalculationRegistrationsByProviderClassname(String providerClassname) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(CalculationRegistration.class);
+		criteria.add(Restrictions.eq("providerClassName", providerClassname));
+		return criteria.list();
+	}
+
 	/**
 	 * @see org.openmrs.calculation.db.CalculationRegistrationDAO#findCalculationRegistrations(java.lang.String)
 	 */
