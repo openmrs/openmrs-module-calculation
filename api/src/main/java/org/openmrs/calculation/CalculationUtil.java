@@ -33,7 +33,7 @@ public class CalculationUtil {
 	 * 
 	 * @param className the class name to check
 	 * @return true if the class name is for a wrapper class for a primitive type otherwise false
-	 * @should return true for primitive type wrapper class names
+	 * <strong>Should</strong> return true for primitive type wrapper class names
 	 */
 	public static boolean isPrimitiveWrapperClassName(String className) {
 		final Class<?>[] primitiveWrappers = { Boolean.class, Character.class, Byte.class, Short.class, Integer.class,
@@ -94,25 +94,25 @@ public class CalculationUtil {
 	 * @param valueToCast the value to be cast
 	 * @param clazz the class to cast to
 	 * @return a value of the specified type
-	 * @should fail if the value to convert is not of a compatible type
-	 * @should convert the value to the specified type if it is compatible
-	 * @should return null if the passed in value is null
-	 * @should convert a valid string value to Boolean
-	 * @should convert a character value to Character
-	 * @should convert a valid string value to Short
-	 * @should convert a valid string value to Integer
-	 * @should convert a valid string value to Long
-	 * @should convert a valid string value to Float
-	 * @should convert a valid string value to Double
-	 * @should convert a valid string value to Byte
-	 * @should convert a single character value to Short
-	 * @should convert a valid single character value to Integer
-	 * @should convert a valid single character value to Long
-	 * @should convert a result with an number value in the valid range to byte
-	 * @should convert a valid string to an enum constant
-	 * @should convert a valid string to a class object
-	 * @should convert a valid string to a Locale
-	 * @should format a date object to a string using the default date format
+	 * <strong>Should</strong> fail if the value to convert is not of a compatible type
+	 * <strong>Should</strong> convert the value to the specified type if it is compatible
+	 * <strong>Should</strong> return null if the passed in value is null
+	 * <strong>Should</strong> convert a valid string value to Boolean
+	 * <strong>Should</strong> convert a character value to Character
+	 * <strong>Should</strong> convert a valid string value to Short
+	 * <strong>Should</strong> convert a valid string value to Integer
+	 * <strong>Should</strong> convert a valid string value to Long
+	 * <strong>Should</strong> convert a valid string value to Float
+	 * <strong>Should</strong> convert a valid string value to Double
+	 * <strong>Should</strong> convert a valid string value to Byte
+	 * <strong>Should</strong> convert a single character value to Short
+	 * <strong>Should</strong> convert a valid single character value to Integer
+	 * <strong>Should</strong> convert a valid single character value to Long
+	 * <strong>Should</strong> convert a result with an number value in the valid range to byte
+	 * <strong>Should</strong> convert a valid string to an enum constant
+	 * <strong>Should</strong> convert a valid string to a class object
+	 * <strong>Should</strong> convert a valid string to a Locale
+	 * <strong>Should</strong> format a date object to a string using the default date format
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T cast(Object value, Class<T> clazz) {

@@ -42,8 +42,8 @@ public class ResultUtil {
 	 * 
 	 * @param result
 	 * @return
-	 * @should get the first result if the value of the result is a list
-	 * @should return the same result if the value of the result is a not a list
+	 * <strong>Should</strong> get the first result if the value of the result is a list
+	 * <strong>Should</strong> return the same result if the value of the result is a not a list
 	 */
 	public static CalculationResult getFirst(CalculationResult result) {
 		if (result instanceof ListResult)
@@ -59,15 +59,15 @@ public class ResultUtil {
 	 * @param result the result to convert
 	 * @param clazz the class to convert to
 	 * @return a value of the specified type
-	 * @should return null if the passed in result is null
-	 * @should return an empty map if the result is null and class is a map
-	 * @should return an empty map if the result has a null value and class is a map
-	 * @should return an empty collection if the result is null and class is a list
-	 * @should return an empty collection if the result has a null value and class is a list
-	 * @should return an empty collection if the result is null and class is a set
-	 * @should return an empty collection if the result has a null value and class is a set
-	 * @should return true when converting an arbitrary object to Boolean
-	 * @should return false when converting falsey values to Boolean
+	 * <strong>Should</strong> return null if the passed in result is null
+	 * <strong>Should</strong> return an empty map if the result is null and class is a map
+	 * <strong>Should</strong> return an empty map if the result has a null value and class is a map
+	 * <strong>Should</strong> return an empty collection if the result is null and class is a list
+	 * <strong>Should</strong> return an empty collection if the result has a null value and class is a list
+	 * <strong>Should</strong> return an empty collection if the result is null and class is a set
+	 * <strong>Should</strong> return an empty collection if the result has a null value and class is a set
+	 * <strong>Should</strong> return true when converting an arbitrary object to Boolean
+	 * <strong>Should</strong> return false when converting falsey values to Boolean
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T convert(CalculationResult result, Class<T> clazz) {
@@ -137,27 +137,27 @@ public class ResultUtil {
 	 * 
 	 * @param o
 	 * @return whether the given object is "falsey"
-	 * @should return true for null
-	 * @should return true for an empty collection
-	 * @should return false for a non-empty collection
-	 * @should return true for an empty map
-	 * @should return false for a non-empty map
-	 * @should return true for an empty string
-	 * @should return false for a non-empty string
-	 * @should return true for the number 0
-	 * @should return false for a non-zero number
-	 * @should return true for a numeric Obs whose value is 0
-	 * @should return false for a numeric Obs whose value is not 0
-	 * @should return true for a text Obs whose value is the empty string
-	 * @should return false for a text Obs whose value is not the empty string
-	 * @should return true for a coded Obs whose value is the GlobalProperty concept.false
-	 * @should return false for a coded Obs whose value is not the GlobalProperty concept.false
-	 * @should return true for a boolean Obs whose value is false
-	 * @should return false for a boolean Obs whose value is true
-	 * @should return true for an empty ListResult
-	 * @should return false for non-empty ListResult
-	 * @should return true for an empty SimpleResult
-	 * @should return false for a non-empty SimpleResult
+	 * <strong>Should</strong> return true for null
+	 * <strong>Should</strong> return true for an empty collection
+	 * <strong>Should</strong> return false for a non-empty collection
+	 * <strong>Should</strong> return true for an empty map
+	 * <strong>Should</strong> return false for a non-empty map
+	 * <strong>Should</strong> return true for an empty string
+	 * <strong>Should</strong> return false for a non-empty string
+	 * <strong>Should</strong> return true for the number 0
+	 * <strong>Should</strong> return false for a non-zero number
+	 * <strong>Should</strong> return true for a numeric Obs whose value is 0
+	 * <strong>Should</strong> return false for a numeric Obs whose value is not 0
+	 * <strong>Should</strong> return true for a text Obs whose value is the empty string
+	 * <strong>Should</strong> return false for a text Obs whose value is not the empty string
+	 * <strong>Should</strong> return true for a coded Obs whose value is the GlobalProperty concept.false
+	 * <strong>Should</strong> return false for a coded Obs whose value is not the GlobalProperty concept.false
+	 * <strong>Should</strong> return true for a boolean Obs whose value is false
+	 * <strong>Should</strong> return false for a boolean Obs whose value is true
+	 * <strong>Should</strong> return true for an empty ListResult
+	 * <strong>Should</strong> return false for non-empty ListResult
+	 * <strong>Should</strong> return true for an empty SimpleResult
+	 * <strong>Should</strong> return false for a non-empty SimpleResult
 	 */
 	public static boolean isFalse(Object o) {
 		if (o == null) {
@@ -219,12 +219,12 @@ public class ResultUtil {
 	 * 
 	 * @param o
 	 * @return for CalculationResults, delegates to {@link CalculationResult#isEmpty()}, otherwise returns true for null, or for empty Collections and Maps
-	 * @should return true for null
-	 * @should return true for empty collections
-	 * @should return true for empty maps
-	 * @should return false for non-empty collections
-	 * @should return false for non-empty maps
-	 * @should return false for plain objects
+	 * <strong>Should</strong> return true for null
+	 * <strong>Should</strong> return true for empty collections
+	 * <strong>Should</strong> return true for empty maps
+	 * <strong>Should</strong> return false for non-empty collections
+	 * <strong>Should</strong> return false for non-empty maps
+	 * <strong>Should</strong> return false for plain objects
 	 */
 	public static boolean isEmpty(Object o) {
 		if (o == null) {

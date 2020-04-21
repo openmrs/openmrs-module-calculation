@@ -23,7 +23,7 @@ import org.openmrs.calculation.result.SimpleResult;
 /**
  * A very simple Patient Calculation, mainly to use as an example and for testing purposes
  * 
- * @should return a result containing the patient id for each member of the input cohort
+ * <strong>Should</strong> return a result containing the patient id for each member of the input cohort
  */
 public class PatientIdCalculation extends BaseCalculation implements PatientCalculation {
 	

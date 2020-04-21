@@ -162,7 +162,7 @@ public class ListResult implements CalculationResult {
 	 * 
 	 * @return a list equal in length to this list, but whose elements are the values of this list's
 	 *         elements
-	 * @should return list of underlying values
+	 * <strong>Should</strong> return list of underlying values
 	 */
 	public List<Object> getValues() {
 		List<Object> ret = new ArrayList<Object>();
