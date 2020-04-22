@@ -33,7 +33,7 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * 
 	 * @param calculationRegistrationId
 	 * @return
-	 * @should return a token with a matching id
+	 * <strong>Should</strong> return a token with a matching id
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public CalculationRegistration getCalculationRegistration(Integer calculationRegistrationId);
@@ -43,7 +43,7 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * 
 	 * @param uuid
 	 * @return
-	 * @should fetch a token with a matching uuid
+	 * <strong>Should</strong> fetch a token with a matching uuid
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public CalculationRegistration getCalculationRegistrationByUuid(String uuid);
@@ -53,7 +53,7 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * 
 	 * @param token
 	 * @return
-	 * @should fetch a token with a matching name
+	 * <strong>Should</strong> fetch a token with a matching name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public CalculationRegistration getCalculationRegistrationByToken(String token);
@@ -70,9 +70,9 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * 
 	 * @param calculationRegistration the calculationRegistration to save or update
 	 * @return
-	 * @should save the specified calculationRegistration to the database
-	 * @should update an existing token
-	 * @should update the cached token registration
+	 * <strong>Should</strong> save the specified calculationRegistration to the database
+	 * <strong>Should</strong> update an existing token
+	 * <strong>Should</strong> update the cached token registration
 	 */
 	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
 	public CalculationRegistration saveCalculationRegistration(CalculationRegistration calculationRegistration)
@@ -82,7 +82,7 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * Gets all tokens in the database
 	 * 
 	 * @return a list of {@link CalculationRegistration}s
-	 * @should get all tokens in the database
+	 * <strong>Should</strong> get all tokens in the database
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public List<CalculationRegistration> getAllCalculationRegistrations();
@@ -92,7 +92,7 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * 
 	 * @param partialToken the phrase to search against
 	 * @return a list of {@link CalculationRegistration}s
-	 * @should get all calculationRegistrations with a matching name
+	 * <strong>Should</strong> get all calculationRegistrations with a matching name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_TOKEN_REGISTRATIONS)
 	public List<CalculationRegistration> findCalculationRegistrations(String partialToken);
@@ -101,7 +101,7 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * Purges the specified token from the database
 	 * 
 	 * @param calculationRegistration the calculationRegistration to purge
-	 * @should purge the specified calculationRegistration from the database
+	 * <strong>Should</strong> purge the specified calculationRegistration from the database
 	 */
 	@Authorized(CalculationConstants.PRIV_MANAGE_TOKEN_REGISTRATIONS)
 	public void purgeCalculationRegistration(CalculationRegistration calculationRegistration);
@@ -112,7 +112,7 @@ public interface CalculationRegistrationService extends OpenmrsService {
 	 * 
 	 * @param tokenName
 	 * @return {@link PatientCalculation}
-	 * @should return the calculation associated to the calculationRegistration with the given name
+	 * <strong>Should</strong> return the calculation associated to the calculationRegistration with the given name
 	 */
 	@Authorized(CalculationConstants.PRIV_VIEW_CALCULATIONS)
 	public <T extends Calculation> T getCalculation(String tokenName, Class<T> clazz) throws InvalidCalculationException;

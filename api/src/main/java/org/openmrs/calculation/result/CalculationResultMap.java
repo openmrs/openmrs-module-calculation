@@ -30,9 +30,9 @@ public class CalculationResultMap extends LinkedHashMap<Integer, CalculationResu
 	 * 
 	 * @param key
 	 * @return
-	 * @should return false if key is not mapped
-	 * @should return false if key is mapped to a falsey value
-	 * @should return true if key is mapped to a truthy value
+	 * <strong>Should</strong> return false if key is not mapped
+	 * <strong>Should</strong> return false if key is mapped to a falsey value
+	 * <strong>Should</strong> return true if key is mapped to a truthy value
 	 */
 	public boolean getAsBoolean(Integer key) {
 		CalculationResult r = get(key);
@@ -44,9 +44,9 @@ public class CalculationResultMap extends LinkedHashMap<Integer, CalculationResu
 	 * 
 	 * @param key
 	 * @return
-	 * @should return true if key is not mapped
-	 * @should return true if key is mapped to an empty value
-	 * @should return false if key is mapped to a non-empty value
+	 * <strong>Should</strong> return true if key is not mapped
+	 * <strong>Should</strong> return true if key is mapped to an empty value
+	 * <strong>Should</strong> return false if key is mapped to a non-empty value
 	 */
 	public boolean isEmpty(Integer key) {
 		CalculationResult r = get(key);

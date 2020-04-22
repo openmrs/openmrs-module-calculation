@@ -89,12 +89,12 @@ public interface PatientCalculationService extends OpenmrsService {
 	 *            by the calculation
 	 * @param context the {@link PatientCalculationContext} to be used by this evaluation
 	 * @return A {@link CalculationResultMap}, with results for all all patients in cohort. Note that if cohort contains duplicate patient ids, this result's size will differ from cohort.size()
-	 * @should fail if any required parameter is not set
-	 * @should fail for a blank value for a required parameter if datatype is a primitive wrapper
-	 * @should fail for a blank value for a required parameter if datatype is a String
-	 * @should fail if the a parameter value doesnt match the allowed datatype
-	 * @should pass if the passed in datatype cannot be loaded
-	 * @should return the expected result size for cohort with a large number of patient
+	 * <strong>Should</strong> fail if any required parameter is not set
+	 * <strong>Should</strong> fail for a blank value for a required parameter if datatype is a primitive wrapper
+	 * <strong>Should</strong> fail for a blank value for a required parameter if datatype is a String
+	 * <strong>Should</strong> fail if the a parameter value doesnt match the allowed datatype
+	 * <strong>Should</strong> pass if the passed in datatype cannot be loaded
+	 * <strong>Should</strong> return the expected result size for cohort with a large number of patient
 	 */
 	public CalculationResultMap evaluate(Collection<Integer> cohort, PatientCalculation calculation, Map<String, Object> parameterValues,
 	                             PatientCalculationContext context) throws APIException;

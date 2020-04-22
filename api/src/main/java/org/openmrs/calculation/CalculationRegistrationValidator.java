@@ -38,13 +38,13 @@ public class CalculationRegistrationValidator implements Validator {
 	
 	/**
 	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
-	 * @should fail if token registration name is not unique amongst all tokens
-	 * @should fail if token registration name is empty or whitespace
-	 * @should fail if token registration provider class name is empty or whitespace
-	 * @should fail if token registration calculation name is empty or whitespace
-	 * @should fail if token registration does not represent a valid calculation
-	 * @should pass valid token registration
-	 * @should pass existing token registration
+	 * <strong>Should</strong> fail if token registration name is not unique amongst all tokens
+	 * <strong>Should</strong> fail if token registration name is empty or whitespace
+	 * <strong>Should</strong> fail if token registration provider class name is empty or whitespace
+	 * <strong>Should</strong> fail if token registration calculation name is empty or whitespace
+	 * <strong>Should</strong> fail if token registration does not represent a valid calculation
+	 * <strong>Should</strong> pass valid token registration
+	 * <strong>Should</strong> pass existing token registration
 	 */
 	public void validate(Object obj, Errors errors) {
 		CalculationRegistration target = (CalculationRegistration) obj;
