@@ -74,7 +74,7 @@ public class CalculationRegistrationController {
 			}
 			else if (randomIds != null) {
 				cohort = new Cohort();
-				String sql = "select patient_id from patient where voided = 0 limit " + randomIds;
+				String sql = "select patient_id from patient where voided = false limit " + randomIds;
 				for (List<Object> row : Context.getAdministrationService().executeSQL(sql, true)) {
 					cohort.addMember((Integer)row.get(0));
 				}
