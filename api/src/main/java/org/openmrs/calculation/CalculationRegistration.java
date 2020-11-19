@@ -13,6 +13,7 @@
  */
 package org.openmrs.calculation;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -32,6 +33,15 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	private String providerClassName;
 	private String calculationName;
 	private String configuration;
+	
+	/**
+	 * Sanitizing the input
+	 * @param in input string
+	 * @return santized string
+	 */
+	public String sanitizeInput(String in) {
+ 		return StringEscapeUtils.escapeHtml(in);
+ 	}
 	
 	/**
 	 * Default Constructor
@@ -75,7 +85,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param token the token to set
 	 */
 	public void setToken(String token) {
-		this.token = token;
+		this.token = sanitizeInput(token);
 	}
 	
 	/**
@@ -89,7 +99,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param providerClassName the providerClassName to set
 	 */
 	public void setProviderClassName(String providerClassName) {
-		this.providerClassName = providerClassName;
+		this.providerClassName = sanitizeInput(providerClassName);
 	}
 	
 	/**
@@ -103,7 +113,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param calculationName the calculationName to set
 	 */
 	public void setCalculationName(String calculationName) {
-		this.calculationName = calculationName;
+		this.calculationName = sanitizeInput(calculationName);
 	}
 
 	/**
@@ -117,7 +127,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param configuration the configuration to set
 	 */
 	public void setConfiguration(String configuration) {
-		this.configuration = configuration;
+		this.configuration = sanitizeInput(configuration);
 	}
 	
 	/**
