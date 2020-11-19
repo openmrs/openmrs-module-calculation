@@ -112,6 +112,8 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 		
 		token.setToken(newTokenName);
 		service.saveCalculationRegistration(token);
+		// Updated the test case because it was looking for the same object but the 
+		// sanitizeInput creates a new string with no unwanted characters present.
 		Assert.assertEquals(newTokenName, token.getToken());
 	}
 	
@@ -180,7 +182,7 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	}
 	
 	/**
-	 * Checking to see if sanitizeInput function works
+	 * Test case for sanitizeInput method
 	 */
 	@Test
 	@Verifies(value = "should sanitize the inputed string", method = "saitizeInput(String)")
