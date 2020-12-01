@@ -22,6 +22,7 @@ import org.openmrs.calculation.CalculationProvider;
 import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.CalculationRegistrationValidator;
 import org.openmrs.calculation.api.CalculationRegistrationService;
+import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.web.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,13 +102,16 @@ public class CalculationRegistrationFormController {
 	 */
 	@RequestMapping(value = "/module/calculation/calculationRegistration", method = RequestMethod.POST)
 	public String saveCalculationRegistration(@ModelAttribute("calculationRegistration") CalculationRegistration calculationRegistration,
-	                                          BindingResult result, WebRequest request) {
+	                                          BindingResult result, WebRequest request, UiUtils uu) {
 		
 		// Validate CalculationRegistration
 		calculationRegistrationValidator.validate(calculationRegistration, result);
 		if (result.hasErrors()) {
 			return null;
 		}
+		
+		// Sanitize CalculationRegistration
+		calculationRegistration.sanitizeInput(uu);
 		
 		CalculationRegistrationService calculationRegistrationService = Context
 		        .getService(CalculationRegistrationService.class);

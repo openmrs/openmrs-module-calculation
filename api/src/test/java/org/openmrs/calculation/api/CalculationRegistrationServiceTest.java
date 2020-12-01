@@ -180,17 +180,4 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 		//should fail this time because of the new unknown class
 		service.getCalculation(tokenName, AgeCalculation.class);
 	}
-	
-	/**
-	 * Test case for sanitizeInput method
-	 */
-	@Test
-	@Verifies(value = "should sanitize the inputed string", method = "saitizeInput(String)")
-	public void checkSanitizeInput() throws Exception {
-		final String tokenName = "<script>";
-		final String tokenNameSanitized = "&lt;script&gt;";
-		CalculationRegistration token = service.getCalculationRegistrationByUuid(TOKEN_UUID);
-		token.setToken(tokenName);
-		Assert.assertEquals(token.getToken(), tokenNameSanitized);
-	}
 }

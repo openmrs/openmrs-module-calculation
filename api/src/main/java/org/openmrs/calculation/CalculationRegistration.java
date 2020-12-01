@@ -13,9 +13,9 @@
  */
 package org.openmrs.calculation;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.util.OpenmrsUtil;
+import org.openmrs.ui.framework.UiUtils;
 
 /**
  * A CalculationRegistration represents a saved Calculation instance. The intention is to allow a fully
@@ -39,8 +39,11 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param in input string
 	 * @return santized string
 	 */
-	public String sanitizeInput(String in) {
- 		return StringEscapeUtils.escapeHtml(in);
+	public void sanitizeInput(UiUtils uu) {
+		this.setCalculationName(uu.encodeHtml(this.getCalculationName()));
+		this.setToken(uu.encodeHtml(this.getToken()));
+		this.setProviderClassName(uu.encodeHtml(this.getProviderClassName()));
+		this.setConfiguration(uu.encodeHtml(this.getConfiguration()));
  	}
 	
 	/**
@@ -85,7 +88,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param token the token to set
 	 */
 	public void setToken(String token) {
-		this.token = sanitizeInput(token);
+		this.token = token;
 	}
 	
 	/**
@@ -99,7 +102,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param providerClassName the providerClassName to set
 	 */
 	public void setProviderClassName(String providerClassName) {
-		this.providerClassName = sanitizeInput(providerClassName);
+		this.providerClassName = providerClassName;
 	}
 	
 	/**
@@ -113,7 +116,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param calculationName the calculationName to set
 	 */
 	public void setCalculationName(String calculationName) {
-		this.calculationName = sanitizeInput(calculationName);
+		this.calculationName = calculationName;
 	}
 
 	/**
@@ -127,7 +130,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @param configuration the configuration to set
 	 */
 	public void setConfiguration(String configuration) {
-		this.configuration = sanitizeInput(configuration);
+		this.configuration = configuration;
 	}
 	
 	/**
