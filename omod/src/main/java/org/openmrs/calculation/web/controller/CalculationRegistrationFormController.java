@@ -22,7 +22,6 @@ import org.openmrs.calculation.CalculationProvider;
 import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.CalculationRegistrationValidator;
 import org.openmrs.calculation.api.CalculationRegistrationService;
-import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.web.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+
+import org.owasp.encoder.Encode;
 
 /**
  * Controls the Calculation Registration form
@@ -102,16 +103,13 @@ public class CalculationRegistrationFormController {
 	 */
 	@RequestMapping(value = "/module/calculation/calculationRegistration", method = RequestMethod.POST)
 	public String saveCalculationRegistration(@ModelAttribute("calculationRegistration") CalculationRegistration calculationRegistration,
-	                                          BindingResult result, WebRequest request, UiUtils uu) {
+	                                          BindingResult result, WebRequest request) {
 		
 		// Validate CalculationRegistration
 		calculationRegistrationValidator.validate(calculationRegistration, result);
 		if (result.hasErrors()) {
 			return null;
 		}
-		
-		// Sanitize CalculationRegistration
-		calculationRegistration.sanitizeInput(uu);
 		
 		CalculationRegistrationService calculationRegistrationService = Context
 		        .getService(CalculationRegistrationService.class);
@@ -140,6 +138,6 @@ public class CalculationRegistrationFormController {
 	
 	private void updateSessionMessage(WebRequest request, String code, Object... args) {
 		String msg = Context.getMessageSourceService().getMessage(code, args, Context.getLocale());
-		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, msg, WebRequest.SCOPE_SESSION);
+		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, Encode.forHtml(msg), WebRequest.SCOPE_SESSION);
 	}
 }

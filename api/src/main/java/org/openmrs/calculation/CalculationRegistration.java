@@ -15,7 +15,6 @@ package org.openmrs.calculation;
 
 import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.util.OpenmrsUtil;
-import org.openmrs.ui.framework.UiUtils;
 
 /**
  * A CalculationRegistration represents a saved Calculation instance. The intention is to allow a fully
@@ -34,17 +33,6 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	private String calculationName;
 	private String configuration;
 	
-	/**
-	 * Sanitizing the input
-	 * @param in input string
-	 * @return santized string
-	 */
-	public void sanitizeInput(UiUtils uu) {
-		this.setCalculationName(uu.encodeHtml(this.getCalculationName()));
-		this.setToken(uu.encodeHtml(this.getToken()));
-		this.setProviderClassName(uu.encodeHtml(this.getProviderClassName()));
-		this.setConfiguration(uu.encodeHtml(this.getConfiguration()));
- 	}
 	
 	/**
 	 * Default Constructor
@@ -66,7 +54,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 */
 	@Override
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 	
 	/**
@@ -81,7 +69,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @return the token
 	 */
 	public String getToken() {
-		return token;
+		return this.token;
 	}
 
 	/**
@@ -95,7 +83,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @return the providerClassName
 	 */
 	public String getProviderClassName() {
-		return providerClassName;
+		return this.providerClassName;
 	}
 	
 	/**
@@ -109,7 +97,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @return the calculationName
 	 */
 	public String getCalculationName() {
-		return calculationName;
+		return this.calculationName;
 	}
 
 	/**
@@ -123,7 +111,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	 * @return the configuration
 	 */
 	public String getConfiguration() {
-		return configuration;
+		return this.configuration;
 	}
 	
 	/**
