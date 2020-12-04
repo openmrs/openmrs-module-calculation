@@ -32,7 +32,10 @@
 		
 				
 		<!-- End OpenMRS modules -->
-		
+		<dependency>
+            <groupId>org.owasp.encoder</groupId>
+            <artifactId>encoder</artifactId>
+         </dependency>
 
 		<!-- Begin OpenMRS core -->
 

@@ -192,13 +192,4 @@
 			<url>https://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>uiframework-api</artifactId>
-			<version>3.9</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
 </project>

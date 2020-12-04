@@ -112,9 +112,7 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 		
 		token.setToken(newTokenName);
 		service.saveCalculationRegistration(token);
-		// Updated the test case because it was looking for the same object but the 
-		// sanitizeInput creates a new string with no unwanted characters present.
-		Assert.assertEquals(newTokenName, token.getToken());
+		Assert.assertSame(newTokenName, token.getToken());
 	}
 	
 	/**
