@@ -32,8 +32,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
-import org.owasp.encoder.Encode;
-
 /**
  * Controls the Calculation Registration form
  */
@@ -123,7 +121,7 @@ public class CalculationRegistrationFormController {
 			return null;
 		}
 		
-		updateSessionMessage(request, "calculation.CalculationRegistration.saved", calculationRegistration);
+		updateSessionMessage(request, "calculation.CalculationRegistration.saved");
 		return "redirect:calculationRegistrations.list";
 	}
 	
@@ -137,7 +135,8 @@ public class CalculationRegistrationFormController {
 	}
 	
 	private void updateSessionMessage(WebRequest request, String code, Object... args) {
-		String msg = Context.getMessageSourceService().getMessage(code, args, Context.getLocale());
-		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, Encode.forHtml(msg), WebRequest.SCOPE_SESSION);
+		//String msg = Context.getMessageSourceService().getMessage(code, args, Context.getLocale());
+		// set calculation name as ""
+		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Saved", WebRequest.SCOPE_SESSION);
 	}
 }
