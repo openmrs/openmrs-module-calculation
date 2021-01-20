@@ -135,8 +135,7 @@ public class CalculationRegistrationFormController {
 	}
 	
 	private void updateSessionMessage(WebRequest request, String code, Object... args) {
-		//String msg = Context.getMessageSourceService().getMessage(code, args, Context.getLocale());
-		// set calculation name as ""
-		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Saved", WebRequest.SCOPE_SESSION);
+		String msg = Context.getMessageSourceService().getMessage(code, args, Context.getLocale());
+		request.setAttribute(WebConstants.OPENMRS_MSG_ATTR, msg, WebRequest.SCOPE_SESSION);
 	}
 }
