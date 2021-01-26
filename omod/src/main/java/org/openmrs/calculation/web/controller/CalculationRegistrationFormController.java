@@ -121,7 +121,7 @@ public class CalculationRegistrationFormController {
 			return null;
 		}
 		
-		updateSessionMessage(request, "calculation.CalculationRegistration.saved");
+		updateSessionMessage(request, "calculation.CalculationRegistration.savedWithoutName");
 		return "redirect:calculationRegistrations.list";
 	}
 	
