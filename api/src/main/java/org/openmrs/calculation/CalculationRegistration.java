@@ -32,8 +32,7 @@ public class CalculationRegistration extends BaseOpenmrsObject implements java.i
 	private String providerClassName;
 	private String calculationName;
 	private String configuration;
-	
-	
+
 	/**
 	 * Default Constructor
 	 */
