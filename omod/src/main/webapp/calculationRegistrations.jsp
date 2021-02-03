@@ -71,10 +71,10 @@
 									<img src="<c:url value='/images/trash.gif'/>" border="0"/>
 								</a>							
 							</td>
-							<td><a href="calculationRegistration.form?id=${calculationRegistration.id}">${calculationRegistration.token}</a></td>
-							<td>${calculationRegistration.providerClassName}</td>
-							<td>${calculationRegistration.calculationName}</td>
-							<td>${calculationRegistration.configuration}</td>
+							<td><a href="calculationRegistration.form?id=${calculationRegistration.id}"><c:out value="${calculationRegistration.token}" /></a></td>
+							<td><c:out value="${calculationRegistration.providerClassName}" /></td>
+							<td><c:out value="${calculationRegistration.calculationName}" /></td>
+							<td><c:out value="${calculationRegistration.configuration}" /></td>
 						</tr>
 					</c:forEach>
 				</table>

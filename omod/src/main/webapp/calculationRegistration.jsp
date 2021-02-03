@@ -26,7 +26,7 @@
 			<td><spring:message code="calculation.CalculationRegistration.token"/></td>
 			<td>
 				<spring:bind path="calculationRegistration.token">
-					<input type="text" name="token" size="50" value="${calculationRegistration.token}" />
+					<input type="text" name="token" size="50" value="<c:out value='${calculationRegistration.token}'/>" />
 					<c:if test="${status.errorMessage != ''}">
 						<span class="error">${status.errorMessage}</span>
 					</c:if>
@@ -53,7 +53,7 @@
 			<td><spring:message code="calculation.CalculationRegistration.calculationName"/></td>
 			<td>
 				<spring:bind path="calculationRegistration.calculationName">
-					<input type="text" name="calculationName" size="50" value="${calculationRegistration.calculationName}" />
+					<input type="text" name="calculationName" size="50" value="<c:out value='${calculationRegistration.calculationName}'/>" />
 					<c:if test="${status.errorMessage != ''}">
 						<span class="error">${status.errorMessage}</span>
 					</c:if>
@@ -64,7 +64,7 @@
 			<td><spring:message code="calculation.CalculationRegistration.configuration"/></td>
 			<td>
 				<spring:bind path="calculationRegistration.configuration">
-					<textarea name="configuration" rows="5" cols="50">${calculationRegistration.configuration}</textarea>
+					<textarea name="configuration" rows="5" cols="50"> <c:out value="${calculationRegistration.configuration}" /></textarea>
 					<c:if test="${status.errorMessage != ''}">
 						<span class="error">${status.errorMessage}</span>
 					</c:if>
