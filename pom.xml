@@ -36,7 +36,7 @@
 	<properties>
 		<openMRSVersion>1.9.9</openMRSVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<groovyVersion>1.8.7</groovyVersion>
+		<groovyVersion>2.4.21</groovyVersion>
 	</properties>
 
 	<dependencyManagement>
