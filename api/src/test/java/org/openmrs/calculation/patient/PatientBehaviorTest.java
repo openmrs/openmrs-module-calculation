@@ -25,6 +25,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
+import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.api.PatientService;
@@ -204,20 +205,20 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void ShouldGetADateBasedResultBasingOnACachedResultInTheCalculationContext() throws Exception {
 		executeDataSet(TEST_DATA_XML);
-		
+
 		Integer patientId = 7;
 		Obs expectedMostRecentObs = Context.getObsService().getObs(103);
-		String cacheKey = MostRecentObsCalculation.class.getName() + ".5089.7";
-		
+		String cacheKey = MostRecentObsCalculation.class.getName() + ".Concept" + " #5089.7";
+
 		PatientCalculationContext context = getService().createCalculationContext();
 		Assert.assertTrue(context.getFromCache(cacheKey) == null);
-		
+
 		//sanity check, since the cache is empty, it should return the most recent obs amongst all obs for the patient
 		PatientCalculation mostRecentObsCalculation = getMostRecentWeightCalculation();
 		ObsResult firstTestResult = (ObsResult) getService().evaluate(patientId, mostRecentObsCalculation, context);
 		Assert.assertEquals(expectedMostRecentObs, firstTestResult.asType(Obs.class));
 		Assert.assertTrue(context.getFromCache(cacheKey) == firstTestResult);
-		
+
 		PatientCalculation anotherMostRecentObsCalculation = getMostRecentWeightCalculation();
 		ObsResult secondTestResult = (ObsResult) getService().evaluate(patientId, anotherMostRecentObsCalculation, context);
 		Assert.assertTrue(context.getFromCache(cacheKey) == secondTestResult);
