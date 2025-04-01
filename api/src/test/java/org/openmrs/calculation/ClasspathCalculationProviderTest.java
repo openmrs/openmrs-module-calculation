@@ -17,7 +17,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
-import org.springframework.test.annotation.ExpectedException;
 
 /**
  * Tests the ClasspathCalculationProvider
@@ -51,8 +50,7 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 	 * @see ClasspathCalculationProvider#getCalculation(String,String)
 	 * @verifies throw an exception if a configurable calculation is passed an illegal configuration
 	 */
-	@Test
-	@ExpectedException(InvalidCalculationException.class)
+	@Test(expected = InvalidCalculationException.class)
 	public void getCalculation_shouldThrowAnExceptionIfAConfigurableCalculationIsPassedAnIllegalConfiguration()
 	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
@@ -64,8 +62,7 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 	 * @verifies throw an exception if a non configurable calculation is passed a configuration
 	 *           string
 	 */
-	@Test
-	@ExpectedException(InvalidCalculationException.class)
+	@Test(expected = InvalidCalculationException.class)
 	public void getCalculation_shouldThrowAnExceptionIfANonConfigurableCalculationIsPassedAConfigurationString()
 	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();

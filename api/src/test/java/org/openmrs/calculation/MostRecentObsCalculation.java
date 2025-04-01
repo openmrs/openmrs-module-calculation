@@ -14,10 +14,13 @@
 package org.openmrs.calculation;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.openmrs.Cohort;
+import org.openmrs.CohortMembership;
 import org.openmrs.Concept;
 import org.openmrs.Obs;
 import org.openmrs.api.context.Context;
@@ -55,7 +58,7 @@ public class MostRecentObsCalculation extends BaseCalculation implements Configu
 	public CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 		
 		CalculationResultMap results = new CalculationResultMap();
-		Map<Integer, List<Obs>> patientObs = Context.getPatientSetService().getObservations(new Cohort(cohort), whichConcept);
+		Map<Integer, List<Obs>> patientObs = getObservations(new Cohort(cohort), whichConcept);
 		for (Integer pId : patientObs.keySet()) {
 			String cacheKey = this.getClass().getName() + "." + whichConcept + "." + pId;
 			CalculationResult r = (CalculationResult) context.getFromCache(cacheKey);
@@ -73,5 +76,19 @@ public class MostRecentObsCalculation extends BaseCalculation implements Configu
 	 */
 	public Concept getWhichConcept() {
 		return whichConcept;
+	}
+
+	private Map<Integer, List<Obs>> getObservations(Cohort cohort, Concept concept) {
+		if (cohort == null || concept == null || cohort.getMemberships().isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		return cohort.getMemberships().stream()
+				.map(CohortMembership::getPatientId)
+				.collect(Collectors.toMap(
+						id -> id,
+						id -> Context.getObsService().getObservationsByPersonAndConcept(
+								Context.getPersonService().getPerson(id), concept)
+				));
 	}
 }
