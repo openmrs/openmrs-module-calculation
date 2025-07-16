@@ -123,11 +123,9 @@ Deploy to Maven:
 
         set -x
 
-        export IMAGE=${bamboo.build.docker.image.id}
+        docker pull ${bamboo.build.docker.image.id}
 
-        docker pull ${IMAGE}
-
-        docker run -v m2-repo:/root/.m2/repository -v ~/.m2/settings.xml:/.m2/settings.xml:ro -v ${PWD}:/module --rm -w="/module" ${IMAGE} bash -c 'mvn deploy -DskipTests --settings /.m2/settings.xml'
+        docker run -v m2-repo:/root/.m2/repository -v ~/.m2/settings.xml:/.m2/settings.xml:ro -v ${PWD}:/module --rm -w="/module" ${bamboo.build.docker.image.id} bash -c 'mvn deploy -DskipTests --settings /.m2/settings.xml'
       description: Deploy
   artifact-subscriptions: []
 Release to Maven:
@@ -149,9 +147,7 @@ Release to Maven:
 
         set -x
 
-        export IMAGE=${bamboo.build.docker.image.id}
-
-        docker pull ${IMAGE}
+        docker pull ${bamboo.build.docker.image.id}
 
         docker run \
           -v m2-repo:/root/.m2/repository \
@@ -163,7 +159,7 @@ Release to Maven:
           -e GIT_SSH_COMMAND='ssh -i /root/.ssh/id_rsa -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no' \
           --rm \
           -w='/module' \
-          ${IMAGE} \
+          ${bamboo.build.docker.image.id} \
           bash -c '
             yum -y install git &&
             yum clean all &&
