@@ -38,9 +38,7 @@ Build and Test JDK 8:
 
         set -x
 
-        export IMAGE="maven:3.9.9-amazoncorretto-8"
-
-        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" ${IMAGE} bash -c 'mvn clean package && chmod -R 777 .'
+        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" maven:3.9.9-amazoncorretto-8 bash -c 'mvn clean package && chmod -R 777 .'
       description: Build and test
   artifact-subscriptions: []
 Build and Test JDK 11:
@@ -57,9 +55,7 @@ Build and Test JDK 11:
 
         set -x
 
-        export IMAGE="maven:3.9.9-amazoncorretto-11"
-
-        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" ${IMAGE} bash -c 'mvn clean package && chmod -R 777 .'
+        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" maven:3.9.9-amazoncorretto-11 bash -c 'mvn clean package && chmod -R 777 .'
       description: Build and test
   artifact-subscriptions: []
 Build and Test JDK 21:
@@ -76,9 +72,7 @@ Build and Test JDK 21:
 
         set -x
 
-        export IMAGE="maven:3.9.9-amazoncorretto-21"
-
-        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" ${IMAGE} bash -c 'mvn clean package && chmod -R 777 .'
+        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" maven:3.9.9-amazoncorretto-21 bash -c 'mvn clean package && chmod -R 777 .'
       description: Build and test
   artifact-subscriptions: []
 Build and Test JDK 24:
@@ -95,9 +89,7 @@ Build and Test JDK 24:
 
         set -x
 
-        export IMAGE="maven:3.9.9-amazoncorretto-11"
-
-        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" ${IMAGE} bash -c 'mvn clean package && chmod -R 777 .'
+        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" maven:3.9.9-amazoncorretto-11 bash -c 'mvn clean package && chmod -R 777 .'
       description: Build and test
   artifact-subscriptions: []
 Build and Test JDK 17:
@@ -114,9 +106,7 @@ Build and Test JDK 17:
 
         set -x
 
-        export IMAGE="maven:3.9.9-amazoncorretto-17"
-
-        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" ${IMAGE} bash -c 'mvn clean package && chmod -R 777 .'
+        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" maven:3.9.9-amazoncorretto-17 bash -c 'mvn clean package && chmod -R 777 .'
       description: Build and test
   artifact-subscriptions: []
 Deploy to Maven:
