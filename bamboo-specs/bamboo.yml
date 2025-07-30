@@ -89,7 +89,7 @@ Build and Test JDK 24:
 
         set -x
 
-        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" maven:3.9.9-amazoncorretto-11 bash -c 'mvn clean package && chmod -R 777 .'
+        docker run -v m2-repo:/root/.m2/repository -v ${PWD}:/module --rm -w="/module" maven:3.9.9-amazoncorretto-24 bash -c 'mvn clean package && chmod -R 777 .'
       description: Build and test
   artifact-subscriptions: []
 Build and Test JDK 17:
