@@ -135,7 +135,7 @@ Release to Maven:
       force-clean-build: 'false'
       description: Checkout Default Repository
   - checkout:
-      repository: Git
+      repository: Release scripts
       path: release-scripts
       force-clean-build: 'false'
       description: Checkout Default Repository
@@ -167,6 +167,7 @@ Release to Maven:
             git config --global user.name "$GIT_USER_NAME" &&
             git config --global --add safe.directory /module &&
             ./release-scripts/release-prepare-perform.sh \
+              -s \
               -r ${bamboo.maven.release.version} \
               -d ${bamboo.maven.development.version} \
               -e ${bamboo.planRepository.repositoryUrl}
