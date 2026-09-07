@@ -1,9 +1,11 @@
 package org.openmrs.calculation.result;
 
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.PatientProgram;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CalculationResultMapTest {
 	
@@ -14,7 +16,7 @@ public class CalculationResultMapTest {
 	@Test
 	public void getAsBoolean_shouldReturnFalseIfKeyIsNotMapped() throws Exception {
 		CalculationResultMap map = new CalculationResultMap();
-		Assert.assertFalse(map.getAsBoolean(999));
+		assertFalse(map.getAsBoolean(999));
 	}
 	
 	/**
@@ -27,7 +29,7 @@ public class CalculationResultMapTest {
 		CalculationResultMap map = new CalculationResultMap();
 		for (Object f : falsey) {
 			map.put(1, new SimpleResult(f, null));
-			Assert.assertFalse(map.getAsBoolean(1));
+			assertFalse(map.getAsBoolean(1));
 		}
 	}
 	
@@ -41,7 +43,7 @@ public class CalculationResultMapTest {
 		CalculationResultMap map = new CalculationResultMap();
 		for (Object t : truthy) {
 			map.put(1, new SimpleResult(t, null));
-			Assert.assertTrue(map.getAsBoolean(1));
+			assertTrue(map.getAsBoolean(1));
 		}
 	}
 	
@@ -52,7 +54,7 @@ public class CalculationResultMapTest {
 	@Test
 	public void isEmpty_shouldReturnTrueIfKeyIsNotMapped() throws Exception {
 		CalculationResultMap map = new CalculationResultMap();
-		Assert.assertTrue(map.isEmpty(999));
+		assertTrue(map.isEmpty(999));
 	}
 	
 	/**
@@ -65,7 +67,7 @@ public class CalculationResultMapTest {
 		CalculationResultMap map = new CalculationResultMap();
 		for (CalculationResult e : empty) {
 			map.put(1, e);
-			Assert.assertTrue(map.isEmpty(1));
+			assertTrue(map.isEmpty(1));
 		}
 	}
 	
@@ -81,7 +83,7 @@ public class CalculationResultMapTest {
 		CalculationResultMap map = new CalculationResultMap();
 		for (CalculationResult ne : notEmpty) {
 			map.put(1, ne);
-			Assert.assertFalse(map.isEmpty(1));
+			assertFalse(map.isEmpty(1));
 		}
 	}
 }

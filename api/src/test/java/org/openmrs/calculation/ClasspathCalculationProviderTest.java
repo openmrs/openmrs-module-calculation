@@ -13,10 +13,13 @@
  */
 package org.openmrs.calculation;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.junit.jupiter.api.Test;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests the ClasspathCalculationProvider
@@ -32,7 +35,7 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		Calculation c = p.getCalculation(MostRecentObsCalculation.class.getName(), "5089");
-		Assert.assertNotNull(c);
+		assertNotNull(c);
 	}
 	
 	/**
@@ -43,18 +46,19 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 	public void getCalculation_shouldRetrieveANonConfigurableCalculationWithANullConfigurationString() throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		Calculation c = p.getCalculation(AgeCalculation.class.getName(), null);
-		Assert.assertNotNull(c);
+		assertNotNull(c);
 	}
 	
 	/**
 	 * @see ClasspathCalculationProvider#getCalculation(String,String)
 	 * @verifies throw an exception if a configurable calculation is passed an illegal configuration
 	 */
-	@Test(expected = InvalidCalculationException.class)
+	@Test
 	public void getCalculation_shouldThrowAnExceptionIfAConfigurableCalculationIsPassedAnIllegalConfiguration()
 	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
-		p.getCalculation(MostRecentObsCalculation.class.getName(), "5o89");
+		assertThrows(InvalidCalculationException.class,
+		    () -> p.getCalculation(MostRecentObsCalculation.class.getName(), "5o89"));
 	}
 	
 	/**
@@ -62,11 +66,12 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 	 * @verifies throw an exception if a non configurable calculation is passed a configuration
 	 *           string
 	 */
-	@Test(expected = InvalidCalculationException.class)
+	@Test
 	public void getCalculation_shouldThrowAnExceptionIfANonConfigurableCalculationIsPassedAConfigurationString()
 	    throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
-		p.getCalculation(AgeCalculation.class.getName(), "something");
+		assertThrows(InvalidCalculationException.class,
+		    () -> p.getCalculation(AgeCalculation.class.getName(), "something"));
 	}
 	
 	/**
@@ -77,6 +82,6 @@ public class ClasspathCalculationProviderTest extends BaseModuleContextSensitive
 	public void getCalculation_shouldAlwaysReturnADifferentInstanceOfACalculation() throws Exception {
 		ClasspathCalculationProvider p = new ClasspathCalculationProvider();
 		String calculationName = InnerCalculation.class.getName();
-		Assert.assertTrue(p.getCalculation(calculationName, null) != p.getCalculation(calculationName, null));
+        assertNotSame(p.getCalculation(calculationName, null), p.getCalculation(calculationName, null));
 	}
 }

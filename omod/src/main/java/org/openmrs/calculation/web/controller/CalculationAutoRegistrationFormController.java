@@ -47,7 +47,8 @@ public class CalculationAutoRegistrationFormController {
 	
 	/**
 	 */
-	@RequestMapping(value = "/module/calculation/calculationAutoRegistration", method = RequestMethod.GET)
+	@RequestMapping(value = { "/module/calculation/calculationAutoRegistration",
+	        "/module/calculation/calculationAutoRegistration.form" }, method = RequestMethod.GET)
 	public void showForm(Model model) {
 		List<CalculationRegistrationSuggestion> l  = Context.getRegisteredComponents(CalculationRegistrationSuggestion.class);
 		model.addAttribute("suggestions", l);
@@ -56,7 +57,8 @@ public class CalculationAutoRegistrationFormController {
 	/**
 	 * Attempt to auto-register any select groups of Calculations
 	 */
-	@RequestMapping(value = "/module/calculation/calculationAutoRegistration", method = RequestMethod.POST)
+	@RequestMapping(value = { "/module/calculation/calculationAutoRegistration",
+	        "/module/calculation/calculationAutoRegistration.form" }, method = RequestMethod.POST)
 	public String handleSubmission(WebRequest request,
 			@RequestParam(value="conflictMode", required=true) String conflictMode) {
 		

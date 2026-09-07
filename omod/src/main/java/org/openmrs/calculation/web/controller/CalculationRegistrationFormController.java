@@ -89,7 +89,8 @@ public class CalculationRegistrationFormController {
 	
 	/**
 	 */
-	@RequestMapping(value = "/module/calculation/calculationRegistration", method = RequestMethod.GET)
+	@RequestMapping(value = { "/module/calculation/calculationRegistration",
+	        "/module/calculation/calculationRegistration.form" }, method = RequestMethod.GET)
 	public void showCalculationRegistration() {
 		// Intentionally left blank. All work is done in the formBackingObject() method 
 	}
@@ -99,7 +100,8 @@ public class CalculationRegistrationFormController {
 	 * occurred it will populate binding result with corresponding error messages and return back to
 	 * edit page.
 	 */
-	@RequestMapping(value = "/module/calculation/calculationRegistration", method = RequestMethod.POST)
+	@RequestMapping(value = { "/module/calculation/calculationRegistration",
+	        "/module/calculation/calculationRegistration.form" }, method = RequestMethod.POST)
 	public String saveCalculationRegistration(@ModelAttribute("calculationRegistration") CalculationRegistration calculationRegistration,
 	                                          BindingResult result, WebRequest request) {
 		
@@ -128,7 +130,8 @@ public class CalculationRegistrationFormController {
 	/**
 	 * Purges given token registration and redirects to the list of existing ones
 	 */
-	@RequestMapping(value = "/module/calculation/deleteCalculationRegistration")
+	@RequestMapping(value = { "/module/calculation/deleteCalculationRegistration",
+	        "/module/calculation/deleteCalculationRegistration.form" })
 	public String purgeCalculationRegistration(@ModelAttribute(value = "calculationRegistration") CalculationRegistration calculationRegistration) {
 		Context.getService(CalculationRegistrationService.class).purgeCalculationRegistration(calculationRegistration);
 		return "redirect:calculationRegistrations.list";

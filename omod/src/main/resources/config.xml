@@ -13,15 +13,14 @@
 	<updateURL>
 		https://dev.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf
 	</updateURL>
-	<require_version>1.11.3, 1.10.2 - 1.10.*, 1.9.9 - 1.9.*</require_version>
+	<require_version>3.0.0</require_version>
 	<!-- Change the require version back to the below, and update the openMRSVersion property accordingly when 1.6.6 is released -->
 	<!-- require_version>${openMRSVersion}</require_version -->
 	<!-- / Module Properties -->
 
 	<aware_of_modules>
-	    <aware_of_module>org.openmrs.module.legacyui</aware_of_module>
+		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 	</aware_of_modules>
-
 	<!-- Module Activator -->
 	<activator>org.openmrs.${project.parent.artifactId}.CalculationActivator</activator>
 	

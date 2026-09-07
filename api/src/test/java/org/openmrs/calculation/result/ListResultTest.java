@@ -4,8 +4,9 @@ package org.openmrs.calculation.result;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListResultTest {
 	
@@ -23,9 +24,9 @@ public class ListResultTest {
 		lr.add(new SimpleResult(date, null));
 		
 		List<Object> values = lr.getValues();
-		Assert.assertEquals(lr.size(), values.size());
-		Assert.assertEquals("A string", values.get(0));
-		Assert.assertEquals(Double.valueOf(2), values.get(1));
-		Assert.assertEquals(date, values.get(2));
+		assertEquals(lr.size(), values.size());
+		assertEquals("A string", values.get(0));
+		assertEquals(Double.valueOf(2), values.get(1));
+		assertEquals(date, values.get(2));
 	}
 }

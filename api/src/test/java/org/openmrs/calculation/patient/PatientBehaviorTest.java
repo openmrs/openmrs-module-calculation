@@ -20,12 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Assert;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.openmrs.Cohort;
-import org.openmrs.Concept;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.api.PatientService;
@@ -44,7 +40,13 @@ import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.calculation.result.EncounterResult;
 import org.openmrs.calculation.result.ListResult;
 import org.openmrs.calculation.result.ObsResult;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Contains behavior tests for patient calculations
@@ -57,7 +59,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 	
 	private static final String TEST_DATA_XML = "org/openmrs/calculation/include/moduleTestData.xml";
 	
-	@Before
+	@BeforeEach
 	public void before() throws Exception {
 		service = Context.getService(PatientCalculationService.class);
 	}
@@ -75,7 +77,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		int patientId = 2;
 		int expected = Context.getPatientService().getPatient(patientId).getAge();
 		CalculationResult calculated = getService().evaluate(patientId, ageCalculation);
-		Assert.assertEquals(expected, calculated.asType(Integer.class).intValue());
+		assertEquals(expected, calculated.asType(Integer.class).intValue());
 	}
 	
 	/**
@@ -93,7 +95,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		ctxt.setNow(date);
 		
 		int expected = Context.getPatientService().getPatient(patientId).getAge(date);
-		Assert.assertEquals(expected, getService().evaluate(patientId, ageCalculation, ctxt).asType(Integer.class)
+		assertEquals(expected, getService().evaluate(patientId, ageCalculation, ctxt).asType(Integer.class)
 		        .intValue());
 	}
 	
@@ -106,8 +108,8 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		PatientCalculation ageCalculation = getAgeCalculation();
 		ParameterDefinitionSet pds = ageCalculation.getParameterDefinitionSet();
 		ParameterDefinition pd = pds.getParameterByKey("units");
-		Assert.assertNotNull(pd);
-		Assert.assertEquals(pd.getName(), "Units Of Age");
+		assertNotNull(pd);
+		assertEquals("Units Of Age", pd.getName());
 		
 		int patientId = 2;
 		
@@ -117,7 +119,7 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		Map<String, Object> values = new HashMap<String, Object>();
 		values.put(pd.getKey(), "months");
 		
-		Assert.assertEquals(296, getService().evaluate(patientId, ageCalculation, values, ctxt).asType(Integer.class)
+		assertEquals(296, getService().evaluate(patientId, ageCalculation, values, ctxt).asType(Integer.class)
 		        .intValue());
 	}
 	
@@ -132,8 +134,8 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		int expected1 = ps.getPatient(patientId1).getAge();
 		int expected2 = ps.getPatient(patientId2).getAge();
 		CalculationResultMap cr = getService().evaluate(cohort, ageCalculation);
-		Assert.assertEquals(expected1, cr.get(patientId1).asType(Integer.class).intValue());
-		Assert.assertEquals(expected2, cr.get(patientId2).asType(Integer.class).intValue());
+		assertEquals(expected1, cr.get(patientId1).asType(Integer.class).intValue());
+		assertEquals(expected2, cr.get(patientId2).asType(Integer.class).intValue());
 	}
 	
 	@Test
@@ -152,8 +154,8 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		int expected2 = ps.getPatient(patientId2).getAge(date);
 		
 		CalculationResultMap cr = getService().evaluate(cohort, ageCalculation, ctxt);
-		Assert.assertEquals(expected1, cr.get(patientId1).asType(Integer.class).intValue());
-		Assert.assertEquals(expected2, cr.get(patientId2).asType(Integer.class).intValue());
+		assertEquals(expected1, cr.get(patientId1).asType(Integer.class).intValue());
+		assertEquals(expected2, cr.get(patientId2).asType(Integer.class).intValue());
 	}
 	
 	@Test
@@ -172,8 +174,8 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		values.put(pd.getKey(), "months");
 		
 		CalculationResultMap cr = getService().evaluate(cohort, ageCalculation, values, ctxt);
-		Assert.assertEquals(296, cr.get(patientId1).asType(Integer.class).intValue());
-		Assert.assertEquals(280, cr.get(patientId2).asType(Integer.class).intValue());
+		assertEquals(296, cr.get(patientId1).asType(Integer.class).intValue());
+		assertEquals(280, cr.get(patientId2).asType(Integer.class).intValue());
 	}
 	
 	@Test
@@ -185,9 +187,9 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		PatientCalculation calc = getMostRecentEncounterCalculation();
 		EncounterResult result = (EncounterResult) getService().evaluate(patientId, calc);
 		
-		Assert.assertEquals(expectedEncounter, result.asType(Encounter.class));
+		assertEquals(expectedEncounter, result.asType(Encounter.class));
 		//Since this is a date-based result, check the date
-		Assert.assertEquals(expectedEncounter.getEncounterDatetime(), result.getDateOfResult());
+		assertEquals(expectedEncounter.getEncounterDatetime(), result.getDateOfResult());
 	}
 	
 	@Test
@@ -198,8 +200,8 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		PatientCalculation calc = getMostRecentWeightCalculation();
 		ObsResult result = (ObsResult) getService().evaluate(patientId, calc);
 		
-		Assert.assertEquals(expectedObs, result.asType(Obs.class));
-		Assert.assertEquals(expectedObs.getObsDatetime(), result.getDateOfResult());
+		assertEquals(expectedObs, result.asType(Obs.class));
+		assertEquals(expectedObs.getObsDatetime(), result.getDateOfResult());
 	}
 	
 	@Test
@@ -211,18 +213,18 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		String cacheKey = MostRecentObsCalculation.class.getName() + ".Concept" + " #5089.7";
 
 		PatientCalculationContext context = getService().createCalculationContext();
-		Assert.assertTrue(context.getFromCache(cacheKey) == null);
+        assertNull(context.getFromCache(cacheKey));
 
 		//sanity check, since the cache is empty, it should return the most recent obs amongst all obs for the patient
 		PatientCalculation mostRecentObsCalculation = getMostRecentWeightCalculation();
 		ObsResult firstTestResult = (ObsResult) getService().evaluate(patientId, mostRecentObsCalculation, context);
-		Assert.assertEquals(expectedMostRecentObs, firstTestResult.asType(Obs.class));
-		Assert.assertTrue(context.getFromCache(cacheKey) == firstTestResult);
+		assertEquals(expectedMostRecentObs, firstTestResult.asType(Obs.class));
+        assertSame(context.getFromCache(cacheKey), firstTestResult);
 
 		PatientCalculation anotherMostRecentObsCalculation = getMostRecentWeightCalculation();
 		ObsResult secondTestResult = (ObsResult) getService().evaluate(patientId, anotherMostRecentObsCalculation, context);
-		Assert.assertTrue(context.getFromCache(cacheKey) == secondTestResult);
-		Assert.assertTrue(firstTestResult == secondTestResult);
+        assertSame(context.getFromCache(cacheKey), secondTestResult);
+        assertSame(firstTestResult, secondTestResult);
 	}
 	
 	@Test
@@ -236,10 +238,10 @@ public class PatientBehaviorTest extends BaseModuleContextSensitiveTest {
 		ListResult result = (ListResult) getService().evaluate(patientId, calc);
 		
 		Encounter expectedFirst = Context.getEncounterService().getEncounter(3);
-		Assert.assertEquals(expectedFirst, result.getFirstResult().asType(Encounter.class));
+		assertEquals(expectedFirst, result.getFirstResult().asType(Encounter.class));
 		
 		Encounter expectedLast = Context.getEncounterService().getEncounter(5);
-		Assert.assertEquals(expectedLast, result.getLastResult().asType(Encounter.class));
+		assertEquals(expectedLast, result.getLastResult().asType(Encounter.class));
 	}
 	
 	@Test

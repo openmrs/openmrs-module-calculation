@@ -13,16 +13,16 @@
  */
 package org.openmrs.calculation.api;
 
-import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.AgeCalculation;
 import org.openmrs.calculation.CalculationRegistration;
 import org.openmrs.calculation.MostRecentObsCalculation;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.openmrs.test.Verifies;
 
 /**
@@ -38,7 +38,7 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	
 	private CalculationRegistrationService service;
 	
-	@Before
+	@BeforeEach
 	public void before() throws Exception {
 		executeDataSet(MODULE_TEST_DATA_XML);
 		service = Context.getService(CalculationRegistrationService.class);
@@ -50,7 +50,7 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	@Test
 	@Verifies(value = "should return a token with a matching id", method = "getCalculationRegistration(Integer)")
 	public void getCalculationRegistration_shouldReturnATokenWithAMatchingId() throws Exception {
-		Assert.assertEquals(TOKEN_UUID, service.getCalculationRegistration(1).getUuid());
+		Assertions.assertEquals(TOKEN_UUID, service.getCalculationRegistration(1).getUuid());
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	@Test
 	@Verifies(value = "should fetch a token with a matching uuid", method = "getCalculationRegistrationByUuid(Integer)")
 	public void getCalculationRegistrationByUuid_shouldFetchATokenWithAMatchingUuid() throws Exception {
-		Assert.assertEquals("age", service.getCalculationRegistrationByUuid(TOKEN_UUID).getToken());
+		Assertions.assertEquals("age", service.getCalculationRegistrationByUuid(TOKEN_UUID).getToken());
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	@Test
 	@Verifies(value = "should get all tokens in the database", method = "getAllCalculationRegistrations()")
 	public void getAllCalculationRegistrations_shouldGetAllTokensInTheDatabase() throws Exception {
-		Assert.assertEquals(3, service.getAllCalculationRegistrations().size());
+		Assertions.assertEquals(3, service.getAllCalculationRegistrations().size());
 	}
 	
 	/**
@@ -83,8 +83,8 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 		token.setProviderClassName("org.openmrs.calculation.ClasspathCalculationProvider");
 		token.setCalculationName("org.openmrs.calculation.AgeCalculation");
 		service.saveCalculationRegistration(token);
-		Assert.assertNotNull(token.getId());
-		Assert.assertEquals(originalTokenCount + 1, service.getAllCalculationRegistrations().size());
+		Assertions.assertNotNull(token.getId());
+		Assertions.assertEquals(originalTokenCount + 1, service.getAllCalculationRegistrations().size());
 	}
 	
 	/**
@@ -95,9 +95,9 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	public void purgeCalculationRegistration_shouldPurgeTheSpecifiedCalculationRegistrationFromTheDatabase()
 	    throws Exception {
 		CalculationRegistration token = service.getCalculationRegistrationByUuid(TOKEN_UUID);
-		Assert.assertNotNull(service.getCalculationRegistrationByUuid(TOKEN_UUID));//control check
+		Assertions.assertNotNull(service.getCalculationRegistrationByUuid(TOKEN_UUID));//control check
 		service.purgeCalculationRegistration(token);
-		Assert.assertNull(service.getCalculationRegistrationByUuid(TOKEN_UUID));
+		Assertions.assertNull(service.getCalculationRegistrationByUuid(TOKEN_UUID));
 	}
 	
 	/**
@@ -108,12 +108,12 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	public void saveCalculationRegistration_shouldUpdateAnExistingToken() throws Exception {
 		String newTokenName = "new test token name";
 		CalculationRegistration token = service.getCalculationRegistrationByUuid(TOKEN_UUID);
-		Assert.assertNotSame(newTokenName, token.getToken());
+		Assertions.assertNotSame(newTokenName, token.getToken());
 		
 		token.setToken(newTokenName);
 		service.saveCalculationRegistration(token);
 		
-		Assert.assertSame(newTokenName, token.getToken());
+		Assertions.assertSame(newTokenName, token.getToken());
 	}
 	
 	/**
@@ -124,8 +124,8 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	public void getCalculation_shouldReturnTheCalculationAssociatedToTheCalculationRegistrationWithTheGivenName()
 	    throws Exception {
 		MostRecentObsCalculation calculation = service.getCalculation("mostRecentCD4", MostRecentObsCalculation.class);
-		Assert.assertNotNull(calculation);
-		Assert.assertEquals(5497, calculation.getWhichConcept().getConceptId().intValue());
+		Assertions.assertNotNull(calculation);
+		Assertions.assertEquals(5497, calculation.getWhichConcept().getConceptId().intValue());
 	}
 	
 	/**
@@ -134,7 +134,7 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	@Test
 	@Verifies(value = "should get all calculationRegistrations with a matching name", method = "findCalculationRegistrations(String)")
 	public void findCalculationRegistrations_shouldGetAllCalculationRegistrationsWithAMatchingName() throws Exception {
-		Assert.assertEquals(2, service.findCalculationRegistrations("mostRecent").size());
+		Assertions.assertEquals(2, service.findCalculationRegistrations("mostRecent").size());
 	}
 	
 	/**
@@ -143,13 +143,13 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 	@Test
 	@Verifies(value = "should fetch a token with a matching name", method = "getCalculationRegistrationByToken(String)")
 	public void getCalculationRegistrationByToken_shouldFetchATokenWithAMatchingName() throws Exception {
-		Assert.assertEquals(TOKEN_UUID, service.getCalculationRegistrationByToken("age").getUuid());
+		Assertions.assertEquals(TOKEN_UUID, service.getCalculationRegistrationByToken("age").getUuid());
 	}
 	
 	/**
 	 * @see {@link CalculationRegistrationService#saveCalculationRegistration(CalculationRegistration)}
 	 */
-	@Test(expected = APIException.class)
+	@Test
 	@Verifies(value = "should update the cached token registration", method = "saveCalculationRegistration(CalculationRegistration)")
 	public void saveCalculationRegistration_shouldUpdateTheCachedTokenRegistration() throws Exception {
 		final String tokenName = "age";
@@ -160,23 +160,25 @@ public class CalculationRegistrationServiceTest extends BaseModuleContextSensiti
 		CalculationRegistration originalTokenReg = service.getCalculationRegistrationByToken(tokenName);
 		try {
 			//This should lead to the token registration getting cached
-			Assert.assertNotNull(service.getCalculation(tokenName, AgeCalculation.class));
+			Assertions.assertNotNull(service.getCalculation(tokenName, AgeCalculation.class));
 			
 			//now we need to remove it from the session so that we effectively 
 			//mimic our cache and DB being out of sync when changes are made
 			Context.evictFromSession(originalTokenReg);
 		}
 		catch (APIException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 		
 		CalculationRegistration newTokenRegInstance = service.getCalculationRegistrationByToken(tokenName);
-		newTokenRegInstance.setCalculationName("some.unknown.Classname");
+		newTokenRegInstance.setCalculationName(MostRecentObsCalculation.class.getName());
+		newTokenRegInstance.setConfiguration("5089");
 		
 		//this should synchronize our cache with the DB
 		service.saveCalculationRegistration(newTokenRegInstance);
-		
-		//should fail this time because of the new unknown class
-		service.getCalculation(tokenName, AgeCalculation.class);
+
+		//the cache is now in sync with the DB, so the token resolves to the newly saved calculation
+		MostRecentObsCalculation updated = service.getCalculation(tokenName, MostRecentObsCalculation.class);
+		Assertions.assertEquals(5089, updated.getWhichConcept().getConceptId().intValue());
 	}
 }

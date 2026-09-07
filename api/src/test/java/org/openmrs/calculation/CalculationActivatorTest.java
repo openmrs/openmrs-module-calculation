@@ -1,15 +1,15 @@
 package org.openmrs.calculation;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.calculation.api.CalculationRegistrationService;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CalculationActivatorTest extends BaseModuleContextSensitiveTest {
@@ -20,7 +20,7 @@ public class CalculationActivatorTest extends BaseModuleContextSensitiveTest {
 	@Autowired
 	ImplementationConfiguredCalculationProvider provider;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		File groovyDef = new File(getClass().getClassLoader().getResource("implconfig/weight.groovy").getPath());
 		provider.setDirectory(groovyDef.getParentFile());

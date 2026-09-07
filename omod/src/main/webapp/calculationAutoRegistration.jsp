@@ -35,7 +35,7 @@
 	</fieldset>
 	<br/>
 	<input type="submit" value="<spring:message code="calculation.registerCalculations"/>"/>
-	<input type="button" value="<spring:message code="general.cancel"/>" onclick="document.location.href='calculationRegistrations.form';"
+	<input type="button" value="<spring:message code="general.cancel"/>" onclick="document.location.href='calculationRegistrations.list';"/>
 </form>
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>

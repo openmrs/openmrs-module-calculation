@@ -15,7 +15,7 @@ package org.openmrs.calculation.web.controller;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
@@ -42,7 +42,8 @@ public class CalculationRegistrationController {
 	/**
 	 * Shows the page to list token registrations
 	 */
-	@RequestMapping(value = "/module/calculation/calculationRegistrations")
+	@RequestMapping(value = { "/module/calculation/calculationRegistrations",
+	        "/module/calculation/calculationRegistrations.list" })
 	public void listCalculationRegistrations(Model model) {
 		CalculationRegistrationService calculationRegistrationService = Context.getService(CalculationRegistrationService.class);
 		model.addAttribute("calculationRegistrations", calculationRegistrationService.getAllCalculationRegistrations());
@@ -51,7 +52,8 @@ public class CalculationRegistrationController {
 	/**
 	 * Page which tests patient calculations
 	 */
-	@RequestMapping(value = "/module/calculation/patientCalculationTest")
+	@RequestMapping(value = { "/module/calculation/patientCalculationTest",
+	        "/module/calculation/patientCalculationTest.form" })
 	public void patientCalculationTest(Model model,
 									   @RequestParam(value="id", required=true) Integer id,
 									   @RequestParam(value="patientIds", required=false) String patientIds,

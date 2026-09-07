@@ -1,12 +1,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:context="http://www.springframework.org/schema/context"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-           http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
-  		    
-	<context:component-scan base-package="@MODULE_PACKAGE@" />
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="patientCalculationService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 		<property name="transactionManager">
@@ -61,7 +56,7 @@
 	</bean>
 	
 	<bean id="calculationRegistrationDao" class="org.openmrs.${project.parent.artifactId}.db.HibernateCalculationRegistrationDAO">
-		<property name="sessionFactory" ref="dbSessionFactory" />
+		<constructor-arg name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 </beans>

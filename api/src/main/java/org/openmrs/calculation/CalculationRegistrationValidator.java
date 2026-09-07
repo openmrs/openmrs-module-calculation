@@ -13,7 +13,7 @@
  */
 package org.openmrs.calculation;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.api.CalculationRegistrationService;
